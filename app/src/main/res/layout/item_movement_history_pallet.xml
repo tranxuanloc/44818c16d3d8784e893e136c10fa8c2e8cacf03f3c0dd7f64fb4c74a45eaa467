@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvMovementHistoryDateMovement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DateMovement"
+            android:textColor="#0000FF" />
+
+        <TextView
+            android:id="@+id/tvMovementHistoryAuthorisedBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="Author"
+            android:textColor="#FF0000" />
+
+        <TextView
+            android:id="@+id/tvMovementHistoryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textColor="#000000"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvMovementHistoryRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ref"
+        android:textColor="#000000" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvMovementHistoryFromLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FromLocation"
+            android:textColor="#000000" />
+
+        <ImageView
+            android:id="@+id/ivMovementHistory"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/left_arrow24x24" />
+
+        <TextView
+            android:id="@+id/tvMovementHistoryToLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ToLocation"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tvMovementHistoryReasonMovement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="Reason"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+
+</LinearLayout>

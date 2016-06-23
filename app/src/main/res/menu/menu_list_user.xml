@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".listuser.ListUserActivity">
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_filter"
+        android:title="@string/outside"
+        app:showAsAction="ifRoom">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_filter_all"
+                    android:title="@string/all" />
+                <item
+                    android:id="@+id/action_filter_outside"
+                    android:checked="true"
+                    android:title="@string/outside" />
+                <item
+                    android:id="@+id/action_filter_online"
+                    android:title="@string/online" />
+            </group>
+        </menu>
+    </item>
+</menu>

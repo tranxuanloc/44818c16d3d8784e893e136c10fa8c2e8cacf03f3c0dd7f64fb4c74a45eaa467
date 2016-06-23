@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+
+    <TextView
+        android:id="@+id/order_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textColor="#FF0000" />
+
+    <TextView
+        android:id="@+id/dock_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="#550000" />
+
+    <TextView
+        android:id="@+id/item_tv_phieu_total_package"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_toLeftOf="@id/dock_number"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/customer_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@id/dock_number"
+        android:layout_toRightOf="@id/order_number"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="#0000FF"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/special_requirement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/order_number"
+        android:layout_marginTop="1dp"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/order_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/special_requirement"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:visibility="visible" />
+</RelativeLayout>
+

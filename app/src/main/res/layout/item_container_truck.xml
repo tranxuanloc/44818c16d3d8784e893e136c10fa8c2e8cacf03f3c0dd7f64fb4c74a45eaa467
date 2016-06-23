@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ContainerChecking_Layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/tv_cont_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/tv_cont_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_cont_type"
+        android:layout_marginRight="16dp"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/tv_cont_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@id/tv_cont_type"
+        android:textColor="#FF0000" />
+
+    <TextView
+        android:id="@+id/tv_cont_customer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/tv_cont_time_in"
+        android:layout_toRightOf="@id/tv_cont_number"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="#0000FF" />
+
+    <TextView
+        android:id="@+id/tv_cont_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_cont_number"
+        android:layout_marginRight="16dp"
+        android:layout_toRightOf="@id/tv_cont_num"
+        android:textColor="#0000FF" />
+
+
+    <TextView
+        android:id="@+id/tv_cont_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_cont_number"
+        android:layout_toRightOf="@id/tv_cont_progress"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/tv_cont_time_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/tv_cont_default_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_cont_time_in"
+        android:textColor="#218c00" />
+
+    <TextView
+        android:id="@+id/tv_cont_expect_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_cont_default_time"
+        android:textColor="#a80008"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_cont_requirement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_cont_progress"
+        android:textSize="13sp"
+        android:textColor="#5d5d5d" />
+
+</RelativeLayout>

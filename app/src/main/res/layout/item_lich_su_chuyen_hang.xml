@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/item_tv_lsch_PalletID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:text="PalletID"
+            android:textColor="#0000FF" />
+
+        <TextView
+            android:id="@+id/item_tv_lsch_AuthorisedBy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:text="AuthorisedBy"
+            android:textColor="#FF0000" />
+
+
+        <TextView
+            android:id="@+id/item_tv_lsch_ReasonMovement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="36"
+            android:text="ReasonMovement"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/item_tv_lsch_FromLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="43"
+            android:text="FromLocation"
+            android:textColor="#000000" />
+
+        <ImageView
+            android:id="@+id/item_iv_lsch_ImgReason"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="12"
+            android:scaleType="centerInside" />
+
+
+        <TextView
+            android:id="@+id/item_tv_lsch_ToLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="43"
+            android:text="ToLocation"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/item_tv_lsch_ProductNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="60"
+            android:text="ProductNumber"
+            android:textColor="#0000FF" />
+
+        <TextView
+            android:id="@+id/item_tv_lsch_ReceivingOrderNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:text="ReceivingOrderNumber"
+            android:textColor="#0000FF" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_tv_lsch_ProductName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ProductName"
+        android:textColor="#000000" />
+
+</LinearLayout>

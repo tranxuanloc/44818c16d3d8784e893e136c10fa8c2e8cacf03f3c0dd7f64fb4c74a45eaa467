@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/item_et_so_do_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/outline_right_bottom"
+        android:gravity="center"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:minHeight="40dp"
+        android:minWidth="40dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
+</FrameLayout>

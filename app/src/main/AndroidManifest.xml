@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.scsvn.whc_2016">
+
+    <uses-permission android:name="com.symbol.emdk.permission.EMDK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <uses-library
+            android:name="com.symbol.emdk"
+            android:required="false" />
+
+        <service
+            android:name=".main.services.NotificationServices"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".main.services.CheckActive"
+            android:exported="false" />
+        <service
+            android:name=".main.services.UpdateLocationServices"
+            android:exported="false" />
+
+        <receiver
+            android:name=".main.services.NotificationDeleteBroadcast"
+            android:enabled="true"
+            android:exported="false" />
+        <!--
+        <receiver android:name=".main.unitech.UnitechReceiver">
+            <intent-filter>
+                <action android:name="unitech.scanservice.data" />
+            </intent-filter>
+        </receiver>
+        -->
+
+        <activity
+            android:name=".login.LoginActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".main.MainActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.phieuhomnay.HomNayActivity"
+            android:label="@string/title_activity_hom_nay"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".main.phieucuatoi.PhieuCuaToiActivity"
+            android:label="@string/title_activity_phieu_cua_toi"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".main.detailphieu.DetailPhieuActivity"
+            android:label="@string/title_activity_scan_phieu_cua_toi"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.detailphieu.DetailPhieuActivityNoEMDK"
+            android:label="@string/title_activity_scan_phieu_cua_toi"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.detailphieu.chuphinh.ChupHinhActivity"
+            android:label="@string/title_activity_chup_hinh"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.detailphieu.chuphinh.ScanCameraPortrait"
+            android:label="@string/title_activity_chup_hinh"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.detailphieu.worker.WorkerActivity"
+            android:label="@string/title_activity_worker"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".main.phieuhomnay.KhachHangActivity"
+            android:label="@string/title_activity_khach_hang"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/khach_hang" />
+        </activity>
+        <activity
+            android:name=".main.detailphieu.so_do_day.SoDoDayActivity"
+            android:label="@string/title_activity_so_do_day"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.phieuhomnay.giaoviec.GiaoViecActivity"
+            android:label="@string/title_activity_giao_viec"
+            android:screenOrientation="portrait"
+            android:theme="@style/LightDialogNoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustResize|stateHidden" />
+        <activity
+            android:name=".main.detailphieu.chuphinh.UploadFileActivity"
+            android:label="@string/title_activity_upload_file"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.kiemcontainer.KiemContainerActivity"
+            android:label="@string/title_activity_kiem_container"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.kiemcontainer.detail.DetailContainerActivity"
+            android:label="@string/title_activity_detail_container"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".main.changepassword.ChangePasswordActivity"
+            android:label="@string/title_activity_change_password"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.vesinhantoan.QHSEActivity"
+            android:label="@string/title_activity_qhse"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".main.vesinhantoan.NewQHSEActivity"
+            android:label="@string/title_activity_new_qhse"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.vesinhantoan.UpdateQHSEActivity"
+            android:label="@string/title_activity_update_qhse"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.technical.assign.AssignWorkActivity"
+            android:label="@string/giao_viec"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".main.technical.assign.NewAssignWorkActivity"
+            android:label="@string/new_assign"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.technical.assign.AssignWorkCommentActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".main.technical.assign.UpdateAssignWorkActivity"
+            android:label="@string/update_assign"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.capnhatphienban.CapNhatUngDungActivity"
+            android:label="@string/title_activity_cap_nhat_ung_dung"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.vesinhantoan.CommentActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".main.viewImage.ViewImageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.nhaphoso.NhapHoSoActivity"
+            android:label="@string/title_activity_nhap_ho_so"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.nhaphoso.NhapHoSoNoEMDKActivity"
+            android:label="@string/title_activity_nhap_ho_so_no_emdk"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.giaonhanhoso.GiaoHoSoActivity"
+            android:label="@string/title_activity_giao_ho_so"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.giaonhanhoso.GiaoHoSoDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.giaonhanhoso.GiaoHoSoDetailNoEMDKActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.giaonhanhoso.SignActivity"
+            android:label="@string/title_activity_sign"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.vitritrong.FreeLocationActivity"
+            android:label="@string/title_activity_free_location"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.palletcartonchecking.KiemPalletCartonActivity"
+            android:label="@string/title_activity_pallet_carton_checking"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.palletcartonchecking.KiemPalletCartonNoEMDKActivity"
+            android:label="@string/title_activity_pallet_carton_checking"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.nangsuat.NangSuatActivity"
+            android:label="@string/title_activity_nang_suat"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.lichsuravao.LichSuRaVaoActivity"
+            android:label="@string/title_activity_lich_su_ra_vao"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.kiemhoso.KiemHoSoActivity"
+            android:label="@string/title_activity_kiem_ho_so"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".main.kiemhoso.KiemHoSoNoEMDKActivity"
+            android:label="@string/title_activity_kiem_ho_so"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".main.lichlamviec.LichLamViecActivity"
+            android:label="@string/title_activity_lich_lam_viec"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.kiemvitri.KiemViTriActivity"
+            android:label="@string/title_activity_kiem_vi_tri"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.kiemvitri.KiemViTriNoEMDKActivity"
+            android:label="@string/title_activity_kiem_vi_tri"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.chuyenhang.ChuyenHangActivity"
+            android:label="@string/title_activity_chuyen_hang"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".main.chuyenhang.lichsu.LichSuChuyenHangActivity"
+            android:label="@string/title_activity_lich_su_chuyen_hang"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.tonkho.khachhang.StockOnHandActivity"
+            android:label="@string/title_activity_stock_on_hand"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.tonkho.detailkhachhang.StockOnHandByCustomerActivity"
+            android:label="@string/title_activity_stock_on_hand_by_customer"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.tonkho.detailproduct.StockOnHandDetailsActivity"
+            android:label="@string/title_activity_stock_on_hand_details"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.nhapngoaigio.OverTimeEntryActivity"
+            android:label="@string/title_activity_nhap_ngoai_gio"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".main.nhapngoaigio.OverTimeOrderDetailsActivity"
+            android:label="@string/title_activity_over_time_order_details"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.kiemqa.metroqacheckingsuppliers.MetroQACheckingSuppliersActivity"
+            android:label="@string/title_activity_metro_qachecking_suppliers"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.kiemqa.metroqacheckinglistproducts.QACheckingListProductsActivity"
+            android:label="@string/title_activity_metro_checking_product_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.lichlamviec.CalendarViewActivity"
+            android:label="@string/title_activity_calendar_view"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.kiemqa.metroqacheckingproduct.MetroCheckingProductActivity"
+            android:label="@string/title_activity_metro_checking_product"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".main.kiemqa.metroqacheckingcarton.MetroCartonActivity"
+            android:label="@string/title_activity_metro_carton"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.gps.listuser.ListUserActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".main.gps.MapsActivity" />
+        <activity
+            android:name=".main.nhapngoaigio.detail.ListOverTimeEntryActivity"
+            android:label="@string/title_activity_list_over_time_entry"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".main.giaonhanhoso.cartonreturn.DispatchingOrderReturnedActivity"
+            android:label="@string/title_activity_dispatching_order_returned"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.technical.schedulejobplan.ScheduleJobActivity"
+            android:label="@string/title_activity_schedule_job"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.equipment.EquipmentInventoryActivity"
+            android:label="@string/title_activity_equipment_inventory"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".main.equipment.EquipmentInventoryNoEMDKActivity"
+            android:label="@string/title_activity_equipment_inventory"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".main.containerandtruckinfor.ContainerAndTruckInforActivity"
+            android:label="@string/title_container_information"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+    </application>
+
+</manifest>

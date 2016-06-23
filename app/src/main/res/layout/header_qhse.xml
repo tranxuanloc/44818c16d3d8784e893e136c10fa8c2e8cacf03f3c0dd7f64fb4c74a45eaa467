@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorDCDEE3"
+    android:orientation="horizontal"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/tv_qhse_new_qhse"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_weight="1"
+        android:background="@drawable/selector_gray_white"
+        android:clickable="true"
+        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawablePadding="16dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="@string/tao_moi" />
+
+    <ImageView
+        android:id="@+id/iv_qhse_image_camera"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/selector_gray_white"
+        android:clickable="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_action_image_camera_holo_dark"
+        android:visibility="gone" />
+</LinearLayout>

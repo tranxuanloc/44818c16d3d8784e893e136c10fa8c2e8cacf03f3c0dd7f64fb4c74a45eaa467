@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".main.detailphieu.DetailPhieuActivity"
+    tools:showIn="@layout/activity_detail_phieu">
+
+    <EditText
+        android:id="@+id/etTakeScannerResult"
+        android:layout_width="wrap_content"
+        android:layout_height="1px">
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/so_do_day"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="Sơ đồ dây" />
+
+    <EditText
+        android:id="@+id/barcode"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignTop="@id/so_do_day"
+        android:layout_toLeftOf="@id/so_do_day"
+        android:background="@drawable/corners_no_outline"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:padding="5dp"
+        android:textColor="#000" />
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/barcode"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/worker"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_gray_gray"
+            android:gravity="center"
+            android:text="Nhân viên" />
+
+        <Button
+            android:id="@+id/take_picture"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_gray_gray"
+            android:gravity="center"
+            android:text="C.Hình" />
+
+        <Button
+            android:id="@+id/scan_camera"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_gray_gray"
+            android:gravity="center"
+            android:text="S.Camera" />
+
+
+        <Button
+            android:id="@+id/scan_light"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Scan"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/outline_top"
+        android:padding="5dp"
+        android:weightSum="10">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="Tổng : " />
+
+        <TextView
+            android:id="@+id/tv_scanned"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.4"
+            android:gravity="center_horizontal"
+            android:text="0"
+            android:textColor="#0a0"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="#000"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom"
+        android:layout_below="@id/header">
+
+        <ExpandableListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:groupIndicator="@null" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/shadow" />
+    </FrameLayout>
+</RelativeLayout>

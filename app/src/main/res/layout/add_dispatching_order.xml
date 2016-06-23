@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/label_category"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="5dp"
+        android:gravity="center_vertical"
+        android:text="Category" />
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/sp_add_dispatching_order_category"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/label_category" />
+
+
+    <EditText
+        android:id="@+id/et_add_dispatching_order_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label_category"
+        android:layout_marginTop="6dp"
+        android:gravity="center_vertical"
+        android:hint="Carton Description"
+        android:inputType="text"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/et_add_dispatching_order_reference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_add_dispatching_order_description"
+        android:layout_marginTop="6dp"
+        android:gravity="center_vertical"
+        android:hint="Customer Reference"
+        android:inputType="text"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/et_add_dispatching_order_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_add_dispatching_order_reference"
+        android:layout_marginTop="6dp"
+        android:gravity="center_vertical"
+        android:hint="Size"
+        android:inputType="numberDecimal"
+        android:text="1.00"
+        android:textColor="@color/black" />
+
+</RelativeLayout>

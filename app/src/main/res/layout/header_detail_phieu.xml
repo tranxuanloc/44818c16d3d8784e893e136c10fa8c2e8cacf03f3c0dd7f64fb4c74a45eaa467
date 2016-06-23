@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="100">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="23"
+        android:text="@string/plt_id"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#A000" />
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="25"
+        android:text="@string/remark"
+        android:textColor="#A000"
+        android:textSize="15sp" />
+
+
+    <TextView
+        android:id="@+id/tv_Quantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="9"
+        android:text="@string/qty"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#A000" />
+
+    <TextView
+        android:id="@+id/tv_nsd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="25"
+        android:text="@string/nsx_hsd"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#A000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_remark"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="19"
+        android:text="@string/check"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#A000" />
+
+    <TextView
+        android:id="@+id/tv_Result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="X"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#A000" />
+
+
+</LinearLayout>

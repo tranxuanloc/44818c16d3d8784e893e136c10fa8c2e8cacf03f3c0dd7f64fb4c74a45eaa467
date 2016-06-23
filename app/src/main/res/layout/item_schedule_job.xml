@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_5dp">
+
+    <TextView
+        android:id="@+id/tvEquipmentID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:textColor="#A00" />
+
+    <TextView
+        android:id="@+id/tvEquipmentName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tvEquipmentID"/>
+
+    <TextView
+        android:id="@+id/tvFrequence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvEquipmentName"
+        android:ems="5"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/tvHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvFrequence"
+        android:layout_toRightOf="@id/tvFrequence"
+        android:ems="6"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvFrequence"
+        android:layout_toRightOf="@id/tvHours"
+        android:textColor="#000" />
+</RelativeLayout>

@@ -1,0 +1,38 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".main.phieuhomnay.HomNayActivity">
+    <item
+        android:id="@+id/action_menu"
+        android:title="@string/tat_ca"
+        app:showAsAction="always">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/action_all"
+                    android:checked="true"
+                    android:title="@string/tat_ca" />
+                <item
+                    android:id="@+id/action_an_toan"
+                    android:title="@string/an_toan" />
+                <item
+                    android:id="@+id/action_ve_sinh"
+                    android:title="@string/ve_sinh" />
+                <item
+                    android:id="@+id/action_quan_ly_hang"
+                    android:title="@string/vequan_ly_hang" />
+                <item
+                    android:id="@+id/action_nhan_su"
+                    android:title="@string/nhan_su" />
+                <item
+                    android:id="@+id/action_co_so_vat_chat"
+                    android:title="@string/co_so_vat_chat" />
+                <item
+                    android:id="@+id/action_khac"
+                    android:title="@string/khac" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

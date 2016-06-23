@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#EEE"
+    android:weightSum="100">
+
+    <TextView
+        android:id="@+id/tvGhsDtCartonId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="19"
+        android:text="ID"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/tvGhsDtDesctiption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="38"
+        android:text="Description"
+        android:textColor="#000" />
+
+
+    <TextView
+        android:id="@+id/tvGhsDtCustomerReference"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="45"
+        android:text="Customer Ref"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/tvGhsDtVolume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Vol"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/tvGhsDtResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="X"
+        android:textColor="#000" />
+</LinearLayout>

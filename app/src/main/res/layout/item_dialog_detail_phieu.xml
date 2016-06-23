@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <EditText
+        android:id="@+id/et_detail_phieu_remark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:background="@drawable/outlines"
+        android:gravity="top"
+        android:hint="@string/ghi_chu"
+        android:minLines="5"
+        android:padding="7dp" />
+
+    <CheckBox
+        android:id="@+id/cb_detail_phieu_checked"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/phieu_da_duoc_kiem" />
+</LinearLayout>

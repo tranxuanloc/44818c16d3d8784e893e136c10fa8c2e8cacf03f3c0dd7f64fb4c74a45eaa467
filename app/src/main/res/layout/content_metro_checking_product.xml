@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".main.kiemqa.metroqacheckingproduct.MetroCheckingProductActivity"
+    tools:showIn="@layout/activity_metro_checking_product">
+
+    <TextView
+        android:id="@+id/label1"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Tên hàng" />
+
+    <TextView
+        android:id="@+id/tv_metro_product_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/label1"
+        android:maxLines="2"
+        android:textColor="#0000c2" />
+
+    <TextView
+        android:id="@+id/label2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_metro_product_name"
+        android:layout_marginTop="10dp"
+        android:text="KL kiểm" />
+
+    <TextView
+        android:id="@+id/tv_metro_product_kl_kiem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label2"
+        android:layout_toRightOf="@id/label2"
+        android:ems="4"
+        android:text="0"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/label3"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label2"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/tv_metro_product_kl_kiem"
+        android:text="KL hỏng" />
+
+    <TextView
+        android:id="@+id/tv_metro_product_kl_hong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label2"
+        android:layout_toRightOf="@id/label3"
+        android:text="0"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/label7"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label2"
+        android:layout_marginTop="10dp"
+        android:text="% Trừ" />
+
+    <TextView
+        android:id="@+id/tv_metro_product_tru"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label7"
+        android:layout_toRightOf="@id/label7"
+        android:ems="4"
+        android:text="0"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/label6"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label7"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/tv_metro_product_tru"
+        android:text="SL kiểm (thùng)" />
+
+    <TextView
+        android:id="@+id/tv_metro_product_sl_kiem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label7"
+        android:layout_toRightOf="@id/label6"
+        android:ems="2"
+        android:text="0"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/label4"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label7"
+        android:layout_marginTop="10dp"
+        android:text="SL đặt (unit)" />
+
+    <TextView
+        android:id="@+id/tv_metro_product_sl_dat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label4"
+        android:layout_toRightOf="@id/label4"
+        android:ems="4"
+        android:text="0"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/label5"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label4"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/tv_metro_product_sl_dat"
+        android:text="Thực giao(unit)" />
+
+    <TextView
+        android:id="@+id/tv_metro_product_sl_giao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label4"
+        android:layout_toRightOf="@id/label5"
+        android:text="0"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/label8"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label4"
+        android:layout_marginTop="10dp"
+        android:text="SL từ chối (unit)" />
+
+    <EditText
+        android:id="@+id/tv_metro_product_sl_tu_choi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label8"
+        android:layout_toRightOf="@id/label8"
+        android:background="@drawable/outlines"
+        android:ems="4"
+        android:inputType="numberDecimal"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/label12"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label8"
+        android:layout_marginTop="10dp"
+        android:text="Lý do" />
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/acs_metro_product_ly_do"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignTop="@id/label12"
+        android:layout_toRightOf="@id/label12"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/et_metro_product_ghi_chu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/acs_metro_product_ly_do"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/outlines"
+        android:hint="Ghi chú"
+        android:inputType="textMultiLine"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/label10"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_metro_product_ghi_chu"
+        android:layout_marginTop="10dp"
+        android:text="Người kiểm" />
+
+    <TextView
+        android:id="@+id/tv_metro_product_nguoi_kiem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label10"
+        android:layout_toRightOf="@id/label10"
+        android:textColor="@color/black" />
+
+    <View
+        android:id="@+id/viewBase"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_below="@id/label10"
+        android:layout_centerHorizontal="true" />
+
+
+    <ImageView
+        android:id="@+id/iv_metro_product_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/viewBase"
+        android:layout_toLeftOf="@id/viewBase"
+        android:background="@drawable/selector_gray_white"
+        android:src="@drawable/ic_hardware_keyboard_arrow_left" />
+
+    <ImageView
+        android:id="@+id/iv_metro_product_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/viewBase"
+        android:layout_toRightOf="@id/viewBase"
+        android:background="@drawable/selector_gray_white"
+        android:src="@drawable/ic_hardware_keyboard_arrow_right" />
+
+    <ImageView
+        android:id="@+id/iv_metro_product_photo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/iv_metro_product_previous"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/photo"
+        android:scaleType="centerCrop" />
+</RelativeLayout>

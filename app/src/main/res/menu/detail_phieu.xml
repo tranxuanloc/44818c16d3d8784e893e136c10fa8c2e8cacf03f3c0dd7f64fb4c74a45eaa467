@@ -1,0 +1,31 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_menu"
+        android:title="@string/sort"
+        app:showAsAction="always">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_detail_no"
+                    android:title="@string/no" />
+                <item
+                    android:id="@+id/action_detail_name"
+                    android:title="@string/product_name" />
+                <item
+                    android:id="@+id/action_detail_remark"
+                    android:title="@string/remark" />
+                <item
+                    android:id="@+id/action_detail_nxs"
+                    android:title="@string/nxs" />
+                <item
+                    android:id="@+id/action_detail_hsd"
+                    android:title="@string/hsd" />
+                <item
+                    android:id="@+id/action_detail_vi_tri"
+                    android:title="@string/vi_tri" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

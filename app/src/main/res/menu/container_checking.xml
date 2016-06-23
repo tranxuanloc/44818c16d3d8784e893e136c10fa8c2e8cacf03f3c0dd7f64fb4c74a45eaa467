@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".main.phieuhomnay.HomNayActivity">
+    <item
+        android:id="@+id/action_menu"
+        android:title="@string/tat_ca"
+        app:showAsAction="always">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_all"
+                    android:title="@string/tat_ca" />
+                <item
+                    android:id="@+id/action_g1"
+                    android:title="@string/gate_1" />
+                <item
+                    android:id="@+id/action_g2"
+                    android:title="@string/gate_2" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".main.chuyenhang.ChuyenHangActivity"
+    tools:showIn="@layout/activity_chuyen_hang">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#DDD"
+        android:gravity="center_vertical">
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/acactv_chuyen_hang_from"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:completionThreshold="1"
+            android:hint="@string/from_location"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="6"
+            android:padding="5dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/tv_chuyen_hang_original_from"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/outline_left"
+            android:padding="5dp"
+            android:textColor="#000" />
+
+        <Button
+            android:id="@+id/bt_chuyen_hang_one_to_two"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:background="#EEE"
+            android:text="@string/one_to_two" />
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/acactv_chuyen_hang_pallet_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/outline_left"
+            android:completionThreshold="1"
+            android:hint="@string/pallet_id"
+            android:imeOptions="actionSearch"
+            android:inputType="number"
+            android:padding="5dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/listViewFrom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/shadow" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="#DDD" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#DDD"
+        android:gravity="center_vertical">
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/acactv_chuyen_hang_to"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:completionThreshold="1"
+            android:hint="@string/to_location"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="6"
+            android:padding="5dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/tv_chuyen_hang_original_to"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/outline_left"
+            android:padding="5dp"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/et_chuyen_hang_location_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/outline_left"
+            android:hint="@string/location_code"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:padding="5dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/listViewTo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/shadow" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="#DDD" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp">
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/acs_chuyen_hang_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bt_chuyen_hang_reverse"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#FFF"
+            android:text="@string/dao" />
+
+        <Button
+            android:id="@+id/bt_chuyen_hang_move"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/outlines"
+            android:text="@string/chuyen" />
+
+        <Button
+            android:id="@+id/bt_chuyen_hang_history"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#FFF"
+            android:text="@string/lich_su" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/itemEmployeePlanID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="2"
+        android:textColor="#A00"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/itemEmployeePlanName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColor="#000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/itemEmployeePlanNight"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:ems="2"
+        android:gravity="center"
+        android:textColor="#304ffe"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/itemEmployeePlanTimeIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="3"
+        android:textColor="#000"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/itemEmployeePlanDateStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textColor="#000"
+        android:textSize="14sp" />
+</LinearLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/tv_employee_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="404"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/tv_employee_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="3"
+        android:text="Nguyen Thi Hong Hanh"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/tv_employee_percent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:text="100"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/tv_employee_cv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="2"
+        android:text="Supervisor"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/tv_production_qty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:text="404"
+        android:textColor="#000" />
+
+</LinearLayout>

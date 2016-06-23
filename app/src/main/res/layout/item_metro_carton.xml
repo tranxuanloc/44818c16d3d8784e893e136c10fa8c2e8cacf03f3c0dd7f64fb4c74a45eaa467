@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_ll_metro_carton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:minHeight="30dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/item_tv_metro_carton_index"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:focusable="false"
+        android:gravity="center"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/item_et_metro_carton_weight"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:background="@drawable/outline_left"
+        android:gravity="center"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal"
+        android:textColor="@color/black"
+        android:textCursorDrawable="@null" />
+
+    <EditText
+        android:id="@+id/item_et_metro_carton_damage_weight"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:background="@drawable/outline_left"
+        android:gravity="center"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal"
+        android:textColor="@color/black"
+        android:textCursorDrawable="@null" />
+
+    <TextView
+        android:id="@+id/item_tv_metro_carton_damage_percent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="@drawable/outline_left"
+        android:focusable="false"
+        android:gravity="center"
+        android:textColor="@color/black" />
+
+    <ImageView
+        android:id="@+id/item_iv_metro_carton_edit"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/outline_left"
+        android:scaleType="center" />
+</LinearLayout>

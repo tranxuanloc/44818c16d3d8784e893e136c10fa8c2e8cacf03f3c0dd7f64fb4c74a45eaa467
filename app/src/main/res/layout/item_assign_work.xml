@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_qhse_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_qhse_create_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_qhse_subject"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_qhse_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_qhse_create_time"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/tv_qhse_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_qhse_area"
+            android:layout_toRightOf="@id/tv_qhse_area"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_qhse_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_qhse_area"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/primary_text_material_light" />
+
+        <TextView
+            android:id="@+id/tv_qhse_assign_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_qhse_comment"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/primary_text_material_light" />
+
+        <ImageView
+            android:id="@+id/iv_qhse_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/tv_qhse_assign_to"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_qhse_comment_qty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_gray_white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_qhse_order_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_qhse_comment_qty"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/selector_gray_white"
+            android:textColor="#304ffe"
+            android:textSize="14sp" />
+
+        <CheckBox
+            android:id="@+id/item_cb_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/tv_qhse_comment_qty"
+            android:layout_gravity="end"
+            android:ems="5"
+            android:text="Done" />
+
+        <android.support.v7.widget.AppCompatRatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_cb_confirm"
+            android:isIndicator="false" />
+
+        <CheckBox
+            android:id="@+id/cb_qhse_reject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/ratingBar"
+            android:ems="5"
+            android:text="Reject" />
+
+
+        <TextView
+            android:id="@+id/tvProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/ratingBar"
+            android:layout_marginLeft="5dp"
+            android:text="0%"
+            android:textColor="#000" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tvProgress"
+            android:layout_alignTop="@id/tvProgress"
+            android:layout_toLeftOf="@id/tvProgress"
+            android:max="100"
+            android:progress="0" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tvProgress"
+            android:layout_marginTop="10dp"
+            android:background="#EEE" />
+
+        <TextView
+            android:id="@+id/tv_qhse_comment_click"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view1"
+            android:background="@drawable/selector_gray_white"
+            android:drawableLeft="@drawable/ic_editor_mode_comment_16dip"
+            android:drawablePadding="5dp"
+            android:padding="5dp"
+            android:text="@string/comment"
+            android:textColor="@color/color9197A3"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/item_tv_qhse_LastCommentBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_qhse_comment_click"
+            android:clickable="true"
+            android:paddingLeft="32dp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/item_tv_qhse_LastComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_tv_qhse_LastCommentBy"
+            android:clickable="true"
+            android:paddingBottom="10dp"
+            android:paddingLeft="32dp"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_qhse_editor"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right"
+        android:padding="5dp"
+        android:src="@drawable/ic_hardware_keyboard_arrow_down_12dip" />
+</FrameLayout>

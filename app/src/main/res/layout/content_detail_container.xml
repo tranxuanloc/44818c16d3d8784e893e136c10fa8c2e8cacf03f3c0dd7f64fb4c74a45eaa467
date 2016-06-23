@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.scsvn.whc_2016.main.kiemcontainer.detail.DetailContainerActivity"
+    tools:showIn="@layout/activity_detail_container">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_cont_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tv_cont_customer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_cont_number"
+            android:textColor="@color/colorPrimary" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_cont_customer_name"
+            android:layout_marginTop="5dp"
+            android:background="#EEE" />
+
+        <LinearLayout
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_cont_customer_name"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minEms="6"
+                android:text="@string/tc_hien_thi" />
+
+            <EditText
+                android:id="@+id/et_cont_checking_tc_hien_thi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number|numberDecimal|numberSigned" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minEms="6"
+                android:text="@string/tc_thiet_lap" />
+
+            <EditText
+                android:id="@+id/et_cont_checking_tc_thiet_lap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number|numberDecimal|numberSigned" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view2"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minEms="6"
+                android:text="@string/so_cua" />
+
+            <EditText
+                android:id="@+id/et_cont_checking_dock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view3"
+            android:layout_marginRight="50dp"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/cb_cont_checking_chua_hoat_dong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chua_hoat_dong" />
+
+            <CheckBox
+                android:id="@+id/cb_cont_checking_chay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/chay" />
+
+            <CheckBox
+                android:id="@+id/cb_cont_checking_xa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/xa" />
+
+            <CheckBox
+                android:id="@+id/cb_cont_checking_ngung"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ngung" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view3"
+            android:layout_toRightOf="@id/view4"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/cb_cont_checking_loi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/loi" />
+
+            <CheckBox
+                android:id="@+id/cb_cont_checking_co_hang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/co_hang" />
+
+            <CheckBox
+                android:id="@+id/cb_cont_checking_seal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/seal" />
+
+            <CheckBox
+                android:id="@+id/cb_cont_checking_khoa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/khoa" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_cont_checking_ghi_chu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view4"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/outlines"
+            android:gravity="top"
+            android:hint="@string/ghi_chu"
+            android:lines="4"
+            android:padding="8dp" />
+
+        <ImageView
+            android:id="@+id/iv_cont_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_cont_checking_ghi_chu"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop" />
+
+        <Button
+            android:id="@+id/bt_cont_checking_done"
+            style="@style/AppTheme.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_cont_image"
+            android:text="@string/hoan_thanh" />
+    </RelativeLayout>
+</ScrollView>

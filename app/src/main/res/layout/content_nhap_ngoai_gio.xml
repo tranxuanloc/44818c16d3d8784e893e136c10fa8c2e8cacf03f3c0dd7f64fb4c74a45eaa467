@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".main.nhapngoaigio.OverTimeEntryActivity"
+    tools:showIn="@layout/activity_nhap_ngoai_gio">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/label1"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Mã NV"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/label2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/label1"
+            android:gravity="center_vertical"
+            android:text="Tên NV"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/ngoai_gio_et_ma_nv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/label1"
+            android:layout_below="@id/label1"
+            android:background="@drawable/outlines"
+            android:gravity="center_vertical"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:padding="5dp"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/ngoai_gio_tv_ten_nv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/label2"
+            android:layout_below="@id/label2"
+            android:background="@drawable/outlines"
+            android:padding="5dp"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/label3"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@id/ngoai_gio_et_ma_nv"
+            android:layout_marginTop="10dp"
+            android:text="Ngày"
+            android:textColor="#000" />
+
+        <ImageView
+            android:id="@+id/ivArrowLeft"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@id/label2"
+            android:layout_alignTop="@id/label3"
+            android:background="@drawable/selector_gray_white"
+            android:clickable="false"
+            android:src="@drawable/ic_hardware_keyboard_arrow_left" />
+
+        <ImageView
+            android:id="@+id/ivArrowRight"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/label3"
+            android:background="@drawable/selector_gray_white"
+            android:clickable="false"
+            android:src="@drawable/ic_hardware_keyboard_arrow_right" />
+
+        <Button
+            android:id="@+id/bt_ngoai_gio_fromDate"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignTop="@id/label3"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/ivArrowRight"
+            android:layout_toRightOf="@id/ivArrowLeft"
+            android:background="#EEE"
+            android:enabled="false"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textColor="#000" />
+
+        <CheckBox
+            android:id="@+id/ngoai_gio_cb_many_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label3"
+            android:layout_marginTop="10dp"
+            android:text="Nhiều ngày" />
+
+        <ImageView
+            android:id="@+id/ivArrowLeftTo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@id/label2"
+            android:layout_alignTop="@id/ngoai_gio_cb_many_date"
+            android:background="@drawable/selector_gray_white"
+            android:clickable="false"
+            android:src="@drawable/ic_hardware_keyboard_arrow_left" />
+
+        <ImageView
+            android:id="@+id/ivArrowRightTo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/ngoai_gio_cb_many_date"
+            android:background="@drawable/selector_gray_white"
+            android:clickable="false"
+            android:src="@drawable/ic_hardware_keyboard_arrow_right" />
+
+        <Button
+            android:id="@+id/bt_ngoai_gio_toDate"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignTop="@id/ngoai_gio_cb_many_date"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/ivArrowRight"
+            android:layout_toRightOf="@id/ivArrowLeft"
+            android:background="#EEE"
+            android:enabled="false"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/label4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/label1"
+            android:layout_below="@id/ngoai_gio_cb_many_date"
+            android:layout_marginTop="10dp"
+            android:text="Giờ vào"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/ngoai_gio_tv_time_in"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@id/label2"
+            android:layout_alignTop="@id/label4"
+            android:layout_below="@id/ngoai_gio_cb_many_date"
+            android:background="@drawable/outlines"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/label5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/label1"
+            android:layout_below="@id/ngoai_gio_tv_time_in"
+            android:layout_marginTop="10dp"
+            android:text="Giờ ra"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/ngoai_gio_tv_time_out"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@id/label2"
+            android:layout_alignTop="@id/label5"
+            android:background="@drawable/outlines"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/label6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/label1"
+            android:layout_below="@id/ngoai_gio_tv_time_out"
+            android:layout_marginTop="10dp"
+            android:text="Số giờ"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/ngoai_gio_et_hours_qty"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@id/label2"
+            android:layout_alignTop="@id/label6"
+            android:background="@drawable/outlines"
+            android:gravity="center_vertical"
+            android:inputType="numberDecimal"
+            android:padding="5dp"
+            android:textColor="#000" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/ngoai_gio_acs_type"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignTop="@id/label6"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/ngoai_gio_et_hours_qty" />
+
+        <TextView
+            android:id="@+id/label7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/label1"
+            android:layout_below="@id/ngoai_gio_et_hours_qty"
+            android:layout_marginTop="10dp"
+            android:text="Ghi chú"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/ngoai_gio_et_remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/label2"
+            android:layout_alignTop="@id/label7"
+            android:background="@drawable/outlines"
+            android:gravity="top"
+            android:lines="2"
+            android:padding="5dp"
+            android:textColor="#000" />
+
+
+        <TextView
+            android:id="@+id/label8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/label1"
+            android:layout_below="@id/ngoai_gio_et_remark"
+            android:layout_marginTop="10dp"
+            android:text="Phép còn"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/ngoai_gio_tv_remain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/label2"
+            android:layout_alignTop="@id/label8"
+            android:background="@drawable/outlines"
+            android:padding="5dp"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/label9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/label1"
+            android:layout_below="@id/ngoai_gio_tv_remain"
+            android:layout_marginTop="10dp"
+            android:text="OT this year"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/tv_ngoai_gio_ot_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/label2"
+            android:layout_alignTop="@id/label9"
+            android:background="@drawable/outlines"
+            android:padding="5dp"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/label10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/label1"
+            android:layout_below="@id/tv_ngoai_gio_ot_year"
+            android:layout_marginTop="10dp"
+            android:text="OT this month"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/tv_ngoai_gio_ot_month"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/label2"
+            android:layout_alignTop="@id/label10"
+            android:background="@drawable/outlines"
+            android:padding="5dp"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/label11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/label1"
+            android:layout_below="@id/tv_ngoai_gio_ot_month"
+            android:layout_marginTop="10dp"
+            android:text="Total Time Work"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/ngoai_gio_tv_total_time_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/label2"
+            android:layout_alignTop="@id/label11"
+            android:background="@drawable/outlines"
+            android:padding="5dp"
+            android:textColor="#000" />
+        <Button
+            android:id="@+id/bt_ngoai_gio_ok"
+            style="@style/AppTheme.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ngoai_gio_tv_total_time_work"
+            android:layout_marginTop="10dp"
+            android:text="OK" />
+
+
+    </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

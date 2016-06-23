@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_Items_ScanDSReceivingOrders_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/txt_Items_ScanDSReceivingOrders_CartonNewID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="80"
+            android:text="PalletID"
+            android:textColor="#FF0000" />
+
+        <TextView
+            android:id="@+id/txt_Items_ScanDSReceivingOrders_Size"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:gravity="right"
+            android:text="Qty"
+            android:textColor="#FF0000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txt_Items_ScanDSReceivingOrders_CustomerNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CustomerNumber"
+
+            android:textColor="#0000FF" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="8dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txt_Items_ScanDSReceivingOrders_ProductNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+
+            android:text="ProductNumber"
+            android:textColor="#0000FF" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_Items_ScanDSReceivingOrders_CartonDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="ProductName"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/txt_Items_ScanDSReceivingOrders_CrowRefID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="CustomerRef"
+
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txt_Items_ScanDSReceivingOrders_ReceivingOrderNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RO"
+            android:textColor="#0000FF" />
+
+        <TextView
+            android:id="@+id/TextView03"
+            android:layout_width="18dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txt_Items_ScanDSReceivingOrders_LocationNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LO"
+            android:textColor="#0000FF" />
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="18dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txt_Items_ScanDSReceivingOrders_UserUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
+
+            android:textColor="#0000FF" />
+
+    </LinearLayout>
+
+</LinearLayout>

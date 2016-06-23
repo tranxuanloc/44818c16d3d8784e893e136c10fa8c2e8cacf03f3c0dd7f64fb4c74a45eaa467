@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".main.phieuhomnay.HomNayActivity"
+    tools:showIn="@layout/activity_hom_nay">
+
+    <TextView
+        android:id="@+id/tv_in_out_today_order_date"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/tv_customerName"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:textColor="#A00" />
+
+    <TextView
+        android:id="@+id/tv_customerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/tv_in_out_today_order_date"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_customerName" />
+
+    <View
+        android:id="@+id/view_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@id/tv_customerName"
+        android:background="@drawable/shadow" />
+</RelativeLayout>

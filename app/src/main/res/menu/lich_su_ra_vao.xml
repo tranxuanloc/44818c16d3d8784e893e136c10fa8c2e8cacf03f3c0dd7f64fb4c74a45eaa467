@@ -1,0 +1,39 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".main.lichsuravao.LichSuRaVaoActivity">
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_white"
+        android:title="@string/search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_menu"
+        android:title="@string/department"
+        app:showAsAction="always">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_department_123"
+                    android:title="@string/dep_123" />
+                <item
+                    android:id="@+id/action_department_45"
+                    android:title="@string/dep_45" />
+                <item
+                    android:id="@+id/action_department_metro"
+                    android:title="@string/dep_metro" />
+                <item
+                    android:id="@+id/action_department_tech"
+                    android:title="@string/dep_tech" />
+                <item
+                    android:id="@+id/action_department_adm"
+                    android:title="@string/dep_adm" />
+                <item
+                    android:id="@+id/action_department_services"
+                    android:title="@string/dep_services" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

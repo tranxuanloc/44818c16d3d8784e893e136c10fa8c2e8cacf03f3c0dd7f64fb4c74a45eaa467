@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="5dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".main.nhapngoaigio.detail.ListOverTimeEntryActivity"
+    tools:showIn="@layout/activity_list_over_time_emtry">
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:text="@string/month" />
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/label"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@+id/label"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/bt_list_over_time_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/label"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@id/spinner"
+        android:background="#FFF"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/label2"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/bt_list_over_time_from"
+        android:gravity="center_vertical"
+        android:text="->" />
+
+    <Button
+        android:id="@+id/bt_list_over_time_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/label"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/label2"
+        android:background="#FFF"
+        android:textColor="@color/black" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_list_over_time_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/id"
+            android:textColor="#777" />
+
+        <EditText
+            android:id="@+id/et_list_over_time_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/outlines"
+            android:enabled="false"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="3"
+            android:paddingLeft="5dp" />
+
+        <RadioButton
+            android:id="@+id/rb_list_over_time_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:checked="true"
+            android:text="@string/me"
+            android:textColor="#777" />
+
+        <RadioButton
+            android:id="@+id/rb_list_over_time_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/all_not_confirmed"
+            android:textColor="#777" />
+    </RadioGroup>
+
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvListOverTimeTotalHours"
+        android:layout_alignTop="@+id/view_shadow" />
+
+    <View
+        android:id="@+id/view_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@id/radioGroup"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shadow" />
+
+    <TextView
+        android:id="@+id/tvListOverTimeTotalHours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/outline_top"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="10dp"
+        android:textColor="#000" />
+</RelativeLayout>
