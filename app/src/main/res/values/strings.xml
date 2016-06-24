@@ -259,5 +259,6 @@
     <string name="title_activity_schedule_job">Schedule Job Plan</string>
     <string name="title_activity_equipment_inventory">Equipment Inventory</string>
     <string name="title_container_information">Thông tin xe/container</string>
+    <string name="is_electric">Cắm điện</string>
 
 </resources>

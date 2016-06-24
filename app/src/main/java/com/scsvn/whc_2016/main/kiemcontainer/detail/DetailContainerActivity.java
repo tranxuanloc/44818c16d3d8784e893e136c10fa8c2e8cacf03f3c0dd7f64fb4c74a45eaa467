@@ -85,6 +85,8 @@ public class DetailContainerActivity extends BaseActivity {
     CheckBox cbContCheckingSeal;
     @Bind(R.id.cb_cont_checking_xa)
     CheckBox cbContCheckingXa;
+    @Bind(R.id.cb_cont_checking_electric)
+    CheckBox cbElectricity;
     @Bind(R.id.iv_cont_image)
     ImageView ivImage;
 
@@ -148,6 +150,7 @@ public class DetailContainerActivity extends BaseActivity {
                     cbContCheckingCoHang.setChecked(info.isProductEmpty());
                     cbContCheckingSeal.setChecked(info.isSeal());
                     cbContCheckingKhoa.setChecked(info.isLock());
+                    cbElectricity.setChecked(info.isElectricity());
                     etContCheckingGhiChu.setText(info.getRemark());
                     etContCheckingTcHienThi.setText(info.getTemperatureShow());
                     etContCheckingTcThietLap.setText(info.getTemperatureSetup());
@@ -203,6 +206,7 @@ public class DetailContainerActivity extends BaseActivity {
                 etContCheckingTcHienThi.getText().toString(),
                 etContCheckingTcThietLap.getText().toString(),
                 cbContCheckingXa.isChecked(),
+                cbElectricity.isChecked(),
                 userName
         );
         updateContainerChecking(parameter);

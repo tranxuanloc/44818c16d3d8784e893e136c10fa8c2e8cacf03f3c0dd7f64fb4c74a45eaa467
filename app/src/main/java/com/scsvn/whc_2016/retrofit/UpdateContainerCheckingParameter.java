@@ -18,8 +18,9 @@ public class UpdateContainerCheckingParameter {
     public String remark;
     public String dockNumber;
     public boolean noOperation;
+    public boolean Electricity;
 
-    public UpdateContainerCheckingParameter(int checkingID, String dockNumber, boolean error, boolean lock, boolean noOperation, boolean productEmpty, String remark, boolean running, boolean seal, boolean stop, String temperatureSetup, String temperatureShow, boolean thawing, String userName) {
+    public UpdateContainerCheckingParameter(int checkingID, String dockNumber, boolean error, boolean lock, boolean noOperation, boolean productEmpty, String remark, boolean running, boolean seal, boolean stop, String temperatureSetup, String temperatureShow, boolean thawing, boolean Electricity, String userName) {
         this.checkingID = checkingID;
         this.dockNumber = dockNumber;
         this.error = error;
@@ -34,5 +35,6 @@ public class UpdateContainerCheckingParameter {
         this.temperatureShow = temperatureShow;
         this.thawing = thawing;
         this.userName = userName;
+        this.Electricity = Electricity;
     }
 }

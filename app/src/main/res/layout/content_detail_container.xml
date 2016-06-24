@@ -129,6 +129,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ngung" />
 
+            <CheckBox
+                android:id="@+id/cb_cont_checking_electric"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/is_electric" />
+
         </LinearLayout>
 
         <LinearLayout

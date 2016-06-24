@@ -95,28 +95,29 @@ public class MainActivity extends BaseActivity {
         DataUser dataUser = new DataUser(this);
         String sCase = permission.toLowerCase();
         if (sCase.equalsIgnoreCase(Const.MANAGER)) {
-            indexUpdateVersion = 23;
-            indexQHSE = 5;
-            indexQH = 18;
             indexPhieuCuaToi = 1;
+            indexQHSE = 5;
             indexTruckContainer = 8;
+            indexQH = 18;
+            indexUpdateVersion = 23;
             dataUser.manager();
         } else if (sCase.equalsIgnoreCase(Const.SUPERVISOR)) {
-            indexUpdateVersion = 22;
-            indexQHSE = 5;
             indexPhieuCuaToi = 1;
+            indexQHSE = 5;
             indexTruckContainer = 8;
+            indexQH = 18;
+            indexUpdateVersion = 23;
             dataUser.supervisor();
         } else if (sCase.equalsIgnoreCase(Const.PRODUCT_CHECKER)) {
-            indexUpdateVersion = 19;
-            indexQHSE = 5;
             indexPhieuCuaToi = 1;
+            indexQHSE = 5;
+            indexUpdateVersion = 19;
             dataUser.productChecker();
         } else if (sCase.equalsIgnoreCase(Const.FORKLIFT_DRIVER)) {
-            indexUpdateVersion = 20;
-            indexQHSE = 5;
             indexPhieuCuaToi = 1;
+            indexQHSE = 5;
             indexTruckContainer = 8;
+            indexUpdateVersion = 20;
             dataUser.forkliftDriver();
         } else if (sCase.equalsIgnoreCase(Const.NO_POSITION)) {
             indexUpdateVersion = 3;
@@ -125,9 +126,9 @@ public class MainActivity extends BaseActivity {
             indexUpdateVersion = 0;
             dataUser.lowerUser();
         } else if (sCase.equalsIgnoreCase(Const.TECHNICAL)) {
-            indexUpdateVersion = 7;
-            indexQHSE = 0;
             indexQH = 1;
+            indexQHSE = 0;
+            indexUpdateVersion = 7;
             dataUser.technical();
         }
     }

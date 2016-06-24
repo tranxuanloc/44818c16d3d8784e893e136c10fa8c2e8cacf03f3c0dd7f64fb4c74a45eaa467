@@ -52,23 +52,13 @@ public class ContainerDetailInfo {
     private String dockNumber;
     @SerializedName("noOperation")
     private boolean noOperation;
+    @SerializedName("Electricity")
+    private boolean Electricity;
     @SerializedName("productQty")
     private String productQty;
 
-    public boolean isAttachmentFile() {
-        return attachmentFile;
-    }
-
     public int getCheckingID() {
         return checkingID;
-    }
-
-    public String getContainerNum() {
-        return containerNum;
-    }
-
-    public String getContainerType() {
-        return containerType;
     }
 
     public String getCustomerName() {
@@ -87,9 +77,6 @@ public class ContainerDetailInfo {
         return finish;
     }
 
-    public String getLocationChecking() {
-        return locationChecking;
-    }
 
     public boolean isLock() {
         return lock;
@@ -99,16 +86,9 @@ public class ContainerDetailInfo {
         return noOperation;
     }
 
-    public String getOperation() {
-        return operation;
-    }
 
     public boolean isProductEmpty() {
         return productEmpty;
-    }
-
-    public String getProductQty() {
-        return productQty;
     }
 
     public String getRemark() {
@@ -143,11 +123,7 @@ public class ContainerDetailInfo {
         return time;
     }
 
-    public String getTimeIn() {
-        return timeIn;
-    }
-
-    public String getUserCheck() {
-        return userCheck;
+    public boolean isElectricity() {
+        return Electricity;
     }
 }
