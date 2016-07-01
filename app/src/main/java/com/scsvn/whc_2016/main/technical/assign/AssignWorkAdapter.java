@@ -221,6 +221,7 @@ public class AssignWorkAdapter extends ArrayAdapter<AssignWorkInfo> implements V
         int width = displayMetrics.widthPixels;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, width / 2);
         params.setMargins(0, 0, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, displayMetrics));
+        params.addRule(RelativeLayout.BELOW,R.id.tv_qhse_assign_to);
         return params;
     }
 
