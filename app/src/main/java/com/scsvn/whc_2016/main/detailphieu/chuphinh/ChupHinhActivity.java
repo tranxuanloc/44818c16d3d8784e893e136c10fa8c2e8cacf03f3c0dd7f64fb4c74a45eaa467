@@ -12,12 +12,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
+import com.scsvn.whc_2016.main.viewImage.ViewImageActivity;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
@@ -90,6 +92,14 @@ public class ChupHinhActivity extends BaseActivity {
         };
         adapter = new AttachmentInfoAdapter(ChupHinhActivity.this, new ArrayList<AttachmentInfo>());
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), ViewImageActivity.class);
+                intent.putExtra("src", adapter.getItem(position).getAttachmentFile());
+                startActivity(intent);
+            }
+        });
         getAttachmentInfo(listView);
         getOrderInfo(listView);
 
