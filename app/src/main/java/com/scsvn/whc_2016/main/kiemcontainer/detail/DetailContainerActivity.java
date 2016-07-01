@@ -57,6 +57,9 @@ import retrofit.Retrofit;
 
 public class DetailContainerActivity extends BaseActivity {
 
+    private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
+    private static final String IMAGE_DIRECTORY_NAME = "WHC-2016 FILE";
+    private final String TAG = DetailContainerActivity.class.getSimpleName();
     @Bind(R.id.tv_cont_number)
     TextView tvContCheckingNumber;
     @Bind(R.id.tv_cont_customer_name)
@@ -89,10 +92,6 @@ public class DetailContainerActivity extends BaseActivity {
     CheckBox cbElectricity;
     @Bind(R.id.iv_cont_image)
     ImageView ivImage;
-
-    private final String TAG = DetailContainerActivity.class.getSimpleName();
-    private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
-    private static final String IMAGE_DIRECTORY_NAME = "WHC-2016 FILE";
     private Uri uriImage;
     private String orderNumber, userName;
     private View.OnClickListener action;
@@ -230,12 +229,7 @@ public class DetailContainerActivity extends BaseActivity {
                 Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     KiemContainerActivity.isUpdated = true;
-                    containerCheckingNumber = response.body();
-                    if (outputMediaFile != null) {
-                        upload(tvContCheckingNumber);
-                    } else if (isClickDone)
-                        completeChecking(tvContCheckingNumber);
-
+                    completeChecking(tvContCheckingNumber);
                 }
             }
 
@@ -289,12 +283,9 @@ public class DetailContainerActivity extends BaseActivity {
         MyRetrofit.initRequest(this).setAttachment(parameter).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Response<String> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
-                if (response.isSuccess() && response.body() != null) {
-                    if (isClickDone)
-                        completeChecking(tvContCheckingNumber);
-                    Log.e(TAG, "onResponse: updateData success");
-                } else
+                if (response.isSuccess() && response.body() != null)
+                    finish();
+                else
                     dialog.dismiss();
             }
 
@@ -314,9 +305,12 @@ public class DetailContainerActivity extends BaseActivity {
             public void onResponse(Response<String> response, Retrofit retrofit) {
                 Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
-                    finish();
+                    containerCheckingNumber = response.body();
+                    if (outputMediaFile != null) {
+                        upload(tvContCheckingNumber);
+                    } else
+                        finish();
                 }
-                dialog.dismiss();
             }
 
             @Override
@@ -348,7 +342,6 @@ public class DetailContainerActivity extends BaseActivity {
         }
         return true;
     }
-
 
 
     @Override
