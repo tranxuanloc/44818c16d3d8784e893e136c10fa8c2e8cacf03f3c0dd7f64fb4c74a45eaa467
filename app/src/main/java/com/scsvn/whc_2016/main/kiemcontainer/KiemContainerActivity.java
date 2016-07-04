@@ -244,6 +244,7 @@ public class KiemContainerActivity extends BaseActivity implements AdapterView.O
         intent.putExtra("container_number", item.getContainerNum());
         intent.putExtra("customer_name", item.getCustomerName());
         intent.putExtra("container_in_out_id", item.getContInOutID());
+        intent.putExtra("VEHICLE_TYPE", item.getVehicleType());
         startActivity(intent);
     }
 

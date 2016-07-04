@@ -29,6 +29,12 @@ public class ContainerInfo {
     private String userCheck;
     @SerializedName("DockNumber")
     private String dockNumber;
+    @SerializedName("VehicleType")
+    private String VehicleType;
+
+    public String getVehicleType() {
+        return VehicleType;
+    }
 
     public String getContainerNum() {
         return containerNum;

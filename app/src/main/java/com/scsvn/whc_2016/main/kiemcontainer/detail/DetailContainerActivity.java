@@ -99,7 +99,7 @@ public class DetailContainerActivity extends BaseActivity {
     private boolean isClickDone;
     private ProgressDialog dialog;
     private Date dateCreate;
-    private String originalFileName, md5FileName, containerCheckingNumber;
+    private String originalFileName, md5FileName, containerCheckingNumber, vehicleType;
     private File outputMediaFile;
 
     @Override
@@ -116,6 +116,7 @@ public class DetailContainerActivity extends BaseActivity {
         tvContCheckingNumber.setText(intent.getStringExtra("container_number"));
         tvContCheckingCustomerName.setText(intent.getStringExtra("customer_name"));
         contInOutID = intent.getIntExtra("container_in_out_id", -1);
+        vehicleType = intent.getStringExtra("VEHICLE_TYPE");
         userName = LoginPref.getInfoUser(this, LoginPref.USERNAME);
         action = new View.OnClickListener() {
             @Override
@@ -134,12 +135,12 @@ public class DetailContainerActivity extends BaseActivity {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;
         }
-        MyRetrofit.initRequest(this).getContainerInfo(new ContainerCheckingDetailParameter(contInOutID, userName)).enqueue(new Callback<List<ContainerDetailInfo>>() {
+        MyRetrofit.initRequest(this).getContainerInfo(new ContainerCheckingDetailParameter(contInOutID, userName, vehicleType)).enqueue(new Callback<List<ContainerDetailInfo>>() {
 
             @Override
             public void onResponse(Response<List<ContainerDetailInfo>> response, Retrofit retrofit) {
                 Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
-                if (response.isSuccess() && response.body() != null) {
+                if (response.isSuccess() && response.body() != null && response.body().size() > 0) {
                     ContainerDetailInfo info = response.body().get(0);
                     cbContCheckingChuaHD.setChecked(info.isNoOperation());
                     cbContCheckingChay.setChecked(info.isRunning());
