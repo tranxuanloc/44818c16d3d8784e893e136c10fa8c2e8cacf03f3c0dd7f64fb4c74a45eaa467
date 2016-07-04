@@ -102,7 +102,7 @@ public class Utilities {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
         try {
             Date date = format.parse(sDate);
-            SimpleDateFormat newFormat = new SimpleDateFormat("hh:mm", Locale.US);
+            SimpleDateFormat newFormat = new SimpleDateFormat("HH:mm", Locale.US);
             return newFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
