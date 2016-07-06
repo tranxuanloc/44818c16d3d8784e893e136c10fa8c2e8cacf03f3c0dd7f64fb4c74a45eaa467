@@ -139,7 +139,16 @@ public class NewAssignWorkActivity extends BaseActivity {
     }
 
     public void getEmployeeID() {
-        MyRetrofit.initRequest(this).getEmployeeID(new EmployeePresentParameter(4, Const.EMPLOYEE_ID)).enqueue(new Callback<List<EmployeeInfo>>() {
+        String position;
+        int department;
+        if (LoginPref.getPositionGroup(getApplicationContext()).equals(Const.TECHNICAL)) {
+            position = "2";
+            department = 4;
+        } else {
+            position = "0";
+            department = 2;
+        }
+        MyRetrofit.initRequest(this).getEmployeeID(new EmployeePresentParameter(department, position)).enqueue(new Callback<List<EmployeeInfo>>() {
             @Override
             public void onResponse(Response<List<EmployeeInfo>> response, Retrofit retrofit) {
                 Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
