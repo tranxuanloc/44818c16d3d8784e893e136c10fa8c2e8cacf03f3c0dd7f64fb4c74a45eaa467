@@ -34,15 +34,14 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class QHSEActivity extends BaseActivity implements View.OnClickListener {
+    private static final String TAG = QHSEActivity.class.getSimpleName();
+    protected static boolean isSuccess;
+    private final int IMAGE = 101;
+    private final int CAMERA = 102;
     @Bind(R.id.listView)
     ListView listView;
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout swipeRefresh;
-
-    private final int IMAGE = 101;
-    private final int CAMERA = 102;
-    private static final String TAG = QHSEActivity.class.getSimpleName();
-    protected static boolean isSuccess;
     private View.OnClickListener qhseAgain;
     private QHSEAdapter adapter;
     private String numberQHSE;

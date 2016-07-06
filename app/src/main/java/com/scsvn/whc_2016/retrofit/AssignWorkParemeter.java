@@ -6,9 +6,11 @@ package com.scsvn.whc_2016.retrofit;
 public class AssignWorkParemeter {
     private int QHSEID;
     private int Department = 4;
+    private String UserName = "";
 
 
-    public AssignWorkParemeter(int QHSEID) {
+    public AssignWorkParemeter(int QHSEID, String UserName) {
         this.QHSEID = QHSEID;
+        this.UserName = UserName;
     }
 }

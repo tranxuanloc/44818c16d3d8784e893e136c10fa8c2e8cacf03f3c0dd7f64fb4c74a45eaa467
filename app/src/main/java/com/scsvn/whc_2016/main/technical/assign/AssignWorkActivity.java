@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
+import com.scsvn.whc_2016.preferences.LoginPref;
 import com.scsvn.whc_2016.retrofit.AssignWorkParemeter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
@@ -45,6 +46,7 @@ public class AssignWorkActivity extends BaseActivity implements View.OnClickList
     private View.OnClickListener qhseAgain;
     private AssignWorkAdapter adapter;
     private String numberQHSE;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,8 @@ public class AssignWorkActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initial() {
+        userName = LoginPref.getUsername(getApplicationContext());
+
         if (getIntent() != null)
             numberQHSE = getIntent().getStringExtra("numberQHSE");
         Log.e(TAG, "initial: " + numberQHSE);
@@ -108,7 +112,7 @@ public class AssignWorkActivity extends BaseActivity implements View.OnClickList
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, qhseAgain);
             return;
         }
-        MyRetrofit.initRequest(this).getAssignWork(new AssignWorkParemeter(0)).enqueue(new Callback<List<AssignWorkInfo>>() {
+        MyRetrofit.initRequest(this).getAssignWork(new AssignWorkParemeter(0, userName)).enqueue(new Callback<List<AssignWorkInfo>>() {
             @Override
             public void onResponse(Response<List<AssignWorkInfo>> response, Retrofit retrofit) {
                 Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
