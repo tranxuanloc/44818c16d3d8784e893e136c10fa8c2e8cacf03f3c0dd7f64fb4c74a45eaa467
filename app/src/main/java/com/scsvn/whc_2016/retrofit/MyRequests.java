@@ -31,6 +31,7 @@ import com.scsvn.whc_2016.main.kiemqa.metroqacheckinglistproducts.QACheckingList
 import com.scsvn.whc_2016.main.kiemqa.metroqacheckingproduct.MetroCheckingProductInfo;
 import com.scsvn.whc_2016.main.kiemqa.metroqacheckingsuppliers.MetroQAInfo;
 import com.scsvn.whc_2016.main.kiemvitri.LocationCheckingInfo;
+import com.scsvn.whc_2016.main.lichlamviec.MyCalendarInfo;
 import com.scsvn.whc_2016.main.lichlamviec.WorkingSchedulesEmployeePlanInfo;
 import com.scsvn.whc_2016.main.lichlamviec.WorkingSchedulesInfo;
 import com.scsvn.whc_2016.main.lichsuravao.EmployeeInOutInfo;
@@ -260,6 +261,9 @@ public interface MyRequests {
 
     @POST("/api/WorkingSchedules")
     Call<List<WorkingSchedulesInfo>> getWorkingSchedules(@Body WorkingSchedulesParameter parameter);
+
+    @POST("/api/MyCalendar")
+    Call<List<MyCalendarInfo>> getMyCalendar(@Body MyCalendarParameter parameter);
 
     @POST("/api/WorkingSchedulesEmployeePlan")
     Call<List<WorkingSchedulesEmployeePlanInfo>> getWorkingSchedulesEmployeePlan(@Body WorkingSchedulesParameter parameter);

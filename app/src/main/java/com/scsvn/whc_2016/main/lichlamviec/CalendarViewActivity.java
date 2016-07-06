@@ -8,20 +8,20 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.preferences.LoginPref;
+import com.scsvn.whc_2016.retrofit.MyCalendarParameter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
@@ -48,6 +48,7 @@ public class CalendarViewActivity extends AppCompatActivity {
     private CaldroidFragment caldroidFragment;
     private String reportDate;
     private Date tDate;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class CalendarViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Utilities.showBackIcon(getSupportActionBar());
         caldroidFragment = new CaldroidFragment();
-
+        userName = LoginPref.getUsername(getApplicationContext());
         if (savedInstanceState != null) {
             caldroidFragment.restoreStatesFromKey(savedInstanceState, "CALDROID_SAVED_STATE");
         } else {
@@ -71,7 +72,6 @@ public class CalendarViewActivity extends AppCompatActivity {
             args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, false);
             caldroidFragment.setArguments(args);
         }
-        setCustomResourceForDates();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.calendar, caldroidFragment).commit();
         caldroidFragment.setCaldroidListener(new CaldroidListener() {
@@ -88,29 +88,43 @@ public class CalendarViewActivity extends AppCompatActivity {
 
             @Override
             public void onChangeMonth(int month, int year) {
+                getJobInMonth(findViewById(R.id.view), month, year);
             }
 
             @Override
             public void onCaldroidViewCreated() {
-                TextView monthTitle = caldroidFragment.getMonthTitleTextView();
-                Log.d(TAG, "onCaldroidViewCreated() returned: " + monthTitle.getText().toString());
-                monthTitle.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+
             }
         });
 
     }
 
-    private void setCustomResourceForDates() {
-        Calendar cal = Calendar.getInstance();
+    private void getJobInMonth(final View view, int month, int year) {
+        if (!Utilities.isConnected(this))
+            return;
+        MyRetrofit.initRequest(this).getMyCalendar(new MyCalendarParameter(userName, month, year)).enqueue(new Callback<List<MyCalendarInfo>>() {
+            @Override
+            public void onResponse(Response<List<MyCalendarInfo>> response, Retrofit retrofit) {
+                if (response.isSuccess() && response.body() != null) {
+                    setCustomResourceForDates(response.body());
+                }
+            }
 
-        // Min date is last 7 days
-        cal.add(Calendar.DATE, -7);
-        Date blueDate = cal.getTime();
+            @Override
+            public void onFailure(Throwable t) {
+                RetrofitError.errorNoAction(CalendarViewActivity.this, t, TAG, view);
+            }
+        });
+    }
 
+    private void setCustomResourceForDates(List<MyCalendarInfo> listDates) {
         if (caldroidFragment != null) {
-            ColorDrawable blue = new ColorDrawable(Color.BLUE);
-            caldroidFragment.setBackgroundDrawableForDate(blue, blueDate);
-            caldroidFragment.setTextColorForDate(R.color.white, blueDate);
+            ColorDrawable yellow = new ColorDrawable(Color.argb(255, 0xFF, 0xBB, 0x00));
+            for (MyCalendarInfo info : listDates) {
+                Date date = new Date(Utilities.getMillisecondFromDate(info.getDeadline()));
+                caldroidFragment.setBackgroundDrawableForDate(yellow, date);
+            }
+            caldroidFragment.refreshView();
         }
     }
 
@@ -120,6 +134,7 @@ public class CalendarViewActivity extends AppCompatActivity {
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
+            return;
         }
         WorkingSchedulesParameter parameter = new WorkingSchedulesParameter(reportDate, LoginPref.getUsername(this));
         MyRetrofit.initRequest(this).getWorkingSchedules(parameter).enqueue(new Callback<List<WorkingSchedulesInfo>>() {
@@ -145,6 +160,7 @@ public class CalendarViewActivity extends AppCompatActivity {
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
+            return;
         }
         WorkingSchedulesParameter parameter = new WorkingSchedulesParameter(reportDate, LoginPref.getUsername(this));
         MyRetrofit.initRequest(this).getWorkingSchedulesEmployeePlan(parameter).enqueue(new Callback<List<WorkingSchedulesEmployeePlanInfo>>() {
@@ -200,10 +216,19 @@ public class CalendarViewActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.calendar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == android.R.id.home)
             onBackPressed();
+        else if (itemId == R.id.action_today) {
+            caldroidFragment.moveToDate(Calendar.getInstance().getTime());
+        }
         return true;
     }
 
