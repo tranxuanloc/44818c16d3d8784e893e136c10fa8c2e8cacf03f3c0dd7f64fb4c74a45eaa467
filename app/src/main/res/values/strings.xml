@@ -84,7 +84,7 @@
     <string name="title_activity_giao_viec">Giao Việc</string>
     <string name="upload">Tải lên</string>
     <string name="title_activity_upload_file">Tải tệp lên</string>
-    <string name="title_activity_kiem_container">Danh sách Container</string>
+    <string name="title_activity_kiem_container">Danh sách Xe/Container</string>
     <string name="phieu_hom_nay">Phiếu Hôm Nay</string>
     <string name="phieu_cua_toi">Phiếu Của Tôi</string>
     <string name="phieu_da_xong">Phiếu Đã Xong</string>
@@ -260,5 +260,7 @@
     <string name="title_activity_equipment_inventory">Equipment Inventory</string>
     <string name="title_container_information">Thông tin xe/container</string>
     <string name="is_electric">Cắm điện</string>
+    <string name="not_yet_scan">Chưa quét</string>
+    <string name="scanned">Đã quét</string>
 
 </resources>

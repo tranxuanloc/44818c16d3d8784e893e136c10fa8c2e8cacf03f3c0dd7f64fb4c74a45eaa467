@@ -88,8 +88,8 @@ public class DetailPhieuActivity extends BaseActivity implements Scanner.DataLis
     private LinkedHashMap<String, List<DetailPhieuInfo>> groupLevel3 = new LinkedHashMap<>();
     private LinkedHashMap<String, List<Item>> groupLevel2Bind = new LinkedHashMap<>();
 
-    private MenuItem item_sort;
-    private int scanType;
+    private MenuItem item_sort, itemFilter;
+    private int scanType, filterResult = 1;
     private int underScores = 0b1000;
 
     @Override
@@ -142,18 +142,21 @@ public class DetailPhieuActivity extends BaseActivity implements Scanner.DataLis
                 if (response.isSuccess() && response.body() != null) {
                     List<DetailPhieuInfo> body = response.body();
                     for (DetailPhieuInfo info : body) {
-                        String tempDO = String.format("%s - %s", info.DO, info.SpecialRequirement);
-                        if (!groupLevel2.containsKey(tempDO)) {
-                            List<DetailPhieuInfo> oneItemGroup2 = new LinkedList<>();
-                            oneItemGroup2.add(info);
-                            groupLevel2.put(tempDO, oneItemGroup2);
-                        } else
-                            groupLevel2.get(tempDO).add(info);
+                        String result = info.getResult();
+                        if (filterResult == 0 || (filterResult == 1 && result.equals(" ") || (filterResult == 2 && !result.equals(" ")))) {
+                            String tempDO = String.format("%s - %s", info.DO, info.SpecialRequirement);
+                            if (!groupLevel2.containsKey(tempDO)) {
+                                List<DetailPhieuInfo> oneItemGroup2 = new LinkedList<>();
+                                oneItemGroup2.add(info);
+                                groupLevel2.put(tempDO, oneItemGroup2);
+                            } else
+                                groupLevel2.get(tempDO).add(info);
 
-                        int quantity = Integer.parseInt(info.getQuantityOfPackages());
-                        total += quantity;
-                        if (info.getResult().equalsIgnoreCase("OK"))
-                            scanned += quantity;
+                            int quantity = Integer.parseInt(info.getQuantityOfPackages());
+                            total += quantity;
+                            if (info.getResult().equalsIgnoreCase("OK"))
+                                scanned += quantity;
+                        }
                     }
                     int totalOneProduct = 0;
                     DetailPhieuGroupInfo tProductName = null;
@@ -162,8 +165,9 @@ public class DetailPhieuActivity extends BaseActivity implements Scanner.DataLis
                         List<DetailPhieuInfo> detailPhieuInfo = groupLevel2.get(keyDO);
                         List<Item> item = new LinkedList<>();
                         for (DetailPhieuInfo info : detailPhieuInfo) {
-                            String productName = new StringBuilder().append(info.getProductName()).append(keyDO).toString();
-                            DetailPhieuGroupInfo tempGroup2 = new DetailPhieuGroupInfo(productName, info.getProductNumber());
+                            String productNameBind = info.getProductName();
+                            String productName = new StringBuilder().append(productNameBind).append(keyDO).toString();
+                            DetailPhieuGroupInfo tempGroup2 = new DetailPhieuGroupInfo(productNameBind, info.getProductNumber());
                             if (!groupLevel3.containsKey(productName)) {
                                 if (tProductName != null)
                                     tProductName.total = totalOneProduct;
@@ -537,6 +541,7 @@ public class DetailPhieuActivity extends BaseActivity implements Scanner.DataLis
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail_phieu, menu);
         item_sort = menu.findItem(R.id.action_menu);
+        itemFilter = menu.findItem(R.id.action_filter);
 
         return true;
     }
@@ -544,38 +549,70 @@ public class DetailPhieuActivity extends BaseActivity implements Scanner.DataLis
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == android.R.id.home)
-            finish();
-        else if (itemId == R.id.action_detail_no) {
-            if (!item.isChecked()) {
-                item.setChecked(true);
-                item_sort.setTitle(getResources().getString(R.string.no));
-            }
-        } else if (itemId == R.id.action_detail_name) {
-            if (!item.isChecked()) {
-                item.setChecked(true);
-                item_sort.setTitle(getResources().getString(R.string.product_name));
-            }
-        } else if (itemId == R.id.action_detail_remark) {
-            if (!item.isChecked()) {
-                item.setChecked(true);
-                item_sort.setTitle(getResources().getString(R.string.remark));
-            }
-        } else if (itemId == R.id.action_detail_nxs) {
-            if (!item.isChecked()) {
-                item.setChecked(true);
-                item_sort.setTitle(getResources().getString(R.string.nxs));
-            }
-        } else if (itemId == R.id.action_detail_hsd) {
-            if (!item.isChecked()) {
-                item.setChecked(true);
-                item_sort.setTitle(getResources().getString(R.string.hsd));
-            }
-        } else if (itemId == R.id.action_detail_vi_tri) {
-            if (!item.isChecked()) {
-                item.setChecked(true);
-                item_sort.setTitle(getResources().getString(R.string.vi_tri));
-            }
+        switch (itemId) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.action_detail_no:
+                if (!item.isChecked()) {
+                    item.setChecked(true);
+                    item_sort.setTitle(getResources().getString(R.string.no));
+                }
+                break;
+            case R.id.action_detail_name:
+                if (!item.isChecked()) {
+                    item.setChecked(true);
+                    item_sort.setTitle(getResources().getString(R.string.product_name));
+                }
+                break;
+            case R.id.action_detail_remark:
+                if (!item.isChecked()) {
+                    item.setChecked(true);
+                    item_sort.setTitle(getResources().getString(R.string.remark));
+                }
+                break;
+            case R.id.action_detail_nxs:
+                if (!item.isChecked()) {
+                    item.setChecked(true);
+                    item_sort.setTitle(getResources().getString(R.string.nxs));
+                }
+                break;
+            case R.id.action_detail_hsd:
+                if (!item.isChecked()) {
+                    item.setChecked(true);
+                    item_sort.setTitle(getResources().getString(R.string.hsd));
+                }
+                break;
+            case R.id.action_detail_vi_tri:
+                if (!item.isChecked()) {
+                    item.setChecked(true);
+                    item_sort.setTitle(getResources().getString(R.string.vi_tri));
+                }
+                break;
+            case R.id.action_filter_all:
+                filterResult = 0;
+                if (!item.isChecked()) {
+                    item.setChecked(true);
+                    itemFilter.setTitle(getResources().getString(R.string.all));
+                }
+                getDetailPhieu(listView);
+                break;
+            case R.id.action_filter_yet_scan:
+                filterResult = 1;
+                if (!item.isChecked()) {
+                    item.setChecked(true);
+                    itemFilter.setTitle(getResources().getString(R.string.not_yet_scan));
+                }
+                getDetailPhieu(listView);
+                break;
+            case R.id.action_filter_scanned:
+                filterResult = 2;
+                if (!item.isChecked()) {
+                    item.setChecked(true);
+                    itemFilter.setTitle(getResources().getString(R.string.scanned));
+                }
+                getDetailPhieu(listView);
+                break;
         }
         return true;
     }
