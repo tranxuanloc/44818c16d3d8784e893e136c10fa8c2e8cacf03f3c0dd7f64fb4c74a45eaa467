@@ -76,6 +76,7 @@ public class DetailPhieuActivityNoEMDK extends BaseActivity implements AdapterVi
     private MenuItem item_sort, itemFilter;
     private int scanType, filterResult = 1;
     private boolean isClickedFromCamera;
+    private String deviceNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class DetailPhieuActivityNoEMDK extends BaseActivity implements AdapterVi
         setContentView(R.layout.activity_detail_phieu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        deviceNumber = Utilities.getAndroidID(getApplicationContext());
         listView = (ExpandableListView) findViewById(R.id.listView);
         etBarcode = (EditText) findViewById(R.id.barcode);
         totalQuantity = (TextView) findViewById(R.id.tv_total);
@@ -144,7 +146,7 @@ public class DetailPhieuActivityNoEMDK extends BaseActivity implements AdapterVi
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;
         }
-        MyRetrofit.initRequest(this).getDetailPhieu(new OrdersInfo(scanResult, orderNumber, userName)).enqueue(new Callback<List<DetailPhieuInfo>>() {
+        MyRetrofit.initRequest(this).getDetailPhieu(new OrdersInfo(scanResult, orderNumber, userName, deviceNumber)).enqueue(new Callback<List<DetailPhieuInfo>>() {
             @Override
             public void onResponse(Response<List<DetailPhieuInfo>> response, Retrofit retrofit) {
                 groupLevel1.clear();
@@ -343,7 +345,7 @@ public class DetailPhieuActivityNoEMDK extends BaseActivity implements AdapterVi
 
 
     private void updatePalletID(final View view, boolean checked, int orderId, String remark) {
-        UpdateDispatchingOrderDetailParameter parameter = new UpdateDispatchingOrderDetailParameter(checked, orderId, remark, userName, orderNumber);
+        UpdateDispatchingOrderDetailParameter parameter = new UpdateDispatchingOrderDetailParameter(checked, orderId, remark, userName, orderNumber,deviceNumber);
         Log.e(TAG, "updatePalletID: " + parameter.getRemark() + " " + parameter.getUserName() + " " + parameter.getDispatchingOrderDetailID() + " " + parameter.isChecked());
         MyRetrofit.initRequest(this).updateDispatchingOrderDetail(parameter).enqueue(new Callback<String>() {
             @Override

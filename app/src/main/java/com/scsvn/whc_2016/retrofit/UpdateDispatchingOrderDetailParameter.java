@@ -9,13 +9,15 @@ public class UpdateDispatchingOrderDetailParameter {
     public boolean Checked;
     public String UserName;
     public String OrderNumber;
+    public String DeviceNumber;
 
-    public UpdateDispatchingOrderDetailParameter(boolean checked, int dispatchingOrderDetailID, String remark, String userName, String OrderNumber) {
+    public UpdateDispatchingOrderDetailParameter(boolean checked, int dispatchingOrderDetailID, String remark, String userName, String OrderNumber, String DeviceNumber) {
         Checked = checked;
         DispatchingOrderDetailID = dispatchingOrderDetailID;
         Remark = remark;
         UserName = userName;
         this.OrderNumber = OrderNumber;
+        this.DeviceNumber = DeviceNumber;
     }
 
     public boolean isChecked() {

@@ -91,6 +91,7 @@ public class DetailPhieuActivity extends BaseActivity implements Scanner.DataLis
     private MenuItem item_sort, itemFilter;
     private int scanType, filterResult = 1;
     private int underScores = 0b1000;
+    private String deviceNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +99,7 @@ public class DetailPhieuActivity extends BaseActivity implements Scanner.DataLis
         setContentView(R.layout.activity_detail_phieu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        deviceNumber = Utilities.getAndroidID(getApplicationContext());
 
         userName = LoginPref.getInfoUser(this, LoginPref.USERNAME);
         orderNumber = getIntent().getStringExtra(ORDER_NUMBER);
@@ -129,7 +131,7 @@ public class DetailPhieuActivity extends BaseActivity implements Scanner.DataLis
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;
         }
-        MyRetrofit.initRequest(this).getDetailPhieu(new OrdersInfo(scanResult, orderNumber, userName)).enqueue(new Callback<List<DetailPhieuInfo>>() {
+        MyRetrofit.initRequest(this).getDetailPhieu(new OrdersInfo(scanResult, orderNumber, userName, deviceNumber)).enqueue(new Callback<List<DetailPhieuInfo>>() {
 
             @Override
             public void onResponse(Response<List<DetailPhieuInfo>> response, Retrofit retrofit) {
@@ -492,7 +494,7 @@ public class DetailPhieuActivity extends BaseActivity implements Scanner.DataLis
     }
 
     private void updatePalletID(final View view, boolean checked, int orderId, String remark) {
-        UpdateDispatchingOrderDetailParameter parameter = new UpdateDispatchingOrderDetailParameter(checked, orderId, remark, userName, orderNumber);
+        UpdateDispatchingOrderDetailParameter parameter = new UpdateDispatchingOrderDetailParameter(checked, orderId, remark, userName, orderNumber, deviceNumber);
         Log.e(TAG, "updatePalletID: " + parameter.getRemark() + " " + parameter.getUserName() + " " + parameter.getDispatchingOrderDetailID() + " " + parameter.isChecked());
         MyRetrofit.initRequest(this).updateDispatchingOrderDetail(parameter).enqueue(new Callback<String>() {
             @Override
