@@ -5,9 +5,9 @@
     android:paddingTop="10dp">
 
     <RelativeLayout
+        android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="10dp">
@@ -72,7 +72,6 @@
             android:id="@+id/tv_qhse_comment_qty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_gray_white"
             android:textSize="14sp" />
 
         <TextView
@@ -81,7 +80,6 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/tv_qhse_comment_qty"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/selector_gray_white"
             android:textColor="#304ffe"
             android:textSize="14sp" />
 
@@ -147,7 +145,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/view1"
-            android:background="@drawable/selector_gray_white"
             android:drawableLeft="@drawable/ic_editor_mode_comment_16dip"
             android:drawablePadding="5dp"
             android:padding="5dp"

@@ -87,7 +87,6 @@ public class AssignWorkActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                Log.d(TAG, "onScroll() returned: " + firstVisibleItem + " " + visibleItemCount + " " + totalItemCount);
             }
         });
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);

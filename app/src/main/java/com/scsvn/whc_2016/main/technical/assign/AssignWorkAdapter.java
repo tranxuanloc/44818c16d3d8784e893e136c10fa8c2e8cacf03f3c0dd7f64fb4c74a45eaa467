@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -145,6 +146,7 @@ public class AssignWorkAdapter extends ArrayAdapter<AssignWorkInfo> implements V
                     alertConfirm(v);
             }
         });
+        holder.reject.setEnabled(!info.isConfirmed());
         holder.reject.setChecked(info.AssigmentReject);
         holder.reject.setTag(info);
         holder.reject.setOnClickListener(new View.OnClickListener() {
@@ -211,7 +213,10 @@ public class AssignWorkAdapter extends ArrayAdapter<AssignWorkInfo> implements V
                 holder.tvCommentClick.performClick();
             }
         });
-
+        if (info.isConfirmed())
+            holder.rootView.setBackgroundColor(Color.argb(0xFF, 0xC1, 0xCB, 0xFF));
+        else
+            holder.rootView.setBackgroundColor(Color.WHITE);
         return convertView;
     }
 
@@ -221,7 +226,7 @@ public class AssignWorkAdapter extends ArrayAdapter<AssignWorkInfo> implements V
         int width = displayMetrics.widthPixels;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, width / 2);
         params.setMargins(0, 0, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, displayMetrics));
-        params.addRule(RelativeLayout.BELOW,R.id.tv_qhse_assign_to);
+        params.addRule(RelativeLayout.BELOW, R.id.tv_qhse_assign_to);
         return params;
     }
 
@@ -518,6 +523,8 @@ public class AssignWorkAdapter extends ArrayAdapter<AssignWorkInfo> implements V
         TextView tvProgress;
         @Bind(R.id.progressBar)
         ProgressBar pbProgress;
+        @Bind(R.id.rootView)
+        RelativeLayout rootView;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);
