@@ -79,7 +79,7 @@ public class DetailPhieuAdapter extends BaseExpandableListAdapter {
         TextView headerLevel1 = new TextView(parent.getContext());
         headerLevel1.setGravity(Gravity.CENTER_HORIZONTAL);
         headerLevel1.setTextColor(Color.WHITE);
-        headerLevel1.setBackgroundColor(Color.argb(255, 170, 0, 0));
+        headerLevel1.setBackgroundColor(Color.argb(255, 127, 0, 127));
         headerLevel1.setText(getGroup(groupPosition));
         return headerLevel1;
     }

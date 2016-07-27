@@ -61,12 +61,12 @@ public class DetailPhieuActivityNoEMDK extends BaseActivity implements AdapterVi
     TextView totalScanned;
     EditText etTakeScannerResult;
     Button ivCamera;
+    DetailPhieuGroupInfo tProductName = null;
+    int totalOneProduct = 0;
     private int eventKeycode;
     private View.OnClickListener action;
     private String orderNumber = "";
     private String scanResult = "xx123456789", userName;
-
-
     private ActionBar actionBar;
     private DetailPhieuAdapter adapter;
     private List<String> groupLevel1 = new LinkedList<>();
@@ -137,7 +137,6 @@ public class DetailPhieuActivityNoEMDK extends BaseActivity implements AdapterVi
         });
     }
 
-
     public void getDetailPhieu(final View view) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
         dialog.show();
@@ -153,76 +152,8 @@ public class DetailPhieuActivityNoEMDK extends BaseActivity implements AdapterVi
                 groupLevel2.clear();
                 groupLevel3.clear();
                 groupLevel2Bind.clear();
-                int total = 0;
-                int scanned = 0;
-                int quantityNormal = 0;
-                if (response.isSuccess() && response.body() != null) {
-                    List<DetailPhieuInfo> body = response.body();
-                    for (DetailPhieuInfo info : body) {
-                        String result = info.getResult();
-                        if (filterResult == 0 || (filterResult == 1 && result.equals(" ") || (filterResult == 2 && !result.equals(" ")))) {
-                            String tempDO = String.format("%s - %s", info.DO, info.SpecialRequirement);
-                            if (!groupLevel2.containsKey(tempDO)) {
-                                List<DetailPhieuInfo> oneItemGroup2 = new LinkedList<>();
-                                oneItemGroup2.add(info);
-                                groupLevel2.put(tempDO, oneItemGroup2);
-                            } else
-                                groupLevel2.get(tempDO).add(info);
-                            if (result.equals(""))
-                                quantityNormal++;
-                            int quantity = Integer.parseInt(info.getQuantityOfPackages());
-                            total += quantity;
-                            if (result.equalsIgnoreCase("OK"))
-                                scanned += quantity;
-                        }
 
-                    }
-                    int totalOneProduct = 0;
-                    DetailPhieuGroupInfo tProductName = null;
-                    groupLevel1.addAll(groupLevel2.keySet());
-                    for (String keyDO : groupLevel1) {
-                        List<DetailPhieuInfo> detailPhieuInfo = groupLevel2.get(keyDO);
-                        List<Item> item = new LinkedList<>();
-                        for (DetailPhieuInfo info : detailPhieuInfo) {
-                            String productNameBind = info.getProductName();
-                            String productName = new StringBuilder().append(productNameBind).append(keyDO).toString();
-                            DetailPhieuGroupInfo tempGroup2 = new DetailPhieuGroupInfo(productNameBind, info.getProductNumber());
-                            if (!groupLevel3.containsKey(productName)) {
-                                if (tProductName != null)
-                                    tProductName.total = totalOneProduct;
-                                totalOneProduct = 0;
-                                List<DetailPhieuInfo> oneItemGroup3 = new LinkedList<>();
-                                oneItemGroup3.add(info);
-                                item.add(tempGroup2);
-                                item.add(info);
-                                totalOneProduct += Integer.parseInt(info.getQuantityOfPackages());
-                                groupLevel3.put(productName, oneItemGroup3);
-                                groupLevel2Bind.put(keyDO, item);
-                                tProductName = tempGroup2;
-                            } else {
-                                totalOneProduct += Integer.parseInt(info.getQuantityOfPackages());
-                                groupLevel3.get(productName).add(info);
-                                groupLevel2Bind.get(keyDO).add(info);
-                            }
-                        }
-                    }
-                    if (tProductName != null)
-                        tProductName.total = totalOneProduct;
-                    adapter.notifyDataSetChanged();
-                    for (int i = 0; i < adapter.getGroupCount(); i++) {
-                        listView.expandGroup(i);
-                    }
-                    totalScanned.setText(String.format(Locale.US, "%d", scanned));
-                    totalQuantity.setText(String.format(Locale.US, "%d", total));
-
-                    if (isClickedFromCamera && quantityNormal > 0)
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                ivCamera.performClick();
-                            }
-                        }, 1000);
-                }
+                if (response.isSuccess() && response.body() != null) setUpData(response);
                 dialog.dismiss();
             }
 
@@ -232,6 +163,90 @@ public class DetailPhieuActivityNoEMDK extends BaseActivity implements AdapterVi
                 RetrofitError.errorWithAction(DetailPhieuActivityNoEMDK.this, t, TAG, view, action);
             }
         });
+    }
+
+    private void setUpData(Response<List<DetailPhieuInfo>> response) {
+        int total = 0;
+        int scanned = 0;
+        int quantityNormal = 0;
+        List<DetailPhieuInfo> body = response.body();
+        for (DetailPhieuInfo info : body) {
+            String result = info.getResult();
+            if (filterResult == 0 || (filterResult == 1 && result.equals(" ") || (filterResult == 2 && (result.equals("OK") || result.equals("XX"))))) {
+                String tempDO = String.format("%s - %s", info.DO, info.SpecialRequirement);
+                if (!groupLevel2.containsKey(tempDO)) {
+                    List<DetailPhieuInfo> oneItemGroup2 = new LinkedList<>();
+                    oneItemGroup2.add(info);
+                    groupLevel2.put(tempDO, oneItemGroup2);
+                } else
+                    groupLevel2.get(tempDO).add(info);
+                if (result.equals(""))
+                    quantityNormal++;
+                int quantity = Integer.parseInt(info.getQuantityOfPackages());
+                total += quantity;
+                if (result.equalsIgnoreCase("OK"))
+                    scanned += quantity;
+            }
+
+        }
+        groupLevel1.addAll(groupLevel2.keySet());
+        groupPalletIDByProductName();
+        adapter.notifyDataSetChanged();
+        for (int i = 0; i < adapter.getGroupCount(); i++) {
+            listView.expandGroup(i);
+        }
+        totalScanned.setText(String.format(Locale.US, "%d", scanned));
+        totalQuantity.setText(String.format(Locale.US, "%d", total));
+
+        if (isClickedFromCamera && quantityNormal > 0)
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ivCamera.performClick();
+                }
+            }, 1000);
+    }
+
+    private void groupPalletIDByProductName() {
+        for (String keyDO : groupLevel1) {
+            List<DetailPhieuInfo> detailPhieuInfo = groupLevel2.get(keyDO);
+            group(keyDO, detailPhieuInfo);
+        }
+        if (tProductName != null)
+            tProductName.total = totalOneProduct;
+    }
+
+    public LinkedHashMap<String, List<Item>> group(String keyDO, List<DetailPhieuInfo> detailPhieuInfo) {
+        groupLevel3.clear();
+        groupLevel2Bind.clear();
+        List<Item> item = new LinkedList<>();
+        for (DetailPhieuInfo info : detailPhieuInfo) {
+            String productName = info.getProductName();
+            String productNameKey = productName + keyDO;
+            DetailPhieuGroupInfo tempGroup2 = new DetailPhieuGroupInfo(productName, info.getProductNumber());
+            if (groupLevel3NotContainsKey(productNameKey)) {
+                if (tProductName != null)
+                    tProductName.total = totalOneProduct;
+                totalOneProduct = 0;
+                List<DetailPhieuInfo> oneItemGroup3 = new LinkedList<>();
+                oneItemGroup3.add(info);
+                item.add(tempGroup2);
+                item.add(info);
+                totalOneProduct += Integer.parseInt(info.getQuantityOfPackages());
+                groupLevel3.put(productNameKey, oneItemGroup3);
+                groupLevel2Bind.put(keyDO, item);
+                tProductName = tempGroup2;
+            } else {
+                totalOneProduct += Integer.parseInt(info.getQuantityOfPackages());
+                groupLevel3.get(productNameKey).add(info);
+                groupLevel2Bind.get(keyDO).add(info);
+            }
+        }
+        return groupLevel2Bind;
+    }
+
+    private boolean groupLevel3NotContainsKey(String productNameKey) {
+        return !groupLevel3.containsKey(productNameKey);
     }
 
     public void getRequest() {
@@ -345,7 +360,7 @@ public class DetailPhieuActivityNoEMDK extends BaseActivity implements AdapterVi
 
 
     private void updatePalletID(final View view, boolean checked, int orderId, String remark) {
-        UpdateDispatchingOrderDetailParameter parameter = new UpdateDispatchingOrderDetailParameter(checked, orderId, remark, userName, orderNumber,deviceNumber);
+        UpdateDispatchingOrderDetailParameter parameter = new UpdateDispatchingOrderDetailParameter(checked, orderId, remark, userName, orderNumber, deviceNumber);
         Log.e(TAG, "updatePalletID: " + parameter.getRemark() + " " + parameter.getUserName() + " " + parameter.getDispatchingOrderDetailID() + " " + parameter.isChecked());
         MyRetrofit.initRequest(this).updateDispatchingOrderDetail(parameter).enqueue(new Callback<String>() {
             @Override

@@ -263,4 +263,7 @@
     <string name="not_yet_scan">Chưa quét</string>
     <string name="scanned">Đã quét</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

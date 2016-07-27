@@ -11,24 +11,24 @@
         android:layout_alignParentRight="true"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:textSize="12sp"
-        android:textColor="#A00" />
+        android:textSize="20sp"
+        android:textColor="#fff59d" />
 
 
     <TextView
         android:id="@+id/tv_prod_number"
         android:layout_width="wrap_content"
         android:textSize="14sp"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:textColor="#000000" />
 
     <TextView
         android:id="@+id/tv_prod_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/tv_prod_total"
-        android:layout_toRightOf="@id/tv_prod_number"
         android:paddingLeft="5dp"
         android:textColor="#FFF"
         android:textSize="14sp" />

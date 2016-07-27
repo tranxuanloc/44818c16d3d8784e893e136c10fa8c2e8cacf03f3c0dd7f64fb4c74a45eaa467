@@ -43,6 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -187,7 +188,7 @@ public class WorkerActivity extends BaseActivity implements TextWatcher, View.On
     private Calendar calendar, currentCalendar;
     private View.OnClickListener action;
     private ProgressDialog dialog;
-    private ArrayList<String> employeeIDArray = new ArrayList<>();
+    private List<Integer> employeeIDArray = new LinkedList<>();
     private String orderNumber;
     private String date_format_sql = "%d-%02d-%02d";
     private String date_time_format_sql = "yyyy-MM-dd'T'HH:mm:ss";
@@ -291,6 +292,10 @@ public class WorkerActivity extends BaseActivity implements TextWatcher, View.On
             public void onResponse(Response<List<EmployeeInfo>> response, Retrofit retrofit) {
                 Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
+                    employeeIDArray.clear();
+                    for (EmployeeInfo info : response.body()) {
+                        employeeIDArray.add(info.getEmployeeID());
+                    }
                     setAdapterForACTV(response.body());
                 }
             }
@@ -604,7 +609,7 @@ public class WorkerActivity extends BaseActivity implements TextWatcher, View.On
         }
         if (Integer.parseInt(view.getText().toString()) == 0)
             return true;
-        if (employeeIDArray.contains(view.getText().toString()))
+        if (employeeIDArray.contains(Integer.parseInt(view.getText().toString())))
             return true;
         view.requestFocus();
         Snackbar.make(view, "Bạn phải chọn mã Nhân viên có trong danh sách", Snackbar.LENGTH_LONG).show();

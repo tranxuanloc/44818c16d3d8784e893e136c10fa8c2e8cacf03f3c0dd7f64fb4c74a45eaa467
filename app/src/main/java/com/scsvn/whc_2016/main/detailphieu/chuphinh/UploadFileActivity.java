@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +39,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class UploadFileActivity extends BaseActivity {
+    private final String TAG = "UploadFileActivity";
     @Bind(R.id.iv)
     ImageView iv;
     @Bind(R.id.vv)
@@ -48,7 +50,6 @@ public class UploadFileActivity extends BaseActivity {
     TextView tvPercentage;
     @Bind(R.id.et_description_file_upload)
     EditText etDesc;
-    private final String TAG = "UploadFileActivity";
     private String path, orderNumber, originalName, fileName;
     private long fileCreate, fileSize;
     private ProgressDialog dialog;
@@ -63,6 +64,9 @@ public class UploadFileActivity extends BaseActivity {
         Utilities.showBackIcon(getSupportActionBar());
         Intent intent = getIntent();
         path = intent.getStringExtra("path");
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(Uri.fromFile(new File(path)));
+        this.sendBroadcast(mediaScanIntent);
         orderNumber = intent.getStringExtra("order_number");
         originalName = intent.getStringExtra("original_file_name");
         fileName = intent.getStringExtra("file_name");
@@ -111,7 +115,7 @@ public class UploadFileActivity extends BaseActivity {
         AttachmentParameter parameter = new AttachmentParameter(
                 Utilities.formatDateTime_yyyyMMddHHmmssFromMili(fileCreate),
                 etDesc.getText().toString(),
-                fileName,
+                Utilities.md5(fileName) + ".jpg",
                 (int) fileSize,
                 0,
                 LoginPref.getInfoUser(this, LoginPref.USERNAME),

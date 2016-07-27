@@ -51,8 +51,7 @@ public class DetailPhieuGroupInfo implements Item {
             holder = new GroupViewHolder(convertView);
             convertView.setTag(holder);
         } else holder = (GroupViewHolder) convertView.getTag();
-        holder.prodNumber.setText(getProductNumber());
-        holder.prodName.setText(getProductName());
+        holder.prodName.setText(String.format("%s ~ %s", getProductNumber(), getProductName()));
         holder.prodTotal.setText(String.valueOf(total));
         return convertView;
     }
