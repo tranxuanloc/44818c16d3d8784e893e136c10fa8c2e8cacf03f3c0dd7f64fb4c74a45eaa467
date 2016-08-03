@@ -1,11 +1,13 @@
 package com.scsvn.whc_2016.main.vitritrong;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,7 +32,7 @@ import retrofit.Retrofit;
 
 public class FreeLocationActivity extends BaseActivity {
     public static final String TAG = FreeLocationActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.tvFreeLocationFreeQtyBot)
     TextView tvFreeQty;
@@ -74,8 +76,17 @@ public class FreeLocationActivity extends BaseActivity {
         };
         adapter = new FreeLocationAdapter(this, new ArrayList<FreeLocationInfo>());
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), FreeLocationDetailsActivity.class);
+                intent.putExtra("ROOM_ID", adapter.getItem(position).getRoomID());
+                startActivity(intent);
+            }
+        });
         executeFreeLocationUpdate(listView);
     }
+
 
     private void getFreeLocation(final View view) {
         if (!Utilities.isConnected(this)) {
@@ -141,7 +152,7 @@ public class FreeLocationActivity extends BaseActivity {
     }
 
     private void executeFreeLocationUpdate(final View view) {
-        dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();
