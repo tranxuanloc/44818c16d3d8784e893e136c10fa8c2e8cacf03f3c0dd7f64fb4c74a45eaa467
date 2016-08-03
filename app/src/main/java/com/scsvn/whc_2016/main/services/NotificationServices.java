@@ -19,7 +19,7 @@ import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.MainActivity;
 import com.scsvn.whc_2016.main.VersionInfo;
 import com.scsvn.whc_2016.main.capnhatphienban.CapNhatUngDungActivity;
-import com.scsvn.whc_2016.main.containerandtruckinfor.ContainerAndTruckInforActivity;
+import com.scsvn.whc_2016.main.containerandtruckinfor.ContainerAndTruckInfoActivity;
 import com.scsvn.whc_2016.main.phieucuatoi.PhieuCuaToiActivity;
 import com.scsvn.whc_2016.main.technical.assign.AssignWorkActivity;
 import com.scsvn.whc_2016.main.vesinhantoan.QHSEActivity;
@@ -94,10 +94,10 @@ public class NotificationServices extends IntentService {
                             notificationIntent = new Intent(context, PhieuCuaToiActivity.class);
                         } else if (info.getType().equalsIgnoreCase("CO")) {
                             idNotify = 13;
-                            notificationIntent = new Intent(context, ContainerAndTruckInforActivity.class);
+                            notificationIntent = new Intent(context, ContainerAndTruckInfoActivity.class);
                         } else if (info.getType().equalsIgnoreCase("TR")) {
                             idNotify = 14;
-                            notificationIntent = new Intent(context, ContainerAndTruckInforActivity.class);
+                            notificationIntent = new Intent(context, ContainerAndTruckInfoActivity.class);
                         } else {
                             idNotify = 15;
                             notificationIntent = new Intent(context, MainActivity.class);

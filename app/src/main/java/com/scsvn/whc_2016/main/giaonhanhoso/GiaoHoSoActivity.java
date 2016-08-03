@@ -40,7 +40,7 @@ public class GiaoHoSoActivity extends BaseActivity implements AdapterView.OnItem
 
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout refreshLayout;
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     private View.OnClickListener tryAgain;
     private String userName;
@@ -76,7 +76,7 @@ public class GiaoHoSoActivity extends BaseActivity implements AdapterView.OnItem
     }
 
     private void getDSDispatchingOrders(final View view) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);

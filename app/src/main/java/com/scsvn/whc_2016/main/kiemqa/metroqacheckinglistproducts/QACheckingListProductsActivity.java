@@ -40,7 +40,7 @@ import retrofit.Retrofit;
 public class QACheckingListProductsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static final String TAG = QACheckingListProductsActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.tv_metro_suppliers)
     TextView tvSuppliers;
@@ -80,7 +80,7 @@ public class QACheckingListProductsActivity extends AppCompatActivity implements
     }
 
     private void getMetroQACheckingProducts(final View view) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);

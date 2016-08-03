@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
         android:layout_toRightOf="@id/tv_cont_type"
-        android:textColor="#FF0000" />
+        android:textColor="#0000FF" />
 
     <TextView
         android:id="@+id/tv_cont_customer_name"

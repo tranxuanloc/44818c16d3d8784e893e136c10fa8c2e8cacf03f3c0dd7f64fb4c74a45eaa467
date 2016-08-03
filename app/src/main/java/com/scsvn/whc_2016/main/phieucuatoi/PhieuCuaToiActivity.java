@@ -20,8 +20,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
-import com.scsvn.whc_2016.main.detailphieu.DetailPhieuActivity;
-import com.scsvn.whc_2016.main.detailphieu.DetailPhieuActivityNoEMDK;
+import com.scsvn.whc_2016.main.detailphieu.OrderDetailWithMDKActivity;
+import com.scsvn.whc_2016.main.detailphieu.OrderDetailActivity;
 import com.scsvn.whc_2016.preferences.LoginPref;
 import com.scsvn.whc_2016.retrofit.InOutAvailableForSupervisorParameter;
 import com.scsvn.whc_2016.retrofit.MyOrderInfo;
@@ -42,7 +42,7 @@ import retrofit.Retrofit;
 
 public class PhieuCuaToiActivity extends BaseActivity implements AdapterView.OnItemClickListener {
     public static final String TAG = "PhieuCuaToiActivity";
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.tv_customerName)
     TextView tvCustomerName;
@@ -89,7 +89,7 @@ public class PhieuCuaToiActivity extends BaseActivity implements AdapterView.OnI
     }
 
     public void getPhieuCuaToi(final View view) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         refreshLayout.setRefreshing(false);
         if (!Utilities.isConnected(this)) {
@@ -119,7 +119,7 @@ public class PhieuCuaToiActivity extends BaseActivity implements AdapterView.OnI
     }
 
     public void getInOutAvailableForSupervisor(final View view) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         refreshLayout.setRefreshing(false);
         if (!Utilities.isConnected(this)) {
@@ -199,12 +199,12 @@ public class PhieuCuaToiActivity extends BaseActivity implements AdapterView.OnI
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
             Class.forName("com.symbol.emdk.EMDKManager");
-            Intent intent = new Intent(PhieuCuaToiActivity.this, DetailPhieuActivity.class);
-            intent.putExtra(DetailPhieuActivity.ORDER_NUMBER, adapter.getItem(position).getOrderNumber());
+            Intent intent = new Intent(PhieuCuaToiActivity.this, OrderDetailWithMDKActivity.class);
+            intent.putExtra(OrderDetailWithMDKActivity.ORDER_NUMBER, adapter.getItem(position).getOrderNumber());
             startActivity(intent);
         } catch (ClassNotFoundException e) {
-            Intent intent = new Intent(PhieuCuaToiActivity.this, DetailPhieuActivityNoEMDK.class);
-            intent.putExtra(DetailPhieuActivity.ORDER_NUMBER, adapter.getItem(position).getOrderNumber());
+            Intent intent = new Intent(PhieuCuaToiActivity.this, OrderDetailActivity.class);
+            intent.putExtra(OrderDetailWithMDKActivity.ORDER_NUMBER, adapter.getItem(position).getOrderNumber());
             startActivity(intent);
         }
     }

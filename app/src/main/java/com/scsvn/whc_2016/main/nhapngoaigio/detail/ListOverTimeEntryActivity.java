@@ -51,7 +51,7 @@ import retrofit.Retrofit;
 
 public class ListOverTimeEntryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TextView.OnEditorActionListener, CompoundButton.OnCheckedChangeListener, AdapterView.OnItemLongClickListener {
     private final String TAG = ListOverTimeEntryActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.et_list_over_time_id)
     EditText etEmID;
@@ -134,7 +134,7 @@ public class ListOverTimeEntryActivity extends AppCompatActivity implements Adap
 
     public void getOverTimeView(final View view, OverTimeViewParameter parameter) {
         Utilities.hideKeyboard(this);
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();
@@ -322,7 +322,7 @@ public class ListOverTimeEntryActivity extends AppCompatActivity implements Adap
     }
 
     public void executeOverTimeDelUpdate(final View view, OverTimeDelUpdateParameter parameter, final int position) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang xóa...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.deleting));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();

@@ -86,13 +86,13 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".main.detailphieu.DetailPhieuActivity"
+            android:name=".main.detailphieu.OrderDetailWithMDKActivity"
             android:label="@string/title_activity_scan_phieu_cua_toi"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".main.detailphieu.DetailPhieuActivityNoEMDK"
+            android:name=".main.detailphieu.OrderDetailActivity"
             android:label="@string/title_activity_scan_phieu_cua_toi"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -393,8 +393,13 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".main.containerandtruckinfor.ContainerAndTruckInforActivity"
+            android:name=".main.containerandtruckinfor.ContainerAndTruckInfoActivity"
             android:label="@string/title_container_information"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.vitritrong.FreeLocationDetailsActivity"
+            android:label="@string/title_activity_free_location_details"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

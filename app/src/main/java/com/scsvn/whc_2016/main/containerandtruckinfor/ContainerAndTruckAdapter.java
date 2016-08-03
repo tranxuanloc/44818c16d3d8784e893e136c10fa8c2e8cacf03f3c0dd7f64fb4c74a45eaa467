@@ -25,6 +25,7 @@ import java.util.Locale;
  * Created by Trần Xuân Lộc on 1/26/2016.
  */
 public class ContainerAndTruckAdapter extends ArrayAdapter<ContainerAndTruckInfo> {
+    long currentTime = System.currentTimeMillis();
     private LayoutInflater inflater;
 
     public ContainerAndTruckAdapter(Context context, List<ContainerAndTruckInfo> objects) {
@@ -42,15 +43,28 @@ public class ContainerAndTruckAdapter extends ArrayAdapter<ContainerAndTruckInfo
         } else
             holder = (ViewHolder) convertView.getTag();
         final ContainerAndTruckInfo info = getItem(position);
-        String phoneText = String.format(Locale.US, "SĐT: 0%d", info.DriverMobilePhone);
+        String phoneText = String.format(Locale.US, "0%d", info.DriverMobilePhone);
         SpannableString spanPhone = new SpannableString(phoneText);
-        spanPhone.setSpan(new UnderlineSpan(), 5, phoneText.length(), 0);
+        spanPhone.setSpan(new UnderlineSpan(), 0, phoneText.length(), 0);
         holder.tvNum.setText(info.ContainerNum);
         holder.tvCusName.setText(info.CustomerName);
         holder.tvCusNum.setText(info.CustomerNumber);
         holder.tvProgress.setText(String.format(Locale.US, "%d%%", info.TaskProgress));
-        holder.tvTimeIn.setText(Utilities.formatDate_HHmm(info.TimeIn));
-        holder.tvDefaultTime.setText(Utilities.formatDate_HHmm(info.DefaultProcessTime));
+        if (Utilities.notToday(info.DefaultProcessTime)) {
+            holder.tvDefaultTime.setText(Utilities.formatDate_ddMMHHmm(info.DefaultProcessTime));
+            holder.tvDefaultTime.setTextColor(Color.WHITE);
+        } else {
+            holder.tvDefaultTime.setText(Utilities.formatDate_HHmm(info.DefaultProcessTime));
+            holder.tvDefaultTime.setTextColor(Color.argb(255, 0x21, 0x8c, 0x00));
+        }
+
+        if (Utilities.notToday(info.TimeIn)) {
+            holder.tvTimeIn.setText(Utilities.formatDate_ddMMHHmm(info.TimeIn));
+        } else {
+            holder.tvTimeIn.setText(Utilities.formatDate_HHmm(info.TimeIn));
+
+        }
+
         String expect = Utilities.formatDate_HHmm(info.ExpectedProcessTime);
         if (expect.length() > 0) {
             holder.tvExpectTime.setText(expect);
@@ -75,8 +89,8 @@ public class ContainerAndTruckAdapter extends ArrayAdapter<ContainerAndTruckInfo
         else
             holder.tvType.setBackgroundColor(Color.argb(0xFF, 0x3F, 0x51, 0xB5));
         holder.tvType.setText(String.format("%s %s", info.ContainerType, info.Reason));
-        if (position % 2 == 0)
-            convertView.setBackgroundColor(ContextCompat.getColor(parent.getContext(), R.color.colorAlternativeRow));
+        if (Utilities.getMillisecondFromDate(info.DefaultProcessTime) < currentTime)
+            convertView.setBackgroundColor(ContextCompat.getColor(parent.getContext(), R.color.colorAlert));
         else
             convertView.setBackgroundColor(Color.WHITE);
         holder.tvPhone.setOnClickListener(new View.OnClickListener() {

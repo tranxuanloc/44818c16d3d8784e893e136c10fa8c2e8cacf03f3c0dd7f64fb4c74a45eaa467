@@ -39,7 +39,7 @@ public class AssignWorkActivity extends BaseActivity implements View.OnClickList
     protected static boolean isSuccess;
     private final int IMAGE = 101;
     private final int CAMERA = 102;
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout swipeRefresh;
@@ -103,7 +103,7 @@ public class AssignWorkActivity extends BaseActivity implements View.OnClickList
         //final String userName = LoginPref.getInfoUser(this, LoginPref.USERNAME);
         if (RetrofitError.getSnackbar() != null)
             RetrofitError.getSnackbar().dismiss();
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 
         if (!Utilities.isConnected(this)) {

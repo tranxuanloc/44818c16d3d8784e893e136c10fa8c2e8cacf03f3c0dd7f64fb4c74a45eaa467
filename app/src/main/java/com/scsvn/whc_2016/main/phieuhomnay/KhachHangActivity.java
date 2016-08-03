@@ -39,7 +39,7 @@ import retrofit.Retrofit;
 
 public class KhachHangActivity extends BaseActivity {
     public static final String TAG = KhachHangActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout refreshLayout;
@@ -92,7 +92,7 @@ public class KhachHangActivity extends BaseActivity {
         adapter.clear();
         if (RetrofitError.getSnackbar() != null)
             RetrofitError.getSnackbar().dismiss();
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         tvTotalWeight.setText("0");
         refreshLayout.setRefreshing(false);

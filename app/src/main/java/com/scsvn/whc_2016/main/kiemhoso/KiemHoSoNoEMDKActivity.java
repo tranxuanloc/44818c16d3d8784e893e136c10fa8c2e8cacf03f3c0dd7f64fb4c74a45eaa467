@@ -48,7 +48,7 @@ import retrofit.Retrofit;
 
 public class KiemHoSoNoEMDKActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener {
     private final String TAG = KiemHoSoNoEMDKActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.etScanResult)
     EditText etScanResult;
@@ -147,7 +147,7 @@ public class KiemHoSoNoEMDKActivity extends AppCompatActivity implements Adapter
     }
 
     public void getDSInventoryChecking(final View view, DSInventoryCheckingParameter parameter) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();
@@ -271,7 +271,7 @@ public class KiemHoSoNoEMDKActivity extends AppCompatActivity implements Adapter
     }
 
     public void executeInventoryCheckingDelete(final View view, int parameter, final int position) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang xóa...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.deleting));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();

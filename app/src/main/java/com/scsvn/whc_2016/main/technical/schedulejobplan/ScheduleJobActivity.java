@@ -35,7 +35,7 @@ public class ScheduleJobActivity extends AppCompatActivity {
     private final String TAG = ScheduleJobActivity.class.getSimpleName();
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout refreshLayout;
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.tvTotalHours)
     TextView tvTotalHours;
@@ -73,7 +73,7 @@ public class ScheduleJobActivity extends AppCompatActivity {
 
     private void getScheduleJobPlanInfo(final View view) {
         tvTotalHours.setText("");
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         refreshLayout.setRefreshing(false);
         if (!Utilities.isConnected(this)) {

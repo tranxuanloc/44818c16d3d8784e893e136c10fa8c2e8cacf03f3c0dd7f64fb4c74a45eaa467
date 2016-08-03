@@ -128,7 +128,7 @@ public class DetailContainerActivity extends BaseActivity {
     }
 
     public void getContainerInfo(final View view, int contInOutID) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();

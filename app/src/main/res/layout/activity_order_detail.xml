@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".main.detailphieu.DetailPhieuActivity">
+    tools:context=".main.detailphieu.OrderDetailWithMDKActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_detail_phieu" />
+    <include layout="@layout/content_order_detail" />
 
 
 </android.support.design.widget.CoordinatorLayout>

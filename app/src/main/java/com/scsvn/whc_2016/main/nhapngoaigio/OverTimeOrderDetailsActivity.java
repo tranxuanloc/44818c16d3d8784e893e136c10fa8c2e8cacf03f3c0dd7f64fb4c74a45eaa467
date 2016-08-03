@@ -31,7 +31,7 @@ import retrofit.Retrofit;
 
 public class OverTimeOrderDetailsActivity extends AppCompatActivity {
     private final String TAG = OverTimeOrderDetailsActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.tv_over_time_details_total)
     TextView tvTotal;
@@ -71,7 +71,7 @@ public class OverTimeOrderDetailsActivity extends AppCompatActivity {
     }
 
     public void getEmployeeID(final View view) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 
         if (!Utilities.isConnected(this)) {

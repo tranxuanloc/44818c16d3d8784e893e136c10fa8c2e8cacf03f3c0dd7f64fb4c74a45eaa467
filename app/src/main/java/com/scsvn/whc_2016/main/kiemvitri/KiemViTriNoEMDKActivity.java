@@ -42,7 +42,7 @@ import retrofit.Retrofit;
 
 public class KiemViTriNoEMDKActivity extends AppCompatActivity {
     private final String TAG = KiemViTriNoEMDKActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.etScanResult)
     EditText etScanResult;
@@ -133,7 +133,7 @@ public class KiemViTriNoEMDKActivity extends AppCompatActivity {
     }
 
     public void getLocationChecking(final View view, String locationCheck) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();

@@ -9,7 +9,7 @@
     <string name="title_activity_hom_nay">Phiếu hôm nay</string>
     <string name="try_again">Thử lại</string>
     <string name="title_activity_phieu_cua_toi">Phiếu của tôi</string>
-    <string name="title_activity_scan_phieu_cua_toi">Chi tiết phiếu của tôi</string>
+    <string name="title_activity_scan_phieu_cua_toi">Order detail</string>
     <string name="title_activity_chup_hinh">Chụp hình đơn hàng</string>
     <string name="search_phieu">Tìm theo loại phiếu</string>
     <string name="title_activity_worker">Nhân Viên</string>
@@ -23,7 +23,7 @@
     <string name="search_khach_hang">Tìm theo tên hoặc mã khách hàng</string>
     <string name="percent_symbol">Năng suất (%)</string>
     <string name="hoan_thanh">Hoàn Thành</string>
-    <string name="tong_so_thung">Thực nhập</string>
+    <string name="tong_so_thung">Thực nhập/xuất</string>
     <string name="sai_lech">Sai lệch</string>
     <string name="dv_cnts">(cnts)</string>
     <string name="so_xe">Số Xe</string>
@@ -175,7 +175,7 @@
     <string name="dep_adm">Adm</string>
     <string name="dep_services">Services</string>
     <string name="sort">Sort</string>
-    <string name="no">Product No</string>
+    <string name="product_no">Product No</string>
     <string name="product_name">Product Name</string>
     <string name="nxs">NXS</string>
     <string name="hsd">HSD</string>
@@ -265,5 +265,20 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_free_location_details">Free Location Details</string>
+    <string name="gs_xac_nhan">GS Xác nhận</string>
+    <string name="chu_thich">Chú thích ...</string>
+    <string name="co_nhiet_ke_tren_xe">Có nhiệt kế đi kèm trên xe/cont</string>
+    <string name="xe_he_mop_meo">Xe Hư, móp có sẵn</string>
+    <string name="xe_binh_thuong">Xe Bình thường</string>
+    <string name="so_luong">Số lượng</string>
+    <string name="hang_chat_tren_pallet">Hàng chất trên Pallet</string>
+    <string name="nhiet_do_tren_may_lanh">T℃ trên m.lạnh</string>
+    <string name="tong_phan_tram">Tổng % BX</string>
+    <string name="nhiet_do_hang">T℃ hàng</string>
+    <string name="loading_data">Đang tải dữ liệu...</string>
+    <string name="deleting">Đang xóa...</string>
+    <string name="delete">Xóa</string>
+    <string name="no">Không</string>
 
 </resources>

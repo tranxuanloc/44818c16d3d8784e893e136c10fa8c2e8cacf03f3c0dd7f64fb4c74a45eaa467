@@ -53,7 +53,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class KiemPalletCartonActivity extends BaseActivity implements Scanner.DataListener, Scanner.StatusListener {
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout refreshLayout;
@@ -134,7 +134,7 @@ public class KiemPalletCartonActivity extends BaseActivity implements Scanner.Da
 
     private void getPalletCarton(final View view) {
         Utilities.hideKeyboard(this);
-        dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();

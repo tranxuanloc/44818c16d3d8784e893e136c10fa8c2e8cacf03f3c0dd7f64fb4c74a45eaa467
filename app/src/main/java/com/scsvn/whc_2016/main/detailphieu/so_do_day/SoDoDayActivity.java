@@ -69,7 +69,7 @@ public class SoDoDayActivity extends BaseActivity implements SoDoDayAdapter.OnEd
         };
 
         gridView.setHasFixedSize(true);
-        dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         getLoadingReport(gridView);
     }
 

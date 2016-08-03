@@ -134,7 +134,7 @@ public class MetroCheckingProductActivity extends AppCompatActivity {
     }
 
     private void getMetroQACheckingProducts(final View view) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);

@@ -34,7 +34,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class StockOnHandActivity extends AppCompatActivity {
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout refreshLayout;
@@ -84,7 +84,7 @@ public class StockOnHandActivity extends AppCompatActivity {
     public void getStockOnHand(final View view) {
         if (RetrofitError.getSnackbar() != null)
             RetrofitError.getSnackbar().dismiss();
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 
         if (!Utilities.isConnected(this)) {

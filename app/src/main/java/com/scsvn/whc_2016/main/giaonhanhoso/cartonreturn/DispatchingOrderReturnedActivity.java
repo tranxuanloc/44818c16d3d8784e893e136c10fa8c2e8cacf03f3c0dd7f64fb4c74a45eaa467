@@ -41,7 +41,7 @@ import retrofit.Retrofit;
 
 public class DispatchingOrderReturnedActivity extends AppCompatActivity implements ReceivingCartonReturnAdapter.ChoiceListener {
     private final String TAG = DispatchingOrderReturnedActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.tv_carton_return_total)
     TextView tvTotal;
@@ -76,7 +76,7 @@ public class DispatchingOrderReturnedActivity extends AppCompatActivity implemen
     }
 
     private void getDSReceivingCartonReturnList(final View view) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);

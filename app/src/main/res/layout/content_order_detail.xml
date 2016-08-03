@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".main.detailphieu.DetailPhieuActivity"
+    tools:context=".main.detailphieu.OrderDetailWithMDKActivity"
     tools:showIn="@layout/activity_order_detail">
 
     <EditText
@@ -126,11 +126,10 @@
         android:layout_above="@id/bottom"
         android:layout_below="@id/header">
 
-        <ExpandableListView
-            android:id="@+id/lvOrderDetail"
+        <ListView
+            android:id="@+id/lv_order_detail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:groupIndicator="@null" />
+            android:layout_height="wrap_content" />
 
         <View
             android:layout_width="match_parent"

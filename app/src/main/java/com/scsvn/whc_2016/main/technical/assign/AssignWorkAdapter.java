@@ -351,7 +351,7 @@ public class AssignWorkAdapter extends ArrayAdapter<AssignWorkInfo> implements V
     }
 
     private void deleteQHSE(final View view, InsertAssignWorkParameter parameter) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(getContext(), "Đang xóa...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(getContext(), getContext().getString(R.string.deleting));
         dialog.show();
 
         if (!Utilities.isConnected(getContext())) {

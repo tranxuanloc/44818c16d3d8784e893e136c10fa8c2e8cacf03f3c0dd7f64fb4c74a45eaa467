@@ -53,7 +53,7 @@ import retrofit.Retrofit;
 
 public class EquipmentInventoryActivity extends AppCompatActivity implements Scanner.DataListener, Scanner.StatusListener {
     private final String TAG = EquipmentInventoryActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.etScanResult)
     EditText etScanResult;
@@ -98,7 +98,7 @@ public class EquipmentInventoryActivity extends AppCompatActivity implements Sca
     }
 
     public void getEquipmentInventory(final View view, EquipmentInventoryParameter parameter) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();

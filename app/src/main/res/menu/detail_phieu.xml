@@ -9,7 +9,7 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/action_detail_no"
-                    android:title="@string/no" />
+                    android:title="@string/product_no" />
                 <item
                     android:id="@+id/action_detail_name"
                     android:title="@string/product_name" />

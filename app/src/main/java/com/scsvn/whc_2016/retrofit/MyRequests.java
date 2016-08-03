@@ -7,7 +7,7 @@ import com.scsvn.whc_2016.main.chuyenhang.ListPalletIDInfo;
 import com.scsvn.whc_2016.main.chuyenhang.LocationInfo;
 import com.scsvn.whc_2016.main.chuyenhang.lichsu.StockMovementHistoriesInfo;
 import com.scsvn.whc_2016.main.containerandtruckinfor.ContainerAndTruckInfo;
-import com.scsvn.whc_2016.main.detailphieu.DetailPhieuInfo;
+import com.scsvn.whc_2016.main.detailphieu.OrderDetail;
 import com.scsvn.whc_2016.main.detailphieu.RequirementInfo;
 import com.scsvn.whc_2016.main.detailphieu.chuphinh.AttachmentInfo;
 import com.scsvn.whc_2016.main.detailphieu.chuphinh.OrderInfo;
@@ -56,6 +56,7 @@ import com.scsvn.whc_2016.main.tonkho.detailproduct.StockOnHandDetailsInfo;
 import com.scsvn.whc_2016.main.tonkho.khachhang.StockOnHandInfo;
 import com.scsvn.whc_2016.main.vesinhantoan.CommentInfo;
 import com.scsvn.whc_2016.main.vesinhantoan.QHSEInfo;
+import com.scsvn.whc_2016.main.vitritrong.FreeLocationDetailsInfo;
 import com.scsvn.whc_2016.main.vitritrong.FreeLocationInfo;
 import com.squareup.okhttp.RequestBody;
 
@@ -90,7 +91,7 @@ public interface MyRequests {
     Call<List<PhieuCuaToiInfo>> getInOutAvailableForSupervisor(@Body InOutAvailableForSupervisorParameter myOrderInfo);
 
     @POST("/api/ordersresult")
-    Call<List<DetailPhieuInfo>> getDetailPhieu(@Body OrdersInfo orderNumber);
+    Call<List<OrderDetail>> getDetailPhieu(@Body OrdersInfo orderNumber);
 
     @POST("/api/LoadingReport")
     Call<List<LoadingReportInfo>> getLoadingReport(@Body LoadingReportParameter parameter);
@@ -233,6 +234,9 @@ public interface MyRequests {
 
     @POST("/api/FreeLocation")
     Call<List<FreeLocationInfo>> getFreeLocation();
+
+    @POST("/api/FreeLocationDetails")
+    Call<List<FreeLocationDetailsInfo>> getFreeLocationDetails(@Body String roomID);
 
 
     @POST("/api/FreeLocationUpdate")

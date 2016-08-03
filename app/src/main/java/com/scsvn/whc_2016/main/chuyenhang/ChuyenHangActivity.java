@@ -172,7 +172,7 @@ public class ChuyenHangActivity extends AppCompatActivity implements TextView.On
 
     private void getStockMovement(final View view) {
         Utilities.hideKeyboard(this);
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);

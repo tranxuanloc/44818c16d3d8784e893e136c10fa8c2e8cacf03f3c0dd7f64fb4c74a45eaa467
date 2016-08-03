@@ -16,7 +16,7 @@ import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.capnhatphienban.CapNhatUngDungActivity;
 import com.scsvn.whc_2016.main.changepassword.ChangePasswordActivity;
 import com.scsvn.whc_2016.main.chuyenhang.ChuyenHangActivity;
-import com.scsvn.whc_2016.main.containerandtruckinfor.ContainerAndTruckInforActivity;
+import com.scsvn.whc_2016.main.containerandtruckinfor.ContainerAndTruckInfoActivity;
 import com.scsvn.whc_2016.main.equipment.EquipmentInventoryActivity;
 import com.scsvn.whc_2016.main.equipment.EquipmentInventoryNoEMDKActivity;
 import com.scsvn.whc_2016.main.giaonhanhoso.GiaoHoSoActivity;
@@ -173,7 +173,7 @@ public class MenuAdapter extends ArrayAdapter<MenuInfo> {
         else if (tag == 23)
             context.startActivity(new Intent(context, ScheduleJobActivity.class));
         else if (tag == 13)
-            context.startActivity(new Intent(context, ContainerAndTruckInforActivity.class));
+            context.startActivity(new Intent(context, ContainerAndTruckInfoActivity.class));
         else if (tag == 24) {
             try {
                 Class.forName("com.symbol.emdk.EMDKManager");

@@ -35,7 +35,7 @@ import retrofit.Retrofit;
 
 public class StockOnHandByCustomerActivity extends AppCompatActivity {
     public static final String TAG = StockOnHandByCustomerActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.tv_customerName)
     TextView cusName;
@@ -80,7 +80,7 @@ public class StockOnHandByCustomerActivity extends AppCompatActivity {
     public void getStockOnHandByCustomer(final View view) {
         if (RetrofitError.getSnackbar() != null)
             RetrofitError.getSnackbar().dismiss();
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 
         if (!Utilities.isConnected(this)) {

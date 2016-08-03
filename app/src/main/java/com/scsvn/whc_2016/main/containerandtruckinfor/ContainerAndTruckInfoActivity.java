@@ -49,7 +49,7 @@ public class ContainerAndTruckInfoActivity extends AppCompatActivity {
                 getContainerAndTruckInfor(toolbar);
             }
         });
-        ListView listView = (ListView) findViewById(R.id.listView);
+        ListView listView = (ListView) findViewById(R.id.lvOrderDetail);
         assert listView != null;
         adapter = new ContainerAndTruckAdapter(this, new LinkedList<ContainerAndTruckInfo>());
         listView.setAdapter(adapter);

@@ -45,7 +45,7 @@ import retrofit.Retrofit;
 public class LichSuRaVaoActivity extends BaseActivity implements AdapterView.OnItemClickListener {
     public static final String REPORT_DATE = "reportDate";
     public static final String DEPARTMENT_INDEX = "departmentIndex";
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.btChooceDate)
     Button btChooseDate;
@@ -96,7 +96,7 @@ public class LichSuRaVaoActivity extends BaseActivity implements AdapterView.OnI
         else
             btChooseDate.setTextColor(Color.BLACK);
 
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);

@@ -38,7 +38,7 @@ import retrofit.Retrofit;
 public class GiaoViecActivity extends BaseActivity implements AdapterView.OnItemClickListener {
     private final String TAG = "GiaoViecActivity";
 
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.ac_employeeID)
     AppCompatAutoCompleteTextView acEmployeeID;
@@ -73,7 +73,7 @@ public class GiaoViecActivity extends BaseActivity implements AdapterView.OnItem
         adapter.clear();
         if (RetrofitError.getSnackbar() != null)
             RetrofitError.getSnackbar().dismiss();
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 
         if (!Utilities.isConnected(this)) {
@@ -156,7 +156,7 @@ public class GiaoViecActivity extends BaseActivity implements AdapterView.OnItem
         Log.e(TAG, "deleteEmployeeID: " + employeeWorkingID);
         if (RetrofitError.getSnackbar() != null)
             RetrofitError.getSnackbar().dismiss();
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang xóa...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.deleting));
         dialog.show();
 
         if (!Utilities.isConnected(this)) {

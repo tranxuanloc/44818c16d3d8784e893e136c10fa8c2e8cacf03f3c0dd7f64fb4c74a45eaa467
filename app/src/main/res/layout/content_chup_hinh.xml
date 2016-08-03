@@ -103,7 +103,7 @@
         android:background="@drawable/shadow" />
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/lvOrderDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/rl_order_info" />

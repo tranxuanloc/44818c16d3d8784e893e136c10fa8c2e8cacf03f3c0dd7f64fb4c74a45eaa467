@@ -222,6 +222,13 @@ public class Utilities {
         return 0;
     }
 
+    public static boolean notToday(String date) {
+        Calendar ca = Calendar.getInstance();
+        int dayToday = ca.get(Calendar.DAY_OF_MONTH);
+        ca.setTimeInMillis(getMillisecondFromDate(date));
+        return ca.get(Calendar.DAY_OF_MONTH) != dayToday;
+    }
+
     public static String convertMinute(long minute) {
         String result = String.format(Locale.US, "%d phút", minute);
         if (minute > (23 * 60 + 59))

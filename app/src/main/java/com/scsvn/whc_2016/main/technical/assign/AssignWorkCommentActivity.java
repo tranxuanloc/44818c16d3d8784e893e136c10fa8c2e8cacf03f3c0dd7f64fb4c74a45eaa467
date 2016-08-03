@@ -42,7 +42,7 @@ public class AssignWorkCommentActivity extends BaseActivity implements AdapterVi
     public static final String QHSE_SUBJECT = "qhse_subject";
     public static final String CONFIRMED = "CONFIRMED";
     private final String TAG = AssignWorkCommentActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.tv_qhse_subject)
     TextView tvSubject;
@@ -94,7 +94,7 @@ public class AssignWorkCommentActivity extends BaseActivity implements AdapterVi
         CommentParameter parameter = new CommentParameter(comment, userName, commentID, "", flag, qhseID);
         if (RetrofitError.getSnackbar() != null)
             RetrofitError.getSnackbar().dismiss();
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 
         if (!Utilities.isConnected(this)) {

@@ -38,7 +38,7 @@ public class KiemContainerActivity extends BaseActivity implements AdapterView.O
 
     public static boolean isUpdated;
     private final String TAG = "KiemContainerActivity";
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout refreshLayout;
@@ -81,7 +81,7 @@ public class KiemContainerActivity extends BaseActivity implements AdapterView.O
     }
 
     public void getListContainer(final View view) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();
@@ -109,7 +109,7 @@ public class KiemContainerActivity extends BaseActivity implements AdapterView.O
     }
 
     public void getHistoryChecking(final View view, int ContID, final String customerName) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();
@@ -137,7 +137,7 @@ public class KiemContainerActivity extends BaseActivity implements AdapterView.O
     private void dialogHistoryContainerChecking(Response<List<HistoryCheckingInfo>> response, String customerName) {
         View view = View.inflate(KiemContainerActivity.this, R.layout.history_container_checking, null);
         ((TextView) view.findViewById(R.id.tv_history_checking_name)).setText(customerName);
-        ListView listView = (ListView) view.findViewById(R.id.listView);
+        ListView listView = (ListView) view.findViewById(R.id.lvOrderDetail);
         listView.setAdapter(new HistoryCheckingAdapter(KiemContainerActivity.this, response.body()));
         AlertDialog dialogHistory = new AlertDialog.Builder(KiemContainerActivity.this).setView(view).create();
         dialogHistory.show();

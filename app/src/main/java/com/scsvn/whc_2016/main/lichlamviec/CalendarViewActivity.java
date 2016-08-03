@@ -129,7 +129,7 @@ public class CalendarViewActivity extends AppCompatActivity {
     }
 
     private void getWorkingSchedules(final View view) {
-        dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);

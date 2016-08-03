@@ -57,7 +57,7 @@ public class ChupHinhActivity extends BaseActivity {
     private final int REQUEST_CODE_CAMERA = 123;
     private final int REQUEST_CODE_CHOOSE_PICTURE = 124;
     private final String TAG = "ChupHinhActivity";
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.tv_order_id)
     TextView tvOrderID;
@@ -126,7 +126,7 @@ public class ChupHinhActivity extends BaseActivity {
     }
 
     public void getOrderInfo(final View view) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 
         if (!Utilities.isConnected(this)) {

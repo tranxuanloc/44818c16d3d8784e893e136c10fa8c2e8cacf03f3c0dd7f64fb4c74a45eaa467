@@ -65,7 +65,7 @@ public class GiaoHoSoDetailNoEMDKActivity extends BaseActivity implements Adapte
     public static final String TAG = GiaoHoSoDetailNoEMDKActivity.class.getSimpleName();
     public static final int REQUEST_CODE = 1411;
 
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.etScanResult)
     EditText etScanResult;
@@ -142,7 +142,7 @@ public class GiaoHoSoDetailNoEMDKActivity extends BaseActivity implements Adapte
     }
 
     private void getDSDispatchingOrdersDetail(final View view) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);
@@ -258,7 +258,7 @@ public class GiaoHoSoDetailNoEMDKActivity extends BaseActivity implements Adapte
     }
 
     private void executeDSROCartonDelete(final View view, DSROCartonDeleteParameter parameter, final int position) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang xóa...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.deleting));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);

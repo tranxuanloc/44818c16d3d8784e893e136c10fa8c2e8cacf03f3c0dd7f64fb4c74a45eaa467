@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,7 +24,6 @@ import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.scsvn.whc_2016.R;
-import com.scsvn.whc_2016.login.LoginActivity;
 import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.main.detailphieu.chuphinh.ScanCameraPortrait;
 import com.scsvn.whc_2016.preferences.LoginPref;
@@ -48,7 +46,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class NhapHoSoNoEMDKActivity extends BaseActivity {
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout refreshLayout;
@@ -196,7 +194,7 @@ public class NhapHoSoNoEMDKActivity extends BaseActivity {
     }
 
     public void getReceivingOrderDetails(final View view, ReceivingOrderDetailParameter parameter) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();

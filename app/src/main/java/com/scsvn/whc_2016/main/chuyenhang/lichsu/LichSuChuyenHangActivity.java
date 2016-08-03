@@ -29,11 +29,11 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class LichSuChuyenHangActivity extends AppCompatActivity {
-    @Bind(R.id.listView)
+    private static final String TAG = LichSuChuyenHangActivity.class.getSimpleName();
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout refreshLayout;
-    private static final String TAG = LichSuChuyenHangActivity.class.getSimpleName();
     private String userName;
     private View.OnClickListener tryAgain;
     private HistoryAdapter adapter;
@@ -67,7 +67,7 @@ public class LichSuChuyenHangActivity extends AppCompatActivity {
 
     private void getStockMovementHistories(final View view) {
         Utilities.hideKeyboard(this);
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);

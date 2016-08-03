@@ -42,7 +42,7 @@ import retrofit.Retrofit;
 
 public class MetroCartonActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener {
     private final String TAG = MetroCartonActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.tv_metro_carton_product_name)
     TextView tvProductName;
@@ -81,7 +81,7 @@ public class MetroCartonActivity extends AppCompatActivity implements AdapterVie
     }
 
     private void getMetroQACheckingCarton(final View view) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);

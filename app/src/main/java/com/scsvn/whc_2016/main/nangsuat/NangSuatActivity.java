@@ -33,7 +33,7 @@ import retrofit.Retrofit;
 
 public class NangSuatActivity extends BaseActivity {
     public static final String TAG = NangSuatActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ExpandableListView listView;
     @Bind(R.id.tv_performance_all_total)
     TextView tvTotal;
@@ -77,7 +77,7 @@ public class NangSuatActivity extends BaseActivity {
 
     private void getNangSuat(final View view) {
         total = 0;
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();

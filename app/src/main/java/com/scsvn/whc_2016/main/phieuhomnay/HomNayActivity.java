@@ -18,8 +18,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
-import com.scsvn.whc_2016.main.detailphieu.DetailPhieuActivity;
-import com.scsvn.whc_2016.main.detailphieu.DetailPhieuActivityNoEMDK;
+import com.scsvn.whc_2016.main.detailphieu.OrderDetailWithMDKActivity;
+import com.scsvn.whc_2016.main.detailphieu.OrderDetailActivity;
 import com.scsvn.whc_2016.main.phieuhomnay.giaoviec.GiaoViecActivity;
 import com.scsvn.whc_2016.retrofit.InOutToDayInfo;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
@@ -40,7 +40,7 @@ import retrofit.Retrofit;
 public class HomNayActivity extends BaseActivity implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
 
     public static final String TAG = "HomNayActivity";
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.tv_customerName)
     TextView cusName;
@@ -76,7 +76,7 @@ public class HomNayActivity extends BaseActivity implements AdapterView.OnItemLo
         adapter.clear();
         if (RetrofitError.getSnackbar() != null)
             RetrofitError.getSnackbar().dismiss();
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 
         if (!Utilities.isConnected(this)) {
@@ -165,13 +165,13 @@ public class HomNayActivity extends BaseActivity implements AdapterView.OnItemLo
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
             Class.forName("com.symbol.emdk.EMDKManager");
-            Intent intent = new Intent(HomNayActivity.this, DetailPhieuActivity.class);
-            intent.putExtra(DetailPhieuActivity.ORDER_NUMBER, adapter.getItem(position).getOrderNumber());
+            Intent intent = new Intent(HomNayActivity.this, OrderDetailWithMDKActivity.class);
+            intent.putExtra(OrderDetailWithMDKActivity.ORDER_NUMBER, adapter.getItem(position).getOrderNumber());
             intent.putExtra("SCAN_TYPE", adapter.getItem(position).getScannedType());
             startActivity(intent);
         } catch (ClassNotFoundException e) {
-            Intent intent = new Intent(HomNayActivity.this, DetailPhieuActivityNoEMDK.class);
-            intent.putExtra(DetailPhieuActivity.ORDER_NUMBER, adapter.getItem(position).getOrderNumber());
+            Intent intent = new Intent(HomNayActivity.this, OrderDetailActivity.class);
+            intent.putExtra(OrderDetailWithMDKActivity.ORDER_NUMBER, adapter.getItem(position).getOrderNumber());
             intent.putExtra("SCAN_TYPE", adapter.getItem(position).getScannedType());
             startActivity(intent);
         }

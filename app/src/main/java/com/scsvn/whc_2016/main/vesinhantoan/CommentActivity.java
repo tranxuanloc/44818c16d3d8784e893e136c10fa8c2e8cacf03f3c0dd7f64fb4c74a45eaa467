@@ -37,7 +37,7 @@ import retrofit.Retrofit;
  * Created by tranxuanloc on 3/22/2016.
  */
 public class CommentActivity extends BaseActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.tv_qhse_subject)
     TextView tvSubject;
@@ -87,7 +87,7 @@ public class CommentActivity extends BaseActivity implements AdapterView.OnItemC
         CommentParameter parameter = new CommentParameter(comment, userName, commentID, "", flag, qhseID);
         if (RetrofitError.getSnackbar() != null)
             RetrofitError.getSnackbar().dismiss();
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 
         if (!Utilities.isConnected(this)) {

@@ -44,7 +44,7 @@ import retrofit.Retrofit;
 
 public class LichLamViecActivity extends AppCompatActivity {
     private final String TAG = LichLamViecActivity.class.getSimpleName();
-    @Bind(R.id.listView)
+    @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.btChooceDate)
     Button btChooseDate;
@@ -94,7 +94,7 @@ public class LichLamViecActivity extends AppCompatActivity {
         else
             btChooseDate.setTextColor(Color.BLACK);
 
-        dialog = Utilities.getProgressDialog(this, "Đang tải dữ liệu...");
+        dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);
