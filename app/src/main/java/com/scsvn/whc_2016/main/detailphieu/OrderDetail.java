@@ -1,5 +1,6 @@
 package com.scsvn.whc_2016.main.detailphieu;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +16,13 @@ import butterknife.ButterKnife;
 /**
  * Created by Trần Xuân Lộc on 1/3/2016.
  */
-public class DetailPhieuInfo implements Item {
-    @SerializedName("DO")
-    public String DO;
-    @SerializedName("SpecialRequirement")
-    public String SpecialRequirement;
+public class OrderDetail implements Item {
     @SerializedName("BarcodeScanDetailID")
     public int BarcodeScanDetailID;
+    @SerializedName("DO")
+    private String DO;
+    @SerializedName("SpecialRequirement")
+    private String SpecialRequirement;
     @SerializedName("PalletID")
     private String PalletID;
     @SerializedName("ProductNumber")
@@ -50,6 +51,10 @@ public class DetailPhieuInfo implements Item {
     private String ScannedType;
     @SerializedName("RemainByProductAtLocation")
     private int RemainByProductAtLocation;
+
+    public String getSpecialRequirement() {
+        return SpecialRequirement;
+    }
 
     public String getScannedType() {
         return ScannedType;
@@ -107,13 +112,13 @@ public class DetailPhieuInfo implements Item {
         return IsRecordNew;
     }
 
-    @Override
-    public int getViewType() {
-        return DetailPhieuAdapter.RowType.TYPE_ITEM.ordinal();
+    public String getDO() {
+        return DO;
     }
 
+
     @Override
-    public View getItem(LayoutInflater inflater, View convertView) {
+    public View getItem(Context context, LayoutInflater inflater, View convertView) {
         ChildViewHolder holder;
         if (convertView == null || !(convertView.getTag() instanceof ChildViewHolder)) {
             convertView = inflater.inflate(R.layout.item_detail_phieu, null);

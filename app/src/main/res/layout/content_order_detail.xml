@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".main.detailphieu.DetailPhieuActivity"
-    tools:showIn="@layout/activity_detail_phieu">
+    tools:showIn="@layout/activity_order_detail">
 
     <EditText
         android:id="@+id/etTakeScannerResult"
@@ -127,7 +127,7 @@
         android:layout_below="@id/header">
 
         <ExpandableListView
-            android:id="@+id/listView"
+            android:id="@+id/lvOrderDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:groupIndicator="@null" />

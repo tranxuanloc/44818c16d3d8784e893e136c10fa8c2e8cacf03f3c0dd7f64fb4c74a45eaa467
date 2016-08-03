@@ -23,8 +23,8 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class ContainerAndTruckInforActivity extends AppCompatActivity {
-    private static final String TAG = ContainerAndTruckInforActivity.class.getSimpleName();
+public class ContainerAndTruckInfoActivity extends AppCompatActivity {
+    private static final String TAG = ContainerAndTruckInfoActivity.class.getSimpleName();
     private View.OnClickListener tryAgain;
     private MenuItem item_gate;
     private int gate;
