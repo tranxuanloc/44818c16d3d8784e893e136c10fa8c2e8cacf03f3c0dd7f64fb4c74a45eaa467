@@ -21,6 +21,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_worker" />
+    <include layout="@layout/fragment_worker_ro" />
 
 </android.support.design.widget.CoordinatorLayout>

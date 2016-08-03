@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:id="@+id/containerBocXep3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="1px"
+            android:layout_height="1px">
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:focusable="true"
+            android:text="@string/boc_xep_3" />
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/actv_worker_boc_xep_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:completionThreshold="1"
+            android:ems="10"
+            android:hint="@string/id"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/et_worker_boc_xep_percent_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:hint="@string/percent_symbol"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/containerBocXep4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/containerBocXep3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/boc_xep_4" />
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/actv_worker_boc_xep_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:completionThreshold="1"
+            android:ems="10"
+            android:hint="@string/id"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/et_worker_boc_xep_percent_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:hint="@string/percent_symbol"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/containerBocXep5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/containerBocXep4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/boc_xep_5" />
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/actv_worker_boc_xep_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:completionThreshold="1"
+            android:ems="10"
+            android:hint="@string/id"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/et_worker_boc_xep_percent_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:hint="@string/percent_symbol"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/containerWalkie3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/containerBocXep5"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/walkie_3" />
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/actv_worker_walkie_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:completionThreshold="1"
+            android:ems="10"
+            android:hint="@string/id"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/et_worker_walkie_percent_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:hint="@string/percent_symbol"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/containerWalkie4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/containerWalkie3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/walkie_4" />
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/actv_worker_walkie_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:completionThreshold="1"
+            android:ems="10"
+            android:hint="@string/id"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/et_worker_walkie_percent_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:hint="@string/percent_symbol"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/containerDriver2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/containerWalkie4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/tai_xe_2" />
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/actv_worker_tai_xe_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:completionThreshold="1"
+            android:ems="10"
+            android:hint="@string/id"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/et_worker_tai_xe_percent_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:hint="@string/percent_symbol"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true" />
+
+    </LinearLayout>
+
+</RelativeLayout>
