@@ -391,7 +391,7 @@
             android:label="@string/title_activity_equipment_inventory"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".main.containerandtruckinfor.ContainerAndTruckInfoActivity"
             android:label="@string/title_container_information"
@@ -402,6 +402,19 @@
             android:label="@string/title_activity_free_location_details"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.opportunity.ListOpportunityActivity"
+            android:label="@string/title_list_opportunity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.opportunity.add.AddOpportunityActivity"
+            android:label="@string/title_activity_add_opportunity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.opportunity.OpportunityDetailActivity"
+            android:label="@string/title_activity_opportunity_detail"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

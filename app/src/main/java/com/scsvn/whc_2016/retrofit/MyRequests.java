@@ -41,6 +41,7 @@ import com.scsvn.whc_2016.main.nhapngoaigio.EmployeeIDFindInfo;
 import com.scsvn.whc_2016.main.nhapngoaigio.OverTimeOrderDetailsInfo;
 import com.scsvn.whc_2016.main.nhapngoaigio.detail.OverTimeViewInfo;
 import com.scsvn.whc_2016.main.nhapngoaigio.detail.PayRollMonthIDInfo;
+import com.scsvn.whc_2016.main.opportunity.Opportunity;
 import com.scsvn.whc_2016.main.palletcartonchecking.MovementHistoryInfo;
 import com.scsvn.whc_2016.main.palletcartonchecking.PalletCartonInfo;
 import com.scsvn.whc_2016.main.phieucuatoi.PhieuCuaToiInfo;
@@ -343,5 +344,11 @@ public interface MyRequests {
 
     @POST("/api/ContainerAndTruckInfor")
     Call<List<ContainerAndTruckInfo>> getContainerAndTruckInfor(@Body int gate);
+
+    @POST("/api/CRMOpportunities")
+    Call<List<Opportunity>> getOpportunities();
+
+    @POST("/api/CRMOpportunitiesInsert")
+    Call<String> addOpportunities(@Body OpportunityParameter parameter);
 
 }

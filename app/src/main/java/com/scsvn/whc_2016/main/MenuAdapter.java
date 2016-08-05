@@ -33,6 +33,7 @@ import com.scsvn.whc_2016.main.nangsuat.NangSuatActivity;
 import com.scsvn.whc_2016.main.nhaphoso.NhapHoSoActivity;
 import com.scsvn.whc_2016.main.nhaphoso.NhapHoSoNoEMDKActivity;
 import com.scsvn.whc_2016.main.nhapngoaigio.detail.ListOverTimeEntryActivity;
+import com.scsvn.whc_2016.main.opportunity.ListOpportunityActivity;
 import com.scsvn.whc_2016.main.palletcartonchecking.KiemPalletCartonActivity;
 import com.scsvn.whc_2016.main.palletcartonchecking.KiemPalletCartonNoEMDKActivity;
 import com.scsvn.whc_2016.main.phieucuatoi.PhieuCuaToiActivity;
@@ -181,7 +182,8 @@ public class MenuAdapter extends ArrayAdapter<MenuInfo> {
             } catch (ClassNotFoundException e) {
                 context.startActivity(new Intent(context, EquipmentInventoryNoEMDKActivity.class));
             }
-        }
+        } else if (tag == 15)
+            context.startActivity(new Intent(context, ListOpportunityActivity.class));
     }
 
     static class ViewHolder {

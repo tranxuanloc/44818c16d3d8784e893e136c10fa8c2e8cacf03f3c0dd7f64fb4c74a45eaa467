@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="com.scsvn.whc_2016.main.opportunity.add.AddOpportunityActivity">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/et_opportunity_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/opportunity_name"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/et_opportunity_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/opportunity_description"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/et_opportunity_assign_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/opportunity_assign_to_user"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/et_opportunity_probability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/opportunity_probability"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/et_opportunity_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/opportunity_type"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/et_opportunity_sale_stage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/opportunity_sale_stage"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/opportunity_forecasting"
+                android:textColor="#000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_opportunity_pallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/opportunity_pallets"
+                    android:imeOptions="actionNext"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/et_opportunity_carton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/opportunity_cartons"
+                    android:imeOptions="actionNext"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/et_opportunity_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/opportunity_units"
+                    android:imeOptions="actionNext"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/et_opportunity_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/opportunity_weights"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_opportunity_close_date"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:background="#EEE"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/opportunity_close_date"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_done_add_opportunity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_action_done" />
+    </android.support.design.widget.CoordinatorLayout>
+
+</ScrollView>

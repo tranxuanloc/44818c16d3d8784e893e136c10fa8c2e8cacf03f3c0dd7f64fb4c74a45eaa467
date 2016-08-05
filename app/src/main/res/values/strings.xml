@@ -280,5 +280,27 @@
     <string name="deleting">Đang xóa...</string>
     <string name="delete">Xóa</string>
     <string name="no">Không</string>
+    <string name="opportunity_manager">Quản lý cơ hội</string>
+    <string name="title_activity_add_opportunity">Add Opportunity</string>
+    <string name="title_list_opportunity">List Opportunity</string>
+    <string name="adding">Đang thêm...</string>
+    <string name="opportunity_name">Name</string>
+    <string name="opportunity_description">Description</string>
+    <string name="opportunity_assign_to_user">Assign to user</string>
+    <string name="opportunity_probability">Probability</string>
+    <string name="opportunity_type">Type</string>
+    <string name="opportunity_sale_stage">Sale stage</string>
+    <string name="opportunity_forecasting">Forecasting</string>
+    <string name="opportunity_pallets">Pallets</string>
+    <string name="opportunity_cartons">Cartons</string>
+    <string name="opportunity_units">Units</string>
+    <string name="opportunity_weights">Weights</string>
+    <string name="opportunity_close_date">Close Date</string>
+    <string name="error_field_empty">Không được để trống trường này</string>
+    <string name="error_opportunity_close_date">Phải chọn ngày đóng (Close date)</string>
+    <string name="success">Thành công</string>
+    <string name="failed">Thất bại</string>
+    <string name="error_date_is_invalid">Thời gian không hợp lệ</string>
+    <string name="title_activity_opportunity_detail">Opportunity Detail</string>
 
 </resources>
