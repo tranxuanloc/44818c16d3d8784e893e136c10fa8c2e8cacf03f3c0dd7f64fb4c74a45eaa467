@@ -120,8 +120,9 @@ public class OrderDetailWithMDKActivity extends OrderDetailActivity implements S
 
         if (scanner == null) {
             List<ScannerInfo> deviceList = barcodeManager.getSupportedDevicesInfo();
-            if ((deviceList != null) && (deviceList.size() != 0)) {
-                scanner = barcodeManager.getDevice(deviceList.get(0));
+            int numberDevices = deviceList.size();
+            if ((deviceList != null) && (numberDevices != 0)) {
+                scanner = barcodeManager.getDevice(deviceList.get(numberDevices > 0 ? 1 : 0));
             } else {
                 Snackbar.make(listView, "Failed to get the specified scanner device! Please close and restart the application.", Snackbar.LENGTH_SHORT).show();
                 return;

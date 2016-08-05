@@ -86,7 +86,7 @@ public class UploadFileActivity extends BaseActivity {
         RequestBody requestBody =
                 RequestBody.create(MediaType.parse("multipart/form-data"), file);
         RequestBody fileNameDescription =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file.getName());
+                RequestBody.create(MediaType.parse("multipart/form-data"), Utilities.md5(fileName) + ".jpg");
         RequestBody requestBodyDescription =
                 RequestBody.create(MediaType.parse("multipart/form-data"), description);
 

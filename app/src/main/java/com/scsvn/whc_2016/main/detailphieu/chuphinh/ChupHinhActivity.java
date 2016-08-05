@@ -118,7 +118,7 @@ public class ChupHinhActivity extends BaseActivity {
             getAttachmentInfo(listView);
         super.onResume();
     }
-    
+
     @Override
     protected void onStop() {
         Const.isActivating = false;
@@ -321,7 +321,7 @@ public class ChupHinhActivity extends BaseActivity {
                 Locale.getDefault()).format(new Date());
         originalFileName = orderNumber + "_IMG_" + timeStamp + ".jpg";
         File mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                + originalFileName + ".jpg");
+                + originalFileName);
 
         file = mediaFile;
         return mediaFile;

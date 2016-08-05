@@ -184,25 +184,10 @@ public class OrderDetailActivity extends BaseActivity
         });
     }
 
-    private void checkAutoScan() {
-        if (isClickedFromCamera && quantityNormal > 0)
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    ivCamera.performClick();
-                }
-            }, 1000);
-    }
-
-    private void updateUI() {
-        totalScanned.setText(String.format(Locale.US, "%d", scanned));
-        totalQuantity.setText(String.format(Locale.US, "%d", total));
-        adapter.notifyDataSetChanged();
-        if (positionJustScan != -1)
-            listView.smoothScrollToPosition(positionJustScan);
-    }
 
     private void resetUI() {
+        keySetGroupDO.clear();
+        groupDO.clear();
         completedList.clear();
         positionJustScan = -1;
         total = 0;
@@ -240,7 +225,7 @@ public class OrderDetailActivity extends BaseActivity
     }
 
     private boolean isResultScanValidWithCaseFilter(String orderResult) {
-        return filterResult == 0 || (filterResult == 1 && orderResult.equals(" ") || (filterResult == 2 && (orderResult.equals("OK") || orderResult.equals("XX"))));
+        return filterResult == 0 || (filterResult == 1 && (orderResult.equals(" ") || orderResult.equals("NO"))) || (filterResult == 2 && (orderResult.equals("OK") || orderResult.equals("XX")));
     }
 
     public List<Item> merge() {
@@ -303,6 +288,23 @@ public class OrderDetailActivity extends BaseActivity
         });
     }
 
+    private void checkAutoScan() {
+        if (isClickedFromCamera && quantityNormal > 0)
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ivCamera.performClick();
+                }
+            }, 1000);
+    }
+
+    private void updateUI() {
+        totalScanned.setText(String.format(Locale.US, "%d", scanned));
+        totalQuantity.setText(String.format(Locale.US, "%d", total));
+        adapter.notifyDataSetChanged();
+        if (positionJustScan != -1)
+            listView.smoothScrollToPosition(positionJustScan);
+    }
 
     @Override
     protected void onResume() {
