@@ -1,9 +1,11 @@
 package com.scsvn.whc_2016.main.opportunity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -11,8 +13,10 @@ import android.widget.ListView;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.main.opportunity.add.AddOpportunityActivity;
+import com.scsvn.whc_2016.preferences.LoginPref;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
+import com.scsvn.whc_2016.retrofit.OpportunityDeleteParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
 
@@ -23,7 +27,7 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class ListOpportunityActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class ListOpportunityActivity extends BaseActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     public static final String TAG = ListOpportunityActivity.class.getSimpleName();
     public static final int REQUEST_CODE = 1;
@@ -44,6 +48,8 @@ public class ListOpportunityActivity extends BaseActivity implements AdapterView
                 startActivityForResult(new Intent(getApplicationContext(), AddOpportunityActivity.class), REQUEST_CODE);
         }
     };
+    private String username;
+    private int opportunityId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +63,10 @@ public class ListOpportunityActivity extends BaseActivity implements AdapterView
 
     }
 
-
     private void initial() {
         mapView();
         setListener();
+        username = LoginPref.getUsername(getApplicationContext());
         adapter = new ListOpportunityAdapter(this, new ArrayList<Opportunity>());
         listOpportunity.setAdapter(adapter);
         snackBarView = listOpportunity;
@@ -74,6 +80,7 @@ public class ListOpportunityActivity extends BaseActivity implements AdapterView
     private void setListener() {
         addOpportunityView.setOnClickListener(onClickListener);
         listOpportunity.setOnItemClickListener(this);
+        listOpportunity.setOnItemLongClickListener(this);
     }
 
     private void getOpportunities() {
@@ -82,7 +89,7 @@ public class ListOpportunityActivity extends BaseActivity implements AdapterView
 
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();
-            RetrofitError.errorWithAction(this, new NoInternet(), TAG, snackBarView, tryAgain);
+            RetrofitError.errorWithAction(getApplicationContext(), new NoInternet(), TAG, snackBarView, tryAgain);
             return;
         }
         MyRetrofit.initRequest(this)
@@ -117,17 +124,56 @@ public class ListOpportunityActivity extends BaseActivity implements AdapterView
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Opportunity item = adapter.getItem(position);
         Intent intent = new Intent(getApplicationContext(), OpportunityDetailActivity.class);
-        intent.putExtra(Opportunity.OPPORTUNITY_NAME, item.getOpportunityName());
-        intent.putExtra(Opportunity.DESCRIPTION, item.getDescription());
-        intent.putExtra(Opportunity.PROBABILITY, item.getProbability());
-        intent.putExtra(Opportunity.ASSIGNED_TO_USER, item.getAssignedToUser());
-        intent.putExtra(Opportunity.OPPORTUNITY_TYPE, item.getOpportunityType());
-        intent.putExtra(Opportunity.SALES_STAGE, item.getSalesStage());
-        intent.putExtra(Opportunity.FORECASTING_PALLETS, item.getForecastingPallets());
-        intent.putExtra(Opportunity.FORECASTING_CARTONS, item.getForecastingCartons());
-        intent.putExtra(Opportunity.FORECASTING_UNITS, item.getForecastingUnits());
-        intent.putExtra(Opportunity.FORECASTING_WEIGHTS, item.getForecastingWeights());
-        intent.putExtra(Opportunity.CLOSED_DATE, item.getClosedDate());
-        startActivity(intent);
+        intent.putExtra(Opportunity.OPPORTUNITY_ID, item.getOpportunityID());
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        opportunityId = adapter.getItem(position).getOpportunityID();
+        alertDeleteOpportunity();
+        return true;
+    }
+
+    private void alertDeleteOpportunity() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setMessage(getString(R.string.alert_delete))
+                .setNegativeButton(getString(R.string.label_cancel), null)
+                .setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteOpportunity();
+                    }
+                }).create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
+    private void deleteOpportunity() {
+        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.deleting));
+        dialog.show();
+
+        if (!Utilities.isConnected(this)) {
+            dialog.dismiss();
+            RetrofitError.errorWithAction(getApplicationContext(), new NoInternet(), TAG, snackBarView, tryAgain);
+            return;
+        }
+        MyRetrofit.initRequest(this)
+                .deleteOpportunity(new OpportunityDeleteParameter(username, opportunityId))
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Response<String> response, Retrofit retrofit) {
+                        if (response.isSuccess() && response.body() != null) {
+                            getOpportunities();
+                        }
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        dialog.dismiss();
+                        RetrofitError.errorWithAction(getApplicationContext(), t, BaseActivity.TAG, snackBarView, tryAgain);
+                    }
+                });
     }
 }

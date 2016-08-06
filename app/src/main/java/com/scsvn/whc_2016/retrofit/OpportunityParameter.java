@@ -4,6 +4,7 @@ package com.scsvn.whc_2016.retrofit;
  * Created by tranxuanloc on 8/3/2016.
  */
 public class OpportunityParameter {
+    private int OpportunityID;
     private String UserName;
     private String OpportunityName;
     private String Description;
@@ -41,5 +42,9 @@ public class OpportunityParameter {
         ForecastingUnits = forecastingUnits;
         ForecastingWeights = forecastingWeights;
         ClosedDate = closedDate;
+    }
+
+    public void setOpportunityID(int opportunityID) {
+        OpportunityID = opportunityID;
     }
 }

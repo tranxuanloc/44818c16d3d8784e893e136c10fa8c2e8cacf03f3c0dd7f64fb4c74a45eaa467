@@ -348,7 +348,16 @@ public interface MyRequests {
     @POST("/api/CRMOpportunities")
     Call<List<Opportunity>> getOpportunities();
 
+    @POST("/api/CRMOpportunitiesDetail")
+    Call<List<Opportunity>> getOpportunity(@Body int opportunityId);
+
+    @POST("/api/CRMOpportunitiesUpdate")
+    Call<String> updateOpportunity(@Body OpportunityParameter parameter);
+
+    @POST("/api/CRMOpportunitiesDelete")
+    Call<String> deleteOpportunity(@Body OpportunityDeleteParameter parameter);
+
     @POST("/api/CRMOpportunitiesInsert")
-    Call<String> addOpportunities(@Body OpportunityParameter parameter);
+    Call<String> addOpportunity(@Body OpportunityParameter parameter);
 
 }

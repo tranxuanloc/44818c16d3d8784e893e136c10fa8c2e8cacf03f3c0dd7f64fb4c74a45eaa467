@@ -18,7 +18,8 @@ public class Opportunity {
     public static final String FORECASTING_UNITS = "ForecastingUnits";
     public static final String FORECASTING_WEIGHTS = "ForecastingWeights";
     public static final String CLOSED_DATE = "ClosedDate";
-    @SerializedName("OpportunityID")
+    public static final String OPPORTUNITY_ID = "OpportunityID";
+    @SerializedName(OPPORTUNITY_ID)
     private int opportunityID;
     @SerializedName("CreatedBy")
     private String createdBy;
@@ -26,8 +27,6 @@ public class Opportunity {
     private String createdTime;
     @SerializedName(OPPORTUNITY_NAME)
     private String opportunityName;
-    @SerializedName("Deleted")
-    private boolean deleted;
     @SerializedName(DESCRIPTION)
     private String description;
     @SerializedName(PROBABILITY)
@@ -98,7 +97,14 @@ public class Opportunity {
         return forecastingWeights;
     }
 
+    public int getOpportunityID() {
+        return opportunityID;
+    }
+
     public String getClosedDate() {
         return Utilities.formatDate_ddMMyy(closedDate);
+    }
+    public String getCloseDateOriginal(){
+        return closedDate;
     }
 }

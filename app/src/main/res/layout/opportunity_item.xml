@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/opportunity_name"
@@ -13,13 +15,13 @@
         android:id="@+id/opportunity_time_user_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/opportunity_name"
-        android:textColor="#000"/>
+        android:textColor="#000"
+        android:textSize="13sp" />
 
     <TextView
         android:id="@+id/opportunity_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/opportunity_time_user_create"
-        android:textColor="#3e3e3e" />
-</RelativeLayout>
+        android:textColor="#3e3e3e"
+        android:textSize="13sp" />
+</LinearLayout>

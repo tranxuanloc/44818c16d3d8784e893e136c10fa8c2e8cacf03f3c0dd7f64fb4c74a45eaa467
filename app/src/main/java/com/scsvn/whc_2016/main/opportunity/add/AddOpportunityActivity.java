@@ -130,7 +130,7 @@ public class AddOpportunityActivity extends BaseActivity {
             return;
         }
         MyRetrofit.initRequest(this)
-                .addOpportunities(parameter)
+                .addOpportunity(parameter)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Response<String> response, Retrofit retrofit) {

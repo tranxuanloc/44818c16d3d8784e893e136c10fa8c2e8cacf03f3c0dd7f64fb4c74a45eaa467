@@ -15,49 +15,37 @@
             android:id="@+id/et_opportunity_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            android:hint="@string/opportunity_name"
-            android:inputType="text" />
+            android:hint="@string/opportunity_name" />
 
         <EditText
             android:id="@+id/et_opportunity_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            android:hint="@string/opportunity_description"
-            android:inputType="textMultiLine" />
+            android:hint="@string/opportunity_description" />
 
         <EditText
             android:id="@+id/et_opportunity_assign_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            android:hint="@string/opportunity_assign_to_user"
-            android:inputType="text" />
+            android:hint="@string/opportunity_assign_to_user" />
 
         <EditText
             android:id="@+id/et_opportunity_probability"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            android:hint="@string/opportunity_probability"
-            android:inputType="numberDecimal" />
+            android:hint="@string/opportunity_probability" />
 
         <EditText
             android:id="@+id/et_opportunity_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            android:hint="@string/opportunity_type"
-            android:inputType="text" />
+            android:hint="@string/opportunity_type" />
 
         <EditText
             android:id="@+id/et_opportunity_sale_stage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            android:hint="@string/opportunity_sale_stage"
-            android:inputType="text" />
+            android:hint="@string/opportunity_sale_stage" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -77,39 +65,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:enabled="false"
                 android:hint="@string/opportunity_pallets"
-                android:imeOptions="actionNext"
-                android:inputType="number" />
+                android:imeOptions="actionNext" />
 
             <EditText
                 android:id="@+id/et_opportunity_carton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:enabled="false"
                 android:hint="@string/opportunity_cartons"
-                android:imeOptions="actionNext"
-                android:inputType="number" />
+                android:imeOptions="actionNext" />
 
             <EditText
                 android:id="@+id/et_opportunity_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:enabled="false"
                 android:hint="@string/opportunity_units"
-                android:imeOptions="actionNext"
-                android:inputType="number" />
+                android:imeOptions="actionNext" />
 
             <EditText
                 android:id="@+id/et_opportunity_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:enabled="false"
-                android:hint="@string/opportunity_weights"
-                android:inputType="numberDecimal" />
+                android:hint="@string/opportunity_weights" />
         </LinearLayout>
 
         <Button
