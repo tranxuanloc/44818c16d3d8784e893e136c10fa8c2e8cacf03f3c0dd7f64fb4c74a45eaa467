@@ -47,6 +47,13 @@
             android:layout_height="wrap_content"
             android:hint="@string/opportunity_sale_stage" />
 
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/opportunity_customer_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="1"
+            android:hint="@string/label_customer_id" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

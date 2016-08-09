@@ -47,6 +47,12 @@ public class Opportunity {
     private float forecastingWeights;
     @SerializedName(CLOSED_DATE)
     private String closedDate;
+    @SerializedName("CustomerID")
+    private int customerId;
+
+    public int getCustomerId() {
+        return customerId;
+    }
 
     public String getCreatedBy() {
         return createdBy;
@@ -104,7 +110,8 @@ public class Opportunity {
     public String getClosedDate() {
         return Utilities.formatDate_ddMMyy(closedDate);
     }
-    public String getCloseDateOriginal(){
+
+    public String getCloseDateOriginal() {
         return closedDate;
     }
 }

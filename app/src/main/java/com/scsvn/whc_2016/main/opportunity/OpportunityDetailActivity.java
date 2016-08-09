@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import com.scsvn.whc_2016.retrofit.OpportunityParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -33,7 +35,7 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class OpportunityDetailActivity extends BaseActivity implements View.OnClickListener {
+public class OpportunityDetailActivity extends BaseActivity implements View.OnClickListener, View.OnFocusChangeListener {
     private EditText nameView;
     private EditText descriptionView;
     private EditText assignUserView;
@@ -50,6 +52,7 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
     private String closeDate = "";
     private int opportunityId;
     private boolean isAdded;
+    private AppCompatAutoCompleteTextView listCustomerIdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,20 +75,23 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
         unitView = (EditText) findViewById(R.id.et_opportunity_unit);
         palletView = (EditText) findViewById(R.id.et_opportunity_pallet);
         closeDateView = (Button) findViewById(R.id.bt_opportunity_close_date);
-
+        listCustomerIdView = (AppCompatAutoCompleteTextView) findViewById(R.id.opportunity_customer_id);
     }
 
     public void setListener() {
         closeDateView.setOnClickListener(this);
-
+        listCustomerIdView.setOnFocusChangeListener(this);
+        listCustomerIdView.setOnClickListener(this);
     }
 
     public void initial() {
         mapView();
         snackBarView = nameView;
+        listCustomerIdView.setSelectAllOnFocus(true);
         updateUI(false);
         setListener();
         opportunityId = getIntent().getIntExtra(Opportunity.OPPORTUNITY_ID, 0);
+        getListCustomer();
         getOpportunity(opportunityId);
     }
 
@@ -118,6 +124,27 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
                 });
     }
 
+    private void getListCustomer() {
+        if (!Utilities.isConnected(this)) {
+            RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
+            return;
+        }
+        MyRetrofit.initRequest(this)
+                .getListCustomer()
+                .enqueue(new Callback<List<Customer>>() {
+                    @Override
+                    public void onResponse(Response<List<Customer>> response, Retrofit retrofit) {
+                        if (response.isSuccess() && response.body() != null) {
+                            listCustomerIdView.setAdapter(new ListCustomerAdapter(OpportunityDetailActivity.this, new ArrayList<>(response.body())));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        RetrofitError.errorNoAction(getApplicationContext(), t, BaseActivity.TAG, snackBarView);
+                    }
+                });
+    }
 
     private void updateData(Opportunity item) {
         closeDate = item.getCloseDateOriginal();
@@ -130,6 +157,7 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
         weightView.setText(String.format("%s", item.getForecastingWeights()));
         cartonView.setText(String.format(Locale.getDefault(), "%d", item.getForecastingCartons()));
         unitView.setText(String.format(Locale.getDefault(), "%d", item.getForecastingUnits()));
+        listCustomerIdView.setText(String.format(Locale.getDefault(), "%d", item.getCustomerId()));
         palletView.setText(String.format(Locale.getDefault(), "%d", item.getForecastingPallets()));
         closeDateView.setText(item.getClosedDate());
 
@@ -147,6 +175,7 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
             cartonView.setInputType(InputType.TYPE_CLASS_NUMBER);
             unitView.setInputType(InputType.TYPE_CLASS_NUMBER);
             palletView.setInputType(InputType.TYPE_CLASS_NUMBER);
+            listCustomerIdView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
             closeDateView.setEnabled(true);
         } else {
             nameView.setInputType(InputType.TYPE_NULL);
@@ -159,6 +188,7 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
             cartonView.setInputType(InputType.TYPE_NULL);
             unitView.setInputType(InputType.TYPE_NULL);
             palletView.setInputType(InputType.TYPE_NULL);
+            listCustomerIdView.setInputType(InputType.TYPE_NULL);
             closeDateView.setEnabled(false);
         }
     }
@@ -244,8 +274,10 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
                 parserInt(unitView.getText().toString()),
                 parserFloat(weightView.getText().toString()),
                 closeDate
+
         );
         parameter.setOpportunityID(opportunityId);
+        parameter.setCustomerID(parserInt(listCustomerIdView.getText().toString()));
         updateOpportunity(parameter);
     }
 
@@ -285,6 +317,8 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
     public void onClick(View v) {
         if (v == closeDateView)
             pickCloseDate();
+        else if (v == listCustomerIdView && listCustomerIdView.getInputType() != InputType.TYPE_NULL)
+            listCustomerIdView.showDropDown();
     }
 
     @Override
@@ -295,5 +329,11 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
         setResult(RESULT_OK, intent);
 
         super.onBackPressed();
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus && listCustomerIdView.getInputType() != InputType.TYPE_NULL)
+            listCustomerIdView.showDropDown();
     }
 }

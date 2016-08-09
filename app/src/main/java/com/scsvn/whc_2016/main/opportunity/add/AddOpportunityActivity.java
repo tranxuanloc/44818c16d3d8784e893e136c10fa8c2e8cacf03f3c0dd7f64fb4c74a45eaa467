@@ -51,7 +51,7 @@ public class AddOpportunityActivity extends BaseActivity {
             if (v == doneView) {
                 done();
             } else if (v == closeDateView) {
-                pickCloseDate();
+                pickEndDate();
             }
         }
     };
@@ -152,7 +152,7 @@ public class AddOpportunityActivity extends BaseActivity {
                 });
     }
 
-    private void pickCloseDate() {
+    private void pickEndDate() {
         final Calendar calendar = Calendar.getInstance();
         final int yearNow = calendar.get(Calendar.YEAR);
         final int monthOfYearNow = calendar.get(Calendar.MONTH);

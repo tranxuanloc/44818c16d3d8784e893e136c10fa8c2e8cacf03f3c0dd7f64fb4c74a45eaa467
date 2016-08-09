@@ -15,6 +15,7 @@ public class OpportunityParameter {
     private int ForecastingPallets;
     private int ForecastingCartons;
     private int ForecastingUnits;
+    private int CustomerID;
     private float ForecastingWeights;
     private String ClosedDate;
 
@@ -42,6 +43,10 @@ public class OpportunityParameter {
         ForecastingUnits = forecastingUnits;
         ForecastingWeights = forecastingWeights;
         ClosedDate = closedDate;
+    }
+
+    public void setCustomerID(int customerID) {
+        CustomerID = customerID;
     }
 
     public void setOpportunityID(int opportunityID) {

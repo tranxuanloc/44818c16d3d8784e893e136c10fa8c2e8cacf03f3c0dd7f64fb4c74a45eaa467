@@ -5,10 +5,10 @@ package com.scsvn.whc_2016.retrofit;
  */
 public class OpportunityDeleteParameter {
     private String userName;
-    private int opportunity;
+    private int OpportunityId;
 
-    public OpportunityDeleteParameter(String userName, int opportunity) {
+    public OpportunityDeleteParameter(String userName, int opportunityId) {
         this.userName = userName;
-        this.opportunity = opportunity;
+        this.OpportunityId = opportunityId;
     }
 }

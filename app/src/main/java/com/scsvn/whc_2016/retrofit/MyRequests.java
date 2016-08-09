@@ -7,6 +7,7 @@ import com.scsvn.whc_2016.main.chuyenhang.ListPalletIDInfo;
 import com.scsvn.whc_2016.main.chuyenhang.LocationInfo;
 import com.scsvn.whc_2016.main.chuyenhang.lichsu.StockMovementHistoriesInfo;
 import com.scsvn.whc_2016.main.containerandtruckinfor.ContainerAndTruckInfo;
+import com.scsvn.whc_2016.main.crm.Event;
 import com.scsvn.whc_2016.main.detailphieu.OrderDetail;
 import com.scsvn.whc_2016.main.detailphieu.RequirementInfo;
 import com.scsvn.whc_2016.main.detailphieu.chuphinh.AttachmentInfo;
@@ -41,6 +42,7 @@ import com.scsvn.whc_2016.main.nhapngoaigio.EmployeeIDFindInfo;
 import com.scsvn.whc_2016.main.nhapngoaigio.OverTimeOrderDetailsInfo;
 import com.scsvn.whc_2016.main.nhapngoaigio.detail.OverTimeViewInfo;
 import com.scsvn.whc_2016.main.nhapngoaigio.detail.PayRollMonthIDInfo;
+import com.scsvn.whc_2016.main.opportunity.Customer;
 import com.scsvn.whc_2016.main.opportunity.Opportunity;
 import com.scsvn.whc_2016.main.palletcartonchecking.MovementHistoryInfo;
 import com.scsvn.whc_2016.main.palletcartonchecking.PalletCartonInfo;
@@ -270,6 +272,9 @@ public interface MyRequests {
     @POST("/api/MyCalendar")
     Call<List<MyCalendarInfo>> getMyCalendar(@Body MyCalendarParameter parameter);
 
+    @POST("/api/MyCalendarDetails")
+    Call<List<Event>> getEventsOfDay(@Body WorkingSchedulesParameter parameter);
+
     @POST("/api/WorkingSchedulesEmployeePlan")
     Call<List<WorkingSchedulesEmployeePlanInfo>> getWorkingSchedulesEmployeePlan(@Body WorkingSchedulesParameter parameter);
 
@@ -351,6 +356,9 @@ public interface MyRequests {
     @POST("/api/CRMOpportunitiesDetail")
     Call<List<Opportunity>> getOpportunity(@Body int opportunityId);
 
+    @POST("/api/CRMOpportunitiesCustomer")
+    Call<List<Customer>> getListCustomer();
+
     @POST("/api/CRMOpportunitiesUpdate")
     Call<String> updateOpportunity(@Body OpportunityParameter parameter);
 
@@ -359,5 +367,8 @@ public interface MyRequests {
 
     @POST("/api/CRMOpportunitiesInsert")
     Call<String> addOpportunity(@Body OpportunityParameter parameter);
+
+    @POST("/api/CRMMeetingsInsert")
+    Call<String> addMeeting(@Body MeetingParameter parameter);
 
 }

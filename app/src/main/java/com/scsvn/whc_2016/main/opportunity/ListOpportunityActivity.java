@@ -89,7 +89,7 @@ public class ListOpportunityActivity extends BaseActivity implements AdapterView
 
         if (!Utilities.isConnected(this)) {
             dialog.dismiss();
-            RetrofitError.errorWithAction(getApplicationContext(), new NoInternet(), TAG, snackBarView, tryAgain);
+            RetrofitError.errorWithAction(this, new NoInternet(), TAG, snackBarView, tryAgain);
             return;
         }
         MyRetrofit.initRequest(this)
