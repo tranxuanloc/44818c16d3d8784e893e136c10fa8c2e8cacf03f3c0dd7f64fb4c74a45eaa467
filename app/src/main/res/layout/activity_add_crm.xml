@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.scsvn.whc_2016.main.crm.add.AddCRMActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0FFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/add_crm_bt_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/light_gray_button"
+                android:onClick="cancel"
+                android:text="@string/label_cancel" />
+
+            <Button
+                android:id="@+id/add_crm_bt_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/light_gray_button"
+                android:onClick="save"
+                android:text="@string/label_save" />
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <EditText
+                android:id="@+id/add_crm_et_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/title"
+                android:inputType="text|textCapSentences" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/add_crm_switch_all_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/add_crm_et_title"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/label_all_day" />
+
+            <Button
+                android:id="@+id/add_crm_bt_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/add_crm_switch_all_date"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/light_gray_button"
+                android:minHeight="32dp" />
+
+            <Button
+                android:id="@+id/add_crm_bt_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/add_crm_bt_start_time"
+                android:layout_toLeftOf="@id/add_crm_bt_start_time"
+                android:background="@drawable/light_gray_button"
+                android:ems="8"
+                android:minHeight="32dp" />
+
+            <TextView
+                android:id="@+id/label_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/add_crm_bt_start_time"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="21dp"
+                android:ems="5"
+                android:gravity="center_vertical"
+                android:minHeight="32dp"
+                android:text="@string/label_start_date"
+                android:textColor="#000" />
+
+
+            <Button
+                android:id="@+id/add_crm_bt_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/add_crm_bt_start_time"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/light_gray_button"
+                android:minHeight="32dp" />
+
+            <Button
+                android:id="@+id/add_crm_bt_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/add_crm_bt_end_time"
+                android:layout_toLeftOf="@id/add_crm_bt_end_time"
+                android:background="@drawable/light_gray_button"
+                android:ems="8"
+                android:minHeight="32dp" />
+
+            <TextView
+                android:id="@+id/label_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/add_crm_bt_end_time"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="21dp"
+                android:ems="5"
+                android:gravity="center_vertical"
+                android:minHeight="32dp"
+                android:text="@string/label_end_date"
+                android:textColor="#000" />
+
+            <View
+                android:id="@+id/line_horizontal_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/label_end_date"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="16dp"
+                android:background="#EEE" />
+
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/add_crm_et_customer_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line_horizontal_1"
+                android:completionThreshold="1"
+                android:hint="@string/label_customer_id"
+                android:inputType="textCapWords" />
+
+
+            <Button
+                android:id="@+id/add_crm_bt_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/add_crm_et_customer_id"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/light_gray_button"
+                android:minHeight="32dp"
+                android:minWidth="50dp"
+                android:onClick="map"
+                android:text="@string/label_map"
+                android:textAllCaps="false"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/add_crm_et_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/add_crm_bt_map"
+                android:layout_toLeftOf="@id/add_crm_bt_map"
+                android:hint="@string/label_location"
+                android:inputType="text|textCapSentences" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/add_crm_spinner_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/add_crm_bt_map"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:id="@+id/add_crm_et_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/add_crm_spinner_label"
+                android:hint="@string/label_description"
+                android:inputType="text|textCapSentences|textMultiLine" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/add_crm_spinner_type_reminder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/add_crm_et_description"
+                android:layout_marginLeft="5dp" />
+
+            <TextView
+                android:id="@+id/reminder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/add_crm_spinner_time_reminder"
+                android:layout_alignTop="@id/add_crm_spinner_type_reminder"
+                android:layout_marginLeft="5dp"
+                android:text="@string/label_reminder"
+                android:textColor="#000" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/add_crm_spinner_time_reminder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/add_crm_et_description"
+                android:layout_toLeftOf="@id/add_crm_spinner_type_reminder" />
+
+            <RelativeLayout
+                android:id="@+id/add_crm_container_invitees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/add_crm_spinner_type_reminder"
+                android:paddingLeft="5dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/close_invitees"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:contentDescription="@string/label_close_invitees"
+                    android:src="@drawable/ic_action_close_small" />
+
+                <TextView
+                    android:id="@+id/host_invitees"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/close_invitees"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/label_host_me_invitees"
+                    android:textColor="#000" />
+
+
+                <com.scsvn.whc_2016.main.crm.GridViewInvite
+                    android:id="@+id/container_invitees"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/host_invitees"
+                    android:horizontalSpacing="5dp"
+                    android:numColumns="3"
+                    android:verticalSpacing="5dp" />
+
+                <android.support.v7.widget.AppCompatAutoCompleteTextView
+                    android:id="@+id/add_crm_et_invite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/container_invitees"
+                    android:completionThreshold="1"
+                    android:hint="@string/label_id_name_employee"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/add_crm_bt_invitees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/add_crm_spinner_type_reminder"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/light_gray_button"
+                android:text="@string/label_invitees"
+                android:textAllCaps="false" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+
