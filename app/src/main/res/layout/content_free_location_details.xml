@@ -8,8 +8,9 @@
     tools:context="com.scsvn.whc_2016.main.vitritrong.FreeLocationDetailsActivity"
     tools:showIn="@layout/activity_free_location_details">
 
-    <ListView
-        android:id="@+id/lvOrderDetail"
+    <GridView
+        android:id="@+id/gv_free_location"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:numColumns="2" />
 </RelativeLayout>
