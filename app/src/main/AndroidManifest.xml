@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -415,6 +417,20 @@
             android:name=".main.opportunity.OpportunityDetailActivity"
             android:label="@string/title_activity_opportunity_detail"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.crm.CRMActivity"
+            android:label="@string/title_activity_crm"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.crm.add.AddCRMActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.crm.detail.MeetingDetailActivity"
+            android:label="@string/title_activity_meeting_detail"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

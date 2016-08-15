@@ -57,8 +57,8 @@ public class CalendarViewActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Utilities.showBackIcon(getSupportActionBar());
-        caldroidFragment = new CaldroidFragment();
         userName = LoginPref.getUsername(getApplicationContext());
+        caldroidFragment = new CaldroidFragment();
         if (savedInstanceState != null) {
             caldroidFragment.restoreStatesFromKey(savedInstanceState, "CALDROID_SAVED_STATE");
         } else {

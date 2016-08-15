@@ -66,6 +66,7 @@ public class EmployeePresentAdapter extends ArrayAdapter<EmployeeInfo> implement
         return convertView;
     }
 
+
     @Override
     public Filter getFilter() {
         return new Filter() {

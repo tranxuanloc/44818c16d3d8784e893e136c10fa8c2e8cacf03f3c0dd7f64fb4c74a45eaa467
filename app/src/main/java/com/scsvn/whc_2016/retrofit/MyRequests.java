@@ -8,6 +8,7 @@ import com.scsvn.whc_2016.main.chuyenhang.LocationInfo;
 import com.scsvn.whc_2016.main.chuyenhang.lichsu.StockMovementHistoriesInfo;
 import com.scsvn.whc_2016.main.containerandtruckinfor.ContainerAndTruckInfo;
 import com.scsvn.whc_2016.main.crm.Event;
+import com.scsvn.whc_2016.main.crm.detail.MeetingDetail;
 import com.scsvn.whc_2016.main.detailphieu.OrderDetail;
 import com.scsvn.whc_2016.main.detailphieu.RequirementInfo;
 import com.scsvn.whc_2016.main.detailphieu.chuphinh.AttachmentInfo;
@@ -357,7 +358,10 @@ public interface MyRequests {
     Call<List<Opportunity>> getOpportunity(@Body int opportunityId);
 
     @POST("/api/CRMOpportunitiesCustomer")
-    Call<List<Customer>> getListCustomer();
+    Call<List<Customer>> getListCustomer(@Body Byte flag);
+
+    @POST("/api/CRMMeetingUsersInsert")
+    Call<String> addMeetingUsers(@Body MeetingUserParameter parameter);
 
     @POST("/api/CRMOpportunitiesUpdate")
     Call<String> updateOpportunity(@Body OpportunityParameter parameter);
@@ -370,5 +374,14 @@ public interface MyRequests {
 
     @POST("/api/CRMMeetingsInsert")
     Call<String> addMeeting(@Body MeetingParameter parameter);
+
+    @POST("/api/CRMMeetingUpdate")
+    Call<String> updateMeeting(@Body MeetingParameter parameter);
+
+    @POST("/api/CRMMeetingDetail")
+    Call<List<MeetingDetail>> getMeetingDetail(@Body int id);
+
+    @POST("/api/CRMMeetingDelete")
+    Call<String> deleteMeeting(@Body int id);
 
 }

@@ -95,7 +95,6 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
         getOpportunity(opportunityId);
     }
 
-
     private void getOpportunity(int opportunityId) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
@@ -130,7 +129,7 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
             return;
         }
         MyRetrofit.initRequest(this)
-                .getListCustomer()
+                .getListCustomer((byte) 0)
                 .enqueue(new Callback<List<Customer>>() {
                     @Override
                     public void onResponse(Response<List<Customer>> response, Retrofit retrofit) {

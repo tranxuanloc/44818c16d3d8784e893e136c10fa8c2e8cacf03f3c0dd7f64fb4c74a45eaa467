@@ -17,6 +17,7 @@ import com.scsvn.whc_2016.main.capnhatphienban.CapNhatUngDungActivity;
 import com.scsvn.whc_2016.main.changepassword.ChangePasswordActivity;
 import com.scsvn.whc_2016.main.chuyenhang.ChuyenHangActivity;
 import com.scsvn.whc_2016.main.containerandtruckinfor.ContainerAndTruckInfoActivity;
+import com.scsvn.whc_2016.main.crm.CRMActivity;
 import com.scsvn.whc_2016.main.equipment.EquipmentInventoryActivity;
 import com.scsvn.whc_2016.main.equipment.EquipmentInventoryNoEMDKActivity;
 import com.scsvn.whc_2016.main.giaonhanhoso.GiaoHoSoActivity;
@@ -184,6 +185,8 @@ public class MenuAdapter extends ArrayAdapter<MenuInfo> {
             }
         } else if (tag == 15)
             context.startActivity(new Intent(context, ListOpportunityActivity.class));
+        else if (tag == 26)
+            context.startActivity(new Intent(context, CRMActivity.class));
     }
 
     static class ViewHolder {

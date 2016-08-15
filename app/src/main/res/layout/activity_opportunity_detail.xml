@@ -11,48 +11,90 @@
         android:orientation="vertical"
         android:padding="5dp">
 
-        <EditText
-            android:id="@+id/et_opportunity_name"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/opportunity_name" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/et_opportunity_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/opportunity_description" />
+            <EditText
+                android:id="@+id/et_opportunity_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/opportunity_name" />
 
-        <EditText
-            android:id="@+id/et_opportunity_assign_user"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/opportunity_assign_to_user" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/et_opportunity_probability"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/opportunity_probability" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/et_opportunity_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/opportunity_type" />
+            <EditText
+                android:id="@+id/et_opportunity_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/opportunity_description" />
 
-        <EditText
-            android:id="@+id/et_opportunity_sale_stage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/opportunity_sale_stage" />
+        </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatAutoCompleteTextView
-            android:id="@+id/opportunity_customer_id"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:completionThreshold="1"
-            android:hint="@string/label_customer_id" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_opportunity_assign_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/opportunity_assign_to_user" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_opportunity_probability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/opportunity_probability" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_opportunity_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/opportunity_type" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_opportunity_sale_stage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/opportunity_sale_stage" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/opportunity_customer_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:completionThreshold="1"
+                android:hint="@string/label_customer_id" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -67,36 +109,60 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/et_opportunity_pallet"
-                android:layout_width="wrap_content"
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/opportunity_pallets"
-                android:imeOptions="actionNext" />
+                android:layout_weight="1">
 
-            <EditText
-                android:id="@+id/et_opportunity_carton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/opportunity_cartons"
-                android:imeOptions="actionNext" />
+                <EditText
+                    android:id="@+id/et_opportunity_pallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/opportunity_pallets"
+                    android:imeOptions="actionNext" />
 
-            <EditText
-                android:id="@+id/et_opportunity_unit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/opportunity_units"
-                android:imeOptions="actionNext" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/et_opportunity_weight"
-                android:layout_width="wrap_content"
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/opportunity_weights" />
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/et_opportunity_carton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/opportunity_cartons"
+                    android:imeOptions="actionNext" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/et_opportunity_unit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/opportunity_units"
+                    android:imeOptions="actionNext" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/et_opportunity_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/opportunity_weights" />
+
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
         <Button

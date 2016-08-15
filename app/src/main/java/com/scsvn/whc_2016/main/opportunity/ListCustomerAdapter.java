@@ -61,6 +61,7 @@ public class ListCustomerAdapter extends ArrayAdapter<Customer> implements Filte
         return convertView;
     }
 
+
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -87,8 +88,7 @@ public class ListCustomerAdapter extends ArrayAdapter<Customer> implements Filte
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                release.clear();
-                release.addAll((ArrayList<Customer>) results.values);
+                release = (ArrayList<Customer>) results.values;
                 notifyDataSetChanged();
             }
         };

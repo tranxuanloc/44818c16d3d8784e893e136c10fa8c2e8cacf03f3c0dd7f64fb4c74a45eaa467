@@ -76,7 +76,7 @@ public class EmployeePresentAdapter extends ArrayAdapter<EmployeeInfo> implement
                     for (int i = 0; i < dataOrigin.size(); i++) {
                         EmployeeInfo info = dataOrigin.get(i);
                         String id = String.valueOf(info.getEmployeeID());
-                        if (id.contains(constraint))
+                        if (id.contains(constraint) || info.getEmployeeName().contains(constraint))
                             arrayFilter.add(info);
                     }
                     results.count = arrayFilter.size();

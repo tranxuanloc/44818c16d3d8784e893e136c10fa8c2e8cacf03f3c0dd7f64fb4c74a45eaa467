@@ -151,7 +151,6 @@ public class NewAssignWorkActivity extends BaseActivity {
         MyRetrofit.initRequest(this).getEmployeeID(new EmployeePresentParameter(department, position)).enqueue(new Callback<List<EmployeeInfo>>() {
             @Override
             public void onResponse(Response<List<EmployeeInfo>> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     adapter.clear();
                     adapter.addAll(response.body());
@@ -178,9 +177,7 @@ public class NewAssignWorkActivity extends BaseActivity {
         MyRetrofit.initRequest(this).insertAssignWork(parameter).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Response<String> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
-                    Log.e(TAG, "onResponse: success");
                     QHSERNumber = response.body();
                     String idAssign = actvWorker.getText().toString();
                     boolean b = idAssign.lastIndexOf(',') == idAssign.length() - 1;
@@ -192,7 +189,6 @@ public class NewAssignWorkActivity extends BaseActivity {
                     executeQHSEAssignmentInsert(view, pa);
 
                 } else {
-                    Log.e(TAG, "onResponse: failed");
                     Snackbar.make(view, getString(R.string.error_system), Snackbar.LENGTH_LONG).show();
                     dialog.dismiss();
                 }

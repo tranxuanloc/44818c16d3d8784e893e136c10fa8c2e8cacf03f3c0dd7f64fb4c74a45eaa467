@@ -302,5 +302,36 @@
     <string name="failed">Thất bại</string>
     <string name="error_date_is_invalid">Thời gian không hợp lệ</string>
     <string name="title_activity_opportunity_detail">Opportunity Detail</string>
+    <string name="calendar">Calendar</string>
+    <string name="title_activity_crm">Calendar</string>
+    <string name="title">Title</string>
+    <string name="label_all_day">All day</string>
+    <string name="label_start_date">Start</string>
+    <string name="label_end_date">End</string>
+    <string name="label_location">Location</string>
+    <string name="label_customer_id">Customer Id</string>
+    <string name="label_description">Description</string>
+    <string name="label_category">Category</string>
+    <string name="label_reminder">Reminder</string>
+    <string name="label_map">Map</string>
+    <string name="label_cancel">Cancel</string>
+    <string name="label_save">Save</string>
+    <string name="label_edit">Edit</string>
+    <string name="label_done">Done</string>
+    <string name="label_update">Update</string>
+    <string name="alert_update_content">Bạn có chắc muốn cập nhật chỉnh sửa?</string>
+    <string name="label_delete">Delete</string>
+    <string name="alert_delete">Bạn có chắc chắn muốn xóa?</string>
+    <string name="start_time_of_date">00:00</string>
+    <string name="error_end_time_occur_before_start_time">Thời gian kết thúc xảy ra trước thời gian bắt đầu</string>
+    <string name="label_do_not_save">Don\'t save</string>
+    <string name="ask_cancel_appoinment">Bạn không muốn lưu sự kiện này?</string>
+    <string name="label_id_name_employee">Id/name employee</string>
+    <string name="label_invitees">Invitees</string>
+    <string name="label_host_me_invitees">Host: ME\nInvitees</string>
+    <string name="label_close_invitees">Close invitees</string>
+    <string name="title_activity_meeting_detail">Meeting Detail</string>
+    <string name="saving">Đang lưu...</string>
+    <string name="ask_make_sure_delete_event">Bạn có chắc chắn muốn xóa sự kiện này?</string>
 
 </resources>
