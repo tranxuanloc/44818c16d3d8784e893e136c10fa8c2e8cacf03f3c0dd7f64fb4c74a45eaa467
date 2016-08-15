@@ -8,11 +8,16 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -46,6 +51,7 @@ public class KiemContainerActivity extends BaseActivity implements AdapterView.O
     private int gate;
     private ListContainerAdapter adapter;
     private MenuItem item_gate;
+    private String constraint = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +97,10 @@ public class KiemContainerActivity extends BaseActivity implements AdapterView.O
         MyRetrofit.initRequest(this).getContainerChecking(gate).enqueue(new Callback<List<ContainerInfo>>() {
             @Override
             public void onResponse(Response<List<ContainerInfo>> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     adapter.clear();
                     adapter.addAll(response.body());
+                    adapter.getFilter().filter(constraint);
                 }
                 refreshLayout.setRefreshing(false);
                 dialog.dismiss();
@@ -159,18 +165,7 @@ public class KiemContainerActivity extends BaseActivity implements AdapterView.O
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.container_checking, menu);
-        item_gate = menu.findItem(R.id.action_menu);
-        if (gate == 0) {
-            menu.findItem(R.id.action_all).setChecked(true);
-            item_gate.setTitle(getString(R.string.tat_ca));
-        } else if (gate == 1) {
-            menu.findItem(R.id.action_g1).setChecked(true);
-            item_gate.setTitle(getString(R.string.gate_1));
-        } else if (gate == 2) {
-            menu.findItem(R.id.action_g2).setChecked(true);
-            item_gate.setTitle(getString(R.string.gate_2));
-        }
+        getMenuInflater().inflate(R.menu.setting, menu);
         return true;
     }
 
@@ -179,29 +174,51 @@ public class KiemContainerActivity extends BaseActivity implements AdapterView.O
         int itemId = item.getItemId();
         if (itemId == android.R.id.home)
             finish();
-        else if (itemId == R.id.action_all) {
-            if (!item.isChecked()) {
-                item.setChecked(true);
-                gate = 0;
-                getListContainer(listView);
-                item_gate.setTitle(getString(R.string.tat_ca));
-            }
-        } else if (itemId == R.id.action_g1) {
-            if (!item.isChecked()) {
-                item.setChecked(true);
-                gate = 1;
-                getListContainer(listView);
-                item_gate.setTitle(getString(R.string.gate_1));
-            }
-        } else if (itemId == R.id.action_g2) {
-            if (!item.isChecked()) {
-                item.setChecked(true);
-                gate = 2;
-                getListContainer(listView);
-                item_gate.setTitle(getString(R.string.gate_2));
-            }
-        }
+        else if (itemId == R.id.action_setting)
+            showSetting();
+
         return true;
+    }
+
+    private void showSetting() {
+        View view = LayoutInflater.from(this).inflate(R.layout.check_container_setting_dialog, null);
+        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.dialog_check_container_group);
+        ((RadioButton) radioGroup.getChildAt(gate)).setChecked(true);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                gate = group.indexOfChild(group.findViewById(checkedId));
+                getListContainer(listView);
+            }
+        });
+        final CheckBox xeCB = (CheckBox) view.findViewById(R.id.dialog_check_container_xe);
+        final CheckBox containerCB = (CheckBox) view.findViewById(R.id.dialog_check_container_container);
+        if (constraint.length() == 0) {
+            xeCB.setChecked(true);
+            containerCB.setChecked(true);
+        } else if (constraint.equals("TR"))
+            xeCB.setChecked(true);
+        else if (constraint.equals("CO"))
+            containerCB.setChecked(true);
+        CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (xeCB.isChecked() == containerCB.isChecked()) {
+                    constraint = "";
+                } else if (xeCB.isChecked())
+                    constraint = "TR";
+                else if (containerCB.isChecked())
+                    constraint = "CO";
+                adapter.getFilter().filter(constraint);
+            }
+        };
+        xeCB.setOnCheckedChangeListener(listener);
+        containerCB.setOnCheckedChangeListener(listener);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(view)
+                .create();
+        dialog.show();
     }
 
     @Override

@@ -333,5 +333,8 @@
     <string name="title_activity_meeting_detail">Meeting Detail</string>
     <string name="saving">Đang lưu...</string>
     <string name="ask_make_sure_delete_event">Bạn có chắc chắn muốn xóa sự kiện này?</string>
+    <string name="label_setting">Cài đặt</string>
+    <string name="label_container">Container</string>
+    <string name="label_xe">Xe</string>
 
 </resources>

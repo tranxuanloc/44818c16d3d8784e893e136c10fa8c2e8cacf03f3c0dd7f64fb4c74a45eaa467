@@ -18,6 +18,14 @@
                     android:id="@+id/action_g2"
                     android:title="@string/gate_2" />
             </group>
+            <group android:checkableBehavior="all">
+                <item
+                    android:id="@+id/action_xe"
+                    android:title="Xe" />
+                <item
+                    android:id="@+id/action_cont"
+                    android:title="Cont" />
+            </group>
         </menu>
     </item>
 

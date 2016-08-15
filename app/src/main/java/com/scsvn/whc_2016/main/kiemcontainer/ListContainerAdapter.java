@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.utilities.Utilities;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,12 +21,26 @@ import butterknife.ButterKnife;
 /**
  * Created by Trần Xuân Lộc on 1/26/2016.
  */
-public class ListContainerAdapter extends ArrayAdapter<ContainerInfo> {
+public class ListContainerAdapter extends ArrayAdapter<ContainerInfo> implements Filterable {
     private LayoutInflater inflater;
+    private ArrayList<ContainerInfo> release;
+    private ArrayList<ContainerInfo> origin;
 
-    public ListContainerAdapter(Context context, List<ContainerInfo> objects) {
+    public ListContainerAdapter(Context context, ArrayList<ContainerInfo> objects) {
         super(context, 0, objects);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        origin = objects;
+        release = (ArrayList<ContainerInfo>) objects.clone();
+    }
+
+    @Override
+    public int getCount() {
+        return release.size();
+    }
+
+    @Override
+    public ContainerInfo getItem(int position) {
+        return release.get(position);
     }
 
     @Override
@@ -50,6 +66,34 @@ public class ListContainerAdapter extends ArrayAdapter<ContainerInfo> {
             convertView.setBackgroundColor(Color.parseColor("#CCFFCC"));
         else convertView.setBackgroundColor(Color.WHITE);
         return convertView;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results = new FilterResults();
+                if (constraint.length() == 0) {
+                    results.values = origin;
+                    results.count = origin.size();
+                } else {
+                    ArrayList<ContainerInfo> arrayList = new ArrayList<>();
+                    for (ContainerInfo info : origin)
+                        if (info.getVehicleType().contains(constraint))
+                            arrayList.add(info);
+                    results.values = arrayList;
+                    results.count = arrayList.size();
+                }
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                release = (ArrayList<ContainerInfo>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     static class ViewHolder {
