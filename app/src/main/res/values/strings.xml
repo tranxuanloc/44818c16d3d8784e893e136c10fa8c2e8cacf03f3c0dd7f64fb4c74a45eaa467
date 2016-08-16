@@ -336,5 +336,6 @@
     <string name="label_setting">Cài đặt</string>
     <string name="label_container">Container</string>
     <string name="label_xe">Xe</string>
+    <string name="title_activity_meeting_map">Map</string>
 
 </resources>

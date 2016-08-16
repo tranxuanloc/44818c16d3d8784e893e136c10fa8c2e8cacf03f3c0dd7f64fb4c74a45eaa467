@@ -3,6 +3,7 @@ package com.scsvn.whc_2016.main.crm.add;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatSpinner;
@@ -19,6 +20,10 @@ import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.main.crm.GridViewInvite;
@@ -55,6 +60,7 @@ public class AddCRMActivity extends BaseActivity
         View.OnClickListener, AdapterView.OnItemSelectedListener,
         View.OnFocusChangeListener, AdapterView.OnItemClickListener {
 
+    public static final int PLACE_PICKER_REQUEST = 100;
     private AppCompatSpinner labelSpinner;
     private Button startDateView;
     private Button endDateView;
@@ -422,6 +428,13 @@ public class AddCRMActivity extends BaseActivity
 
     public void map(View view) {
 
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        try {
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void switchAllDay(boolean notAllDay) {
@@ -557,6 +570,15 @@ public class AddCRMActivity extends BaseActivity
             inviteesButton.setVisibility(View.VISIBLE);
             panelInviteesView.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST)
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this, data);
+                locationView.setText(String.format("%s\n%s", place.getName(), place.getAddress()));
+            }
     }
 
     @Override
