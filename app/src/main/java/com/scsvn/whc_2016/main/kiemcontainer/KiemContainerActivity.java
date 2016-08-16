@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.main.kiemcontainer.detail.DetailContainerActivity;
+import com.scsvn.whc_2016.preferences.LoginPref;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
@@ -50,8 +51,7 @@ public class KiemContainerActivity extends BaseActivity implements AdapterView.O
     private View.OnClickListener action;
     private int gate;
     private ListContainerAdapter adapter;
-    private MenuItem item_gate;
-    private String constraint = "";
+    private String constraint = "CO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,7 @@ public class KiemContainerActivity extends BaseActivity implements AdapterView.O
             }
         };
         initialUI();
+        gate = LoginPref.getWarehoueID(this);
         getListContainer(listView);
     }
 
@@ -217,6 +218,7 @@ public class KiemContainerActivity extends BaseActivity implements AdapterView.O
 
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(view)
+                .setPositiveButton(getString(R.string.ok), null)
                 .create();
         dialog.show();
     }
