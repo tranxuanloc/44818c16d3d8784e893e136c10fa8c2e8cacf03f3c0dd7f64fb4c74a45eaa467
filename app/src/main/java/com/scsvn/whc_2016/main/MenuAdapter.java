@@ -30,6 +30,7 @@ import com.scsvn.whc_2016.main.kiemvitri.KiemViTriActivity;
 import com.scsvn.whc_2016.main.kiemvitri.KiemViTriNoEMDKActivity;
 import com.scsvn.whc_2016.main.lichlamviec.LichLamViecActivity;
 import com.scsvn.whc_2016.main.lichsuravao.LichSuRaVaoActivity;
+import com.scsvn.whc_2016.main.mms.MaintenanceActivity;
 import com.scsvn.whc_2016.main.nangsuat.NangSuatActivity;
 import com.scsvn.whc_2016.main.nhaphoso.NhapHoSoActivity;
 import com.scsvn.whc_2016.main.nhaphoso.NhapHoSoNoEMDKActivity;
@@ -187,6 +188,8 @@ public class MenuAdapter extends ArrayAdapter<MenuInfo> {
             context.startActivity(new Intent(context, ListOpportunityActivity.class));
         else if (tag == 26)
             context.startActivity(new Intent(context, CRMActivity.class));
+        else if (tag == 27)
+            context.startActivity(new Intent(context, MaintenanceActivity.class));
     }
 
     static class ViewHolder {

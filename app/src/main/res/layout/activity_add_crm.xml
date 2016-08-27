@@ -51,14 +51,22 @@
                 android:id="@+id/add_crm_et_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/title"
+                android:hint="@string/label_subject"
                 android:inputType="text|textCapSentences" />
+
+            <EditText
+                android:id="@+id/add_crm_et_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/add_crm_et_title"
+                android:hint="@string/label_description"
+                android:inputType="text|textCapSentences|textMultiLine" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/add_crm_switch_all_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/add_crm_et_title"
+                android:layout_below="@id/add_crm_et_description"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
@@ -183,44 +191,36 @@
                 android:layout_below="@id/add_crm_et_location"
                 android:layout_marginBottom="5dp" />
 
-            <EditText
-                android:id="@+id/add_crm_et_description"
+            <LinearLayout
+                android:id="@+id/container_reminder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/add_crm_spinner_label"
-                android:hint="@string/label_description"
-                android:inputType="text|textCapSentences|textMultiLine" />
+                android:orientation="vertical"
+                android:padding="5dp">
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/add_crm_spinner_type_reminder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/add_crm_et_description"
-                android:layout_marginLeft="5dp" />
 
-            <TextView
-                android:id="@+id/reminder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/add_crm_spinner_time_reminder"
-                android:layout_alignTop="@id/add_crm_spinner_type_reminder"
-                android:layout_marginLeft="5dp"
-                android:text="@string/label_reminder"
-                android:textColor="#000" />
+            </LinearLayout>
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/add_crm_spinner_time_reminder"
+            <Button
+                android:id="@+id/add_crm_add_reminder"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/add_crm_et_description"
-                android:layout_toLeftOf="@id/add_crm_spinner_type_reminder" />
+                android:layout_height="30dp"
+                android:layout_below="@id/container_reminder"
+                android:layout_margin="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/selector_gray_white"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Add reminder"
+                android:textAllCaps="false" />
 
             <RelativeLayout
                 android:id="@+id/add_crm_container_invitees"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/add_crm_spinner_type_reminder"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/add_crm_add_reminder"
                 android:paddingLeft="5dp"
                 android:visibility="gone">
 
@@ -268,7 +268,8 @@
                 android:id="@+id/add_crm_bt_invitees"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/add_crm_spinner_type_reminder"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/add_crm_add_reminder"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/light_gray_button"
                 android:text="@string/label_invitees"

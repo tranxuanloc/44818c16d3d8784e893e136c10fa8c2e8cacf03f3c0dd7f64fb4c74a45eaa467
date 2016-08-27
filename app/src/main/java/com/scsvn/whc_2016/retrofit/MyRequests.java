@@ -8,6 +8,7 @@ import com.scsvn.whc_2016.main.chuyenhang.LocationInfo;
 import com.scsvn.whc_2016.main.chuyenhang.lichsu.StockMovementHistoriesInfo;
 import com.scsvn.whc_2016.main.containerandtruckinfor.ContainerAndTruckInfo;
 import com.scsvn.whc_2016.main.crm.Event;
+import com.scsvn.whc_2016.main.crm.Guest;
 import com.scsvn.whc_2016.main.crm.detail.MeetingDetail;
 import com.scsvn.whc_2016.main.detailphieu.OrderDetail;
 import com.scsvn.whc_2016.main.detailphieu.RequirementInfo;
@@ -37,6 +38,8 @@ import com.scsvn.whc_2016.main.lichlamviec.MyCalendarInfo;
 import com.scsvn.whc_2016.main.lichlamviec.WorkingSchedulesEmployeePlanInfo;
 import com.scsvn.whc_2016.main.lichlamviec.WorkingSchedulesInfo;
 import com.scsvn.whc_2016.main.lichsuravao.EmployeeInOutInfo;
+import com.scsvn.whc_2016.main.mms.JobDefinition;
+import com.scsvn.whc_2016.main.mms.equipment.Equipment;
 import com.scsvn.whc_2016.main.nangsuat.EmployeePerformanceInfo;
 import com.scsvn.whc_2016.main.nhaphoso.ReceivingOrderDetailsInfo;
 import com.scsvn.whc_2016.main.nhapngoaigio.EmployeeIDFindInfo;
@@ -383,5 +386,14 @@ public interface MyRequests {
 
     @POST("/api/CRMMeetingDelete")
     Call<String> deleteMeeting(@Body int id);
+
+    @POST("/api/CRMMeetingUserList")
+    Call<List<Guest>> getMeetingGuest(@Body int id);
+
+    @POST("/api/MMSListEquipment")
+    Call<List<Equipment>> getListEquipment(@Body EquipmentParameter parameter);
+
+    @POST("/api/MMSListJobDefination")
+    Call<List<JobDefinition>> getListJobDefinition(@Body String departmentId);
 
 }

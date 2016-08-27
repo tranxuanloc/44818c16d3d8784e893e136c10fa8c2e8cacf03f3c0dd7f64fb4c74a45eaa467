@@ -32,6 +32,8 @@ public class MeetingDetail {
     private boolean deleted;
     @SerializedName("Label")
     private String label;
+    @SerializedName("MeetingLocalID")
+    private int localId;
 
     public int getMeetingID() {
         return meetingID;
@@ -83,5 +85,9 @@ public class MeetingDetail {
 
     public String getLabel() {
         return label;
+    }
+
+    public int getLocalId() {
+        return localId;
     }
 }

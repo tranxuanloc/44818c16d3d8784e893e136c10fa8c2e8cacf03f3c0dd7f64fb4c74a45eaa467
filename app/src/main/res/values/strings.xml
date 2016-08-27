@@ -313,6 +313,7 @@
     <string name="label_description">Description</string>
     <string name="label_category">Category</string>
     <string name="label_reminder">Reminder</string>
+    <string name="label_maintenance_date">Maintenance Date</string>
     <string name="label_map">Map</string>
     <string name="label_cancel">Cancel</string>
     <string name="label_save">Save</string>
@@ -337,5 +338,19 @@
     <string name="label_container">Container</string>
     <string name="label_xe">Xe</string>
     <string name="title_activity_meeting_map">Map</string>
+    <string name="label_maintenance">Maintenance</string>
+    <string name="title_activity_maintenance_job">Maintenance Job</string>
+    <string name="title_activity_create_maintenance_job">Create Maintenance Job</string>
+    <string name="label_equipment">Equipment</string>
+    <string name="label_serial">Serial</string>
+    <string name="label_running_hour">Running hour</string>
+    <string name="label_h1_kh">H1/KH</string>
+    <string name="label_h3_hd">H3/HD</string>
+    <string name="label_h4_tm">H4/TM</string>
+    <string name="label_h2_hl">H2/HL</string>
+    <string name="label_create_maintenance">Create maintenance</string>
+    <string name="label_dept">Dept</string>
+    <string name="label_subject">Subject</string>
+    <string name="description_remove_reminder">Remove reminder</string>
 
 </resources>

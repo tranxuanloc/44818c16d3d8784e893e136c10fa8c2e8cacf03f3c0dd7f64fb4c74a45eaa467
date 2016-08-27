@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_reminder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/time_reminder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="6"
+        android:entries="@array/reminder" />
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/type_reminder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:entries="@array/type_reminder" />
+
+    <ImageView
+        android:id="@+id/remove_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_gray_white"
+        android:clickable="true"
+        android:contentDescription="@string/description_remove_reminder"
+        android:src="@drawable/ic_action_remove" />
+</LinearLayout>
+
+                

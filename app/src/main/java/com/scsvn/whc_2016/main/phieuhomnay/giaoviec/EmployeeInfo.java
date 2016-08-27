@@ -16,6 +16,11 @@ public class EmployeeInfo {
     @SerializedName("Position")
     public String Position;
 
+    public EmployeeInfo(int employeeID, String employeeName) {
+        this.employeeID = employeeID;
+        this.employeeName = employeeName;
+    }
+
     public String getTimeIn() {
         return Utilities.formatDate_HHmm(TimeIn);
     }

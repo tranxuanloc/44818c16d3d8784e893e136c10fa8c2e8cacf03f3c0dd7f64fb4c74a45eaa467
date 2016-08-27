@@ -431,6 +431,16 @@
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.mms.MaintenanceActivity"
+            android:label="@string/title_activity_maintenance_job"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.mms.add.CreateMaintenanceActivity"
+            android:label="@string/title_activity_create_maintenance_job"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

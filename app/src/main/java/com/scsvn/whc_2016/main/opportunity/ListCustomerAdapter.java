@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.scsvn.whc_2016.R;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -71,10 +72,12 @@ public class ListCustomerAdapter extends ArrayAdapter<Customer> implements Filte
                 if (constraint != null && constraint.length() != 0) {
                     ArrayList<Customer> temp = new ArrayList<>();
                     for (Customer item : origin) {
-                        if (item.getName().contains(constraint)
-                                || item.getNumber().contains(constraint)
-                                || item.getType().contains(constraint)
-                                || String.valueOf(item.getId()).contains(constraint))
+                        String name = Normalizer.normalize(item.getName().toLowerCase(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+                        CharSequence keyWord = constraint.toString().toLowerCase();
+                        if (name.contains(keyWord)
+                                || item.getNumber().toLowerCase().contains(keyWord)
+                                || item.getType().toLowerCase().contains(keyWord)
+                                || String.valueOf(item.getId()).contains(keyWord))
                             temp.add(item);
                     }
                     results.values = temp;

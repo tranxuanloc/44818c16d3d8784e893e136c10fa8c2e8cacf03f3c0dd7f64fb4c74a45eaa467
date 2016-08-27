@@ -8,6 +8,12 @@ import com.google.gson.annotations.SerializedName;
 public class MyCalendarInfo {
     @SerializedName("Deadline")
     private String Deadline;
+    @SerializedName("Event_Qty")
+    private int eventQty;
+
+    public int getEventQty() {
+        return eventQty;
+    }
 
     public String getDeadline() {
         return Deadline;
