@@ -149,26 +149,6 @@ public class ChuyenHangActivity extends AppCompatActivity implements TextView.On
         });
     }
 
-    public void getPalletID() {
-        MyRetrofit.initRequest(this).getPalletID().enqueue(new Callback<List<ListPalletIDInfo>>() {
-            @Override
-            public void onResponse(Response<List<ListPalletIDInfo>> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
-                if (response.isSuccess() && response.body() != null) {
-                    ArrayList<String> palletArray = new ArrayList<String>();
-                /*    for (ListLocationInfo info : response.body())
-                        employeeIDArray.add(Integer.toString(info.getEmployeeID()));*/
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(ChuyenHangActivity.this, android.R.layout.simple_list_item_1, palletArray);
-                    acactvPalletId.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-            }
-        });
-    }
-
 
     private void getStockMovement(final View view) {
         Utilities.hideKeyboard(this);
@@ -389,7 +369,6 @@ public class ChuyenHangActivity extends AppCompatActivity implements TextView.On
                 getStockMovement();
             } else {
                 Snackbar.make(view, "Chỉ đảo vị trí 1 <-> 2", Snackbar.LENGTH_LONG).show();
-                return;
             }
         }
 

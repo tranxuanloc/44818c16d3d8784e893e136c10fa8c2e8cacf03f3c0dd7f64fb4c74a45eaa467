@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/item_mms_employee_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/selector_gray_white"
+        android:clickable="true"
+        android:contentDescription="@string/description_remove_job_definition"
+        android:src="@drawable/ic_action_remove" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_toLeftOf="@id/item_mms_employee_remove">
+
+        <EditText
+            android:id="@+id/item_mms_employee_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="9"
+            android:hint="@string/label_note"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:paddingTop="5dp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/item_mms_employee_evaluation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/view" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/view1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/item_mms_employee_evaluation">
+
+        <EditText
+            android:id="@+id/item_mms_employee_ot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_ot"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:minEms="2"
+            android:paddingTop="5dp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/view1">
+
+        <EditText
+            android:id="@+id/item_mms_employee_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_duration"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:minEms="2"
+            android:paddingTop="5dp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/view2">
+
+        <EditText
+            android:id="@+id/item_mms_employee_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/label_user"
+            android:imeOptions="actionNext"
+            android:paddingTop="5dp" />
+    </android.support.design.widget.TextInputLayout>
+
+</RelativeLayout>

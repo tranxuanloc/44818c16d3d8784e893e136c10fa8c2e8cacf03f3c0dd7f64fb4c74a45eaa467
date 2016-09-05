@@ -143,6 +143,7 @@
     <string name="title_activity_new_qhse">Thêm yêu cầu</string>
     <string name="title_activity_cap_nhat_ung_dung">Cập nhật ứng dụng</string>
     <string name="this_field_not_empty">Trường này không được để trống</string>
+    <string name="field_not_empty">Trường %s không được để trống</string>
     <string name="title_activity_update_qhse">Cập nhật thông tin</string>
     <string name="pallet_status">Trạng thái của Pallet</string>
     <string name="phieu_da_duoc_kiem">Phiếu đã được kiểm</string>
@@ -352,5 +353,24 @@
     <string name="label_dept">Dept</string>
     <string name="label_subject">Subject</string>
     <string name="description_remove_reminder">Remove reminder</string>
+    <string name="label_accident">Accident</string>
+    <string name="description_remove_job_definition">Remove Job Definition</string>
+    <string name="label_job_description">Job description</string>
+    <string name="label_note">Note</string>
+    <string name="label_job_definition">Job definition</string>
+    <string name="label_part_remain">Part remain</string>
+    <string name="label_part_description">Part description</string>
+    <string name="label_quantity">Quantity</string>
+    <string name="label_yes">Yes</string>
+    <string name="label_no">No</string>
+    <string name="label_employee">Employee</string>
+    <string name="label_search">Search</string>
+    <string name="label_remark">Remark</string>
+    <string name="label_duration">Duration</string>
+    <string name="label_ot">OT</string>
+    <string name="label_evaluation">Evaluation</string>
+    <string name="label_user">User</string>
+    <string name="title_activity_maintenance_job_detail">Detail</string>
+    <string name="alert_delete_all_detail_before">Bạn phải xóa tất cả các thông tin trong Job Definition, Part Remain và Employee trước khi xóa phiếu này.</string>
 
 </resources>

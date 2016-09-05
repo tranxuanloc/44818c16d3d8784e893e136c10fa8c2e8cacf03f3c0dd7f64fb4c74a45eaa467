@@ -48,4 +48,8 @@
     <integer-array name="type_reminder_values">
         <item>1</item>
     </integer-array>
+    <string-array name="accident">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 </resources>

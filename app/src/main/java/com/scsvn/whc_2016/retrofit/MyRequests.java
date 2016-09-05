@@ -3,7 +3,6 @@ package com.scsvn.whc_2016.retrofit;
 import com.scsvn.whc_2016.login.LoginInfo;
 import com.scsvn.whc_2016.main.VersionInfo;
 import com.scsvn.whc_2016.main.chuyenhang.ListLocationInfo;
-import com.scsvn.whc_2016.main.chuyenhang.ListPalletIDInfo;
 import com.scsvn.whc_2016.main.chuyenhang.LocationInfo;
 import com.scsvn.whc_2016.main.chuyenhang.lichsu.StockMovementHistoriesInfo;
 import com.scsvn.whc_2016.main.containerandtruckinfor.ContainerAndTruckInfo;
@@ -38,8 +37,13 @@ import com.scsvn.whc_2016.main.lichlamviec.MyCalendarInfo;
 import com.scsvn.whc_2016.main.lichlamviec.WorkingSchedulesEmployeePlanInfo;
 import com.scsvn.whc_2016.main.lichlamviec.WorkingSchedulesInfo;
 import com.scsvn.whc_2016.main.lichsuravao.EmployeeInOutInfo;
-import com.scsvn.whc_2016.main.mms.JobDefinition;
+import com.scsvn.whc_2016.main.mms.MaintenanceJob;
+import com.scsvn.whc_2016.main.mms.employee.MaintenanceEmployee;
 import com.scsvn.whc_2016.main.mms.equipment.Equipment;
+import com.scsvn.whc_2016.main.mms.job.JobDaily;
+import com.scsvn.whc_2016.main.mms.job.JobDefinition;
+import com.scsvn.whc_2016.main.mms.part.PartRemain;
+import com.scsvn.whc_2016.main.mms.part.WriteOff;
 import com.scsvn.whc_2016.main.nangsuat.EmployeePerformanceInfo;
 import com.scsvn.whc_2016.main.nhaphoso.ReceivingOrderDetailsInfo;
 import com.scsvn.whc_2016.main.nhapngoaigio.EmployeeIDFindInfo;
@@ -120,9 +124,6 @@ public interface MyRequests {
 
     @POST("/api/LocationList")
     Call<List<ListLocationInfo>> getLocation(@Body ListLocationParameter parameter);
-
-    @POST("/api/employeepresent")
-    Call<List<ListPalletIDInfo>> getPalletID();
 
     @POST("/api/employeeworkingdelete")
     Call<String> deleteEmployeeID(@Body DeleteEmployeeIDGiaoViecParameter parameter);
@@ -393,7 +394,55 @@ public interface MyRequests {
     @POST("/api/MMSListEquipment")
     Call<List<Equipment>> getListEquipment(@Body EquipmentParameter parameter);
 
-    @POST("/api/MMSListJobDefination")
-    Call<List<JobDefinition>> getListJobDefinition(@Body String departmentId);
+    @POST("/api/MMSListJobDefinition")
+    Call<List<JobDefinition>> getListJobDefinition(@Body JobDefinitionParameter param);
+
+    @POST("/api/MMSPartRemain")
+    Call<List<PartRemain>> getPartRemain(@Body PartRemainParameter param);
+
+    @POST("/api/MMSViewMaintenanceJob")
+    Call<List<MaintenanceJob>> getMaintenanceJob();
+
+    @POST("/api/MMSMaintenanceJobDaily")
+    Call<List<JobDaily>> getMaintenanceJobDaily(@Body int id);
+
+    @POST("/api/MMSMaintenanceJobWriteOffs")
+    Call<List<WriteOff>> getMaintenanceJobWriteOffs(@Body int id);
+
+    @POST("/api/MMSMaintenanceEmployeeView")
+    Call<List<MaintenanceEmployee>> getMaintenanceEmployee(@Body MaintenanceJobEmployeeParameter param);
+
+    @POST("/api/MMSInsertMaintenanceJob")
+    Call<Integer> insertMaintenanceJob(@Body MaintenanceJobParameter param);
+
+    @POST("/api/MMSMaintenanceJobDelete")
+    Call<String> deleteMaintenanceJob(@Body int MaintenanceJobID);
+
+    @POST("/api/MMSMaintenanceJobDailyInsert")
+    Call<String> insertMaintenanceJobDaily(@Body JobDailyParameter param);
+
+    @POST("/api/MMSMaintenanceJobDailyUpdate")
+    Call<String> updateMaintenanceJobDaily(@Body JobDailyParameter param);
+
+    @POST("/api/MMSMaintenanceJobDailyDelete")
+    Call<String> deleteMaintenanceJobDaily(@Body int jobDailyId);
+
+    @POST("/api/MMSMaintenanceJobWriteOffsInsert")
+    Call<String> insertMaintenanceJobWriteOffs(@Body WriteOffParameter param);
+
+    @POST("/api/MMSMaintenanceJobWriteOffsUpdate")
+    Call<String> updateMaintenanceJobWriteOffs(@Body WriteOffParameter param);
+
+    @POST("/api/MMSMaintenanceJobWriteOffsDelete")
+    Call<String> deleteMaintenanceJobWriteOffs(@Body int writeOffId);
+
+    @POST("/api/MMSMaintenanceEmployeeInsert")
+    Call<String> insertMaintenanceEmployee(@Body MMSEmployeeParameter param);
+
+    @POST("/api/MMSMaintenanceEmployeeUpdate")
+    Call<String> updateMaintenanceEmployee(@Body MMSEmployeeParameter param);
+
+    @POST("/api/MMSMaintenanceEmployeeDelete")
+    Call<String> deleteMaintenanceEmployee(@Body MMSEmployeeParameter param);
 
 }
