@@ -129,7 +129,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view4"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/view">
 
                 <EditText
                     android:id="@+id/create_maintenance_date_create"
@@ -142,6 +143,22 @@
                     android:paddingTop="5dp" />
             </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/view7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view4"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/view">
+
+                <EditText
+                    android:id="@+id/create_maintenance_running_hour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/label_running_hour"
+                    android:inputType="numberDecimal"
+                    android:paddingTop="5dp" />
+            </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/view6"
@@ -161,29 +178,11 @@
             </android.support.design.widget.TextInputLayout>
 
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/view7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view6"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-
-                <EditText
-                    android:id="@+id/create_maintenance_running_hour"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/label_running_hour"
-                    android:inputType="numberDecimal"
-                    android:paddingTop="5dp" />
-            </android.support.design.widget.TextInputLayout>
-
-
             <LinearLayout
                 android:id="@+id/view8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/view7"
+                android:layout_below="@id/view6"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:baselineAligned="false"
@@ -265,10 +264,10 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"
-                android:textSize="16sp"
                 android:layout_marginTop="5dp"
                 android:text="@string/label_job_definition"
                 android:textColor="#000"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -306,10 +305,10 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"
-                android:textSize="16sp"
                 android:layout_marginTop="5dp"
                 android:text="@string/label_part_remain"
                 android:textColor="#000"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -337,7 +336,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_below="@id/create_maintenance_part_remain"
-                android:background="#ffea00" />
+                android:background="#ccbb00" />
 
             <TextView
                 android:id="@+id/view14"
@@ -346,12 +345,13 @@
                 android:layout_below="@id/view13"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="15dp"
-                android:textSize="16sp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/label_employee"
                 android:textColor="#000"
+                android:textSize="16sp"
                 android:textStyle="bold" />
+
 
             <LinearLayout
                 android:id="@+id/container_employee"

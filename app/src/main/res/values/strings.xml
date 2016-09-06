@@ -314,7 +314,7 @@
     <string name="label_description">Description</string>
     <string name="label_category">Category</string>
     <string name="label_reminder">Reminder</string>
-    <string name="label_maintenance_date">Maintenance Date</string>
+    <string name="label_maintenance_date">Date</string>
     <string name="label_map">Map</string>
     <string name="label_cancel">Cancel</string>
     <string name="label_save">Save</string>
@@ -344,7 +344,7 @@
     <string name="title_activity_create_maintenance_job">Create Maintenance Job</string>
     <string name="label_equipment">Equipment</string>
     <string name="label_serial">Serial</string>
-    <string name="label_running_hour">Running hour</string>
+    <string name="label_running_hour">Run. Hour</string>
     <string name="label_h1_kh">H1/KH</string>
     <string name="label_h3_hd">H3/HD</string>
     <string name="label_h4_tm">H4/TM</string>
@@ -357,8 +357,8 @@
     <string name="description_remove_job_definition">Remove Job Definition</string>
     <string name="label_job_description">Job description</string>
     <string name="label_note">Note</string>
-    <string name="label_job_definition">Job definition</string>
-    <string name="label_part_remain">Part remain</string>
+    <string name="label_job_definition">Job Description</string>
+    <string name="label_part_remain">Part WriteOff</string>
     <string name="label_part_description">Part description</string>
     <string name="label_quantity">Quantity</string>
     <string name="label_yes">Yes</string>

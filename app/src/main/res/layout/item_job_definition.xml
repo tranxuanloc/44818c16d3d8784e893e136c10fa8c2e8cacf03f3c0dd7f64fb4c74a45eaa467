@@ -2,14 +2,14 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/view101"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:textColorHint="#A00">
+        android:layout_alignParentRight="true">
 
         <EditText
             android:id="@+id/job_definition_accident"
@@ -26,8 +26,7 @@
         android:id="@+id/view102"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/view101"
-        android:textColorHint="#A00">
+        android:layout_toLeftOf="@id/view101">
 
         <EditText
             android:id="@+id/job_definition_description"
@@ -45,7 +44,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/view102"
-        android:layout_marginBottom="5dp"
         android:layout_marginRight="34dp">
 
         <EditText
@@ -64,7 +62,7 @@
         android:layout_alignBottom="@id/view103"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/selector_gray_white"
+        android:background="@drawable/selector_gray_transparent"
         android:clickable="true"
         android:contentDescription="@string/description_remove_job_definition"
         android:src="@drawable/ic_action_remove" />

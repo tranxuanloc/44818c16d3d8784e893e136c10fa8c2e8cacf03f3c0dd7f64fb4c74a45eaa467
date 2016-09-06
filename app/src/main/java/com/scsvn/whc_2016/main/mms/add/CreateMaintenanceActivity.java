@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
@@ -116,21 +118,21 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             PartRemain item = partRemainAdapter.getItem(position);
-            addPartView(item);
+            addPartView(item, listPart.size());
         }
     };
     private AdapterView.OnItemClickListener employeeItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             EmployeeInfo item = employeeAdapter.getItem(position);
-            addEmployeeView(item);
+            addEmployeeView(item, listEmployee.size());
         }
     };
     private AdapterView.OnItemClickListener jobDefinitionItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             JobDefinition item = jobDefinitionAdapter.getItem(position);
-            addJobDailyView(item);
+            addJobDailyView(item, listJob.size());
         }
     };
     private MenuItem itemDone;
@@ -145,7 +147,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     private String dept;
     private boolean isConfirm;
 
-    private void addEmployeeView(EmployeeAbstract item) {
+    private void addEmployeeView(EmployeeAbstract item, int position) {
         EmployeeViewHolder holder = new EmployeeViewHolder();
         holder.isDetail = item.isDetail();
         holder.viewEmployee = LayoutInflater.from(CreateMaintenanceActivity.this).inflate(R.layout.item_mms_employee, null);
@@ -156,17 +158,20 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         holder.evaluationCB = (AppCompatCheckBox) holder.viewEmployee.findViewById(R.id.item_mms_employee_evaluation);
         holder.employeeRemoveView = (ImageView) holder.viewEmployee.findViewById(R.id.item_mms_employee_remove);
         holder.employeeRemoveView.setTag(holder);
-
         holder.employeeRemoveView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EmployeeViewHolder holder = (EmployeeViewHolder) v.getTag();
                 containerEmployee.removeView(holder.viewEmployee);
                 listEmployee.remove(holder);
+                if (listEmployee.size() > 0)
+                    updateEmployeeTitle(listEmployee.get(0));
                 if (holder.isDetail)
                     deleteEmployee(parserInt(holder.idView.getTag().toString()));
             }
         });
+        if (position == 0)
+            updateEmployeeTitle(holder);
         if (isDetail) {
             holder.employeeRemoveView.setVisibility(View.GONE);
             holder.noteET.setText(((MaintenanceEmployee) item).getRemark());
@@ -180,10 +185,19 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         containerEmployee.addView(holder.viewEmployee);
         listEmployee.add(holder);
         employeeEditText.setText("");
+        if (position % 2 != 0)
+            holder.viewEmployee.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAlternativeRow));
+    }
+
+    private void updateEmployeeTitle(EmployeeViewHolder holder) {
+        ((TextInputLayout) holder.idView.getParent()).setHintEnabled(true);
+        ((TextInputLayout) holder.durationET.getParent()).setHintEnabled(true);
+        ((TextInputLayout) holder.otET.getParent()).setHintEnabled(true);
+        ((TextInputLayout) holder.noteET.getParent()).setHintEnabled(true);
     }
 
 
-    private void addPartView(PartAbstract item) {
+    private void addPartView(PartAbstract item, int position) {
         PartRemainViewHolder holder = new PartRemainViewHolder();
         holder.isDetail = item.isDetail();
         holder.viewPartRemain = LayoutInflater.from(CreateMaintenanceActivity.this).inflate(R.layout.item_part_remain, null);
@@ -213,10 +227,12 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         holder.descriptionView.setText(String.format("%s ~ %s", item.getOriginal(), item.getName()));
         containerPart.addView(holder.viewPartRemain);
         listPart.add(holder);
+        if (position % 2 == 0)
+            holder.viewPartRemain.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAlternativeRow));
     }
 
 
-    private void addJobDailyView(JobDailyAbstract item) {
+    private void addJobDailyView(JobDailyAbstract item, int position) {
         final JobDefinitionViewHolder holder = new JobDefinitionViewHolder();
         holder.isDetail = item.isDetail();
         holder.viewJobDefinition = LayoutInflater.from(CreateMaintenanceActivity.this).inflate(R.layout.item_job_definition, null);
@@ -271,6 +287,9 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         holder.descriptionView.setText(String.format("%s ~ %s", item.getName(), item.getVietnameseName()));
         containerJob.addView(holder.viewJobDefinition);
         listJob.add(holder);
+        if (position % 2 != 0)
+            holder.viewJobDefinition.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAlternativeRow));
+
     }
 
     @Override
@@ -421,8 +440,12 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     }
 
     private void updateUIJobDaily(List<JobDaily> body) {
-        for (JobDaily item : body)
-            addJobDailyView(item);
+        int size = body.size();
+        for (int i = 0; i < size; i++) {
+            JobDaily item = body.get(i);
+            addJobDailyView(item, i);
+        }
+
     }
 
     private void getMaintenanceJobWriteOffs() {
@@ -455,8 +478,11 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     }
 
     private void updateUIWriteOff(List<WriteOff> body) {
-        for (WriteOff item : body)
-            addPartView(item);
+        int size = body.size();
+        for (int i = 0; i < size; i++) {
+            WriteOff item = body.get(i);
+            addPartView(item, i);
+        }
     }
 
     private void getMaintenanceEmployee() {
@@ -490,9 +516,11 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     }
 
     private void updateUIEmployee(List<MaintenanceEmployee> body) {
-        for (MaintenanceEmployee item : body)
-            addEmployeeView(item);
-
+        int size = body.size();
+        for (int i = 0; i < size; i++) {
+            MaintenanceEmployee item = body.get(i);
+            addEmployeeView(item, i);
+        }
     }
 
     private void getListEquipment() {
