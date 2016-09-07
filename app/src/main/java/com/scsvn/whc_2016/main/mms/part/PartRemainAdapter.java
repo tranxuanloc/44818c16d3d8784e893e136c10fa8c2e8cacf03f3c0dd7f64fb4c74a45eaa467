@@ -25,7 +25,7 @@ public class PartRemainAdapter extends ArrayAdapter<PartRemain> implements Filte
     private ArrayList<PartRemain> release;
 
     public PartRemainAdapter(Context context, ArrayList<PartRemain> objects) {
-        super(context, R.layout.item_part_remain_list_view, objects);
+        super(context, 0, objects);
         origin = objects;
         release = (ArrayList<PartRemain>) objects.clone();
     }

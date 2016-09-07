@@ -25,7 +25,7 @@ public class JobDefinitionAdapter extends ArrayAdapter<JobDefinition> implements
     private ArrayList<JobDefinition> release;
 
     public JobDefinitionAdapter(Context context, ArrayList<JobDefinition> objects) {
-        super(context, R.layout.item_job_definition_listview, objects);
+        super(context, 0, objects);
         origin = objects;
         release = (ArrayList<JobDefinition>) objects.clone();
     }
@@ -52,7 +52,7 @@ public class JobDefinitionAdapter extends ArrayAdapter<JobDefinition> implements
         } else
             holder = (ViewHolder) convertView.getTag();
         JobDefinition item = getItem(position);
-        holder.name.setText(String.format(Locale.getDefault(), "%s ~ %s ~ %s", item.getId(), item.getName(), item.getVietnameseName()));
+        holder.name.setText(String.format(Locale.getDefault(), "%s ~ %s", item.getId(), item.getName()));
         if (position % 2 == 0)
             convertView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAlternativeRow));
         else

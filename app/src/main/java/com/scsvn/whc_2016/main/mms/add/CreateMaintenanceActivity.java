@@ -25,10 +25,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
+import com.scsvn.whc_2016.main.MyAutoCompleteTextView;
 import com.scsvn.whc_2016.main.mms.MaintenanceActivity;
 import com.scsvn.whc_2016.main.mms.MaintenanceJob;
 import com.scsvn.whc_2016.main.mms.employee.EmployeeAbstract;
@@ -146,11 +148,13 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     private Calendar calendar;
     private String dept;
     private boolean isConfirm;
+    private TextView maintenanceInfo;
 
     private void addEmployeeView(EmployeeAbstract item, int position) {
         EmployeeViewHolder holder = new EmployeeViewHolder();
         holder.isDetail = item.isDetail();
         holder.viewEmployee = LayoutInflater.from(CreateMaintenanceActivity.this).inflate(R.layout.item_mms_employee, null);
+        holder.titleEvaluation = (TextView) holder.viewEmployee.findViewById(R.id.item_mms_employee_title_evaluation);
         holder.idView = (EditText) holder.viewEmployee.findViewById(R.id.item_mms_employee_info);
         holder.durationET = (EditText) holder.viewEmployee.findViewById(R.id.item_mms_employee_duration);
         holder.otET = (EditText) holder.viewEmployee.findViewById(R.id.item_mms_employee_ot);
@@ -194,6 +198,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         ((TextInputLayout) holder.durationET.getParent()).setHintEnabled(true);
         ((TextInputLayout) holder.otET.getParent()).setHintEnabled(true);
         ((TextInputLayout) holder.noteET.getParent()).setHintEnabled(true);
+        holder.titleEvaluation.setVisibility(View.VISIBLE);
     }
 
 
@@ -249,10 +254,14 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                 JobDefinitionViewHolder holder = (JobDefinitionViewHolder) v.getTag();
                 containerJob.removeView(holder.viewJobDefinition);
                 listJob.remove(holder);
+                if (listJob.size() > 0)
+                    updateJobDescriptionTitle(listJob.get(0));
                 if (holder.isDetail)
                     deleteJobDaily(holder.descriptionView.getTag().toString());
             }
         });
+        if (position == 0)
+            updateJobDescriptionTitle(holder);
         final PopupMenu menu = new PopupMenu(CreateMaintenanceActivity.this, holder.accidentView);
         menu.inflate(R.menu.job_definition_accident);
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -284,12 +293,18 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
             holder.accidentView.setText(((JobDaily) item).getReason());
         }
         holder.descriptionView.setTag(item.getId());
-        holder.descriptionView.setText(String.format("%s ~ %s", item.getName(), item.getVietnameseName()));
+        holder.descriptionView.setText(item.getName());
         containerJob.addView(holder.viewJobDefinition);
         listJob.add(holder);
         if (position % 2 != 0)
             holder.viewJobDefinition.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAlternativeRow));
 
+    }
+
+    private void updateJobDescriptionTitle(JobDefinitionViewHolder holder) {
+        ((TextInputLayout) holder.accidentView.getParent()).setHintEnabled(true);
+        ((TextInputLayout) holder.descriptionView.getParent()).setHintEnabled(true);
+        ((TextInputLayout) holder.noteView.getParent()).setHintEnabled(true);
     }
 
     @Override
@@ -302,10 +317,10 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void mapView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        equipmentEditText = (AutoCompleteTextView) findViewById(R.id.create_maintenance_equipment);
-        partRemainEditText = (AutoCompleteTextView) findViewById(R.id.create_maintenance_part_remain);
-        jobDefinitionEditText = (AutoCompleteTextView) findViewById(R.id.create_maintenance_job_definition);
-        employeeEditText = (AutoCompleteTextView) findViewById(R.id.create_maintenance_employee);
+        equipmentEditText = (MyAutoCompleteTextView) findViewById(R.id.create_maintenance_equipment);
+        partRemainEditText = (MyAutoCompleteTextView) findViewById(R.id.create_maintenance_part_remain);
+        jobDefinitionEditText = (MyAutoCompleteTextView) findViewById(R.id.create_maintenance_job_definition);
+        employeeEditText = (MyAutoCompleteTextView) findViewById(R.id.create_maintenance_employee);
         equipmentIdView = (EditText) findViewById(R.id.create_maintenance_id);
         equipmentNameView = (EditText) findViewById(R.id.create_maintenance_name);
         equipmentDeptView = (EditText) findViewById(R.id.create_maintenance_dept);
@@ -316,12 +331,12 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         containerEmployee = (LinearLayout) findViewById(R.id.container_employee);
         maintenanceDesET = (EditText) findViewById(R.id.create_maintenance_description);
         runningHourET = (EditText) findViewById(R.id.create_maintenance_running_hour);
+        maintenanceInfo = (TextView) findViewById(R.id.create_maintenance_info);
         h1ET = (EditText) findViewById(R.id.create_maintenance_h1);
         h2ET = (EditText) findViewById(R.id.create_maintenance_h2);
         h3ET = (EditText) findViewById(R.id.create_maintenance_h3);
         h4ET = (EditText) findViewById(R.id.create_maintenance_h4);
         containerView = (RelativeLayout) findViewById(R.id.create_maintenance_container);
-
     }
 
     private void setListener() {
@@ -380,6 +395,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         String equipmentId = intent.getStringExtra(MaintenanceJob.EQUIPMENT_ID);
         String equipName = intent.getStringExtra(MaintenanceJob.EQUIPMENT_NAME);
         String serialNumber = intent.getStringExtra(MaintenanceJob.SERIAL_NUMBER);
+        String info = intent.getStringExtra(MaintenanceJob.MAINTENANCE_JOB_CREARED_BY);
         dept = intent.getStringExtra(MaintenanceJob.DEPT);
         String remark = intent.getStringExtra(MaintenanceJob.REMARK);
         String jobDate = intent.getStringExtra(MaintenanceJob.MAINTENANCE_JOB_DATE);
@@ -394,6 +410,8 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        maintenanceInfo.setVisibility(View.VISIBLE);
+        maintenanceInfo.setText(info);
         equipmentIdView.setText(equipmentId);
         equipmentNameView.setText(equipName);
         equipmentDeptView.setText(dept);
@@ -1068,7 +1086,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus)
-            ((AutoCompleteTextView) v).showDropDown();
+            ((MyAutoCompleteTextView) v).performFiltering();
     }
 
     @Override
@@ -1198,6 +1216,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         EditText noteET;
         AppCompatCheckBox evaluationCB;
         ImageView employeeRemoveView;
+        TextView titleEvaluation;
         boolean isDetail;
     }
 }

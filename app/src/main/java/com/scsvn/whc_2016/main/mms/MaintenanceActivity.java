@@ -24,6 +24,7 @@ import com.scsvn.whc_2016.utilities.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.Response;
@@ -74,6 +75,7 @@ public class MaintenanceActivity extends BaseActivity implements View.OnClickLis
                 intent.putExtra(MaintenanceJob.TRUCK_HD, item.getTruckHD());
                 intent.putExtra(MaintenanceJob.TRUCK_TM, item.getTruckTM());
                 intent.putExtra(MaintenanceJob.MAINTENANCE_JOB_CONFIRM, item.isConfirm());
+                intent.putExtra(MaintenanceJob.MAINTENANCE_JOB_CREARED_BY, String.format(Locale.getDefault(), "MJ-ID: %d    Created: %s", item.getId(), item.getCreateBy()));
                 startActivityForResult(intent, REQUEST_CODE);
             }
 

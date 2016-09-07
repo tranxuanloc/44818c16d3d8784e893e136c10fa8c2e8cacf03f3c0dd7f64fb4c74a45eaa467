@@ -372,5 +372,6 @@
     <string name="label_user">User</string>
     <string name="title_activity_maintenance_job_detail">Detail</string>
     <string name="alert_delete_all_detail_before">Bạn phải xóa tất cả các thông tin trong Job Definition, Part Remain và Employee trước khi xóa phiếu này.</string>
+    <string name="label_p_f">P/F</string>
 
 </resources>

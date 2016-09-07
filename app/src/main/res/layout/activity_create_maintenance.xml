@@ -34,7 +34,7 @@
                 android:layout_height="1px"
                 android:layout_centerHorizontal="true" />
 
-            <AutoCompleteTextView
+            <com.scsvn.whc_2016.main.MyAutoCompleteTextView
                 android:id="@+id/create_maintenance_equipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -44,11 +44,63 @@
                 android:hint="@string/label_equipment"
                 android:inputType="text" />
 
+            <TextView
+                android:id="@+id/create_maintenance_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/create_maintenance_equipment"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#000"
+                android:visibility="gone" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/create_maintenance_info"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/view">
+
+                <EditText
+                    android:id="@+id/create_maintenance_date_create"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/label_maintenance_date"
+                    android:inputType="date"
+                    android:paddingTop="5dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/view7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/create_maintenance_info"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/view">
+
+                <EditText
+                    android:id="@+id/create_maintenance_running_hour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/label_running_hour"
+                    android:inputType="numberDecimal"
+                    android:paddingTop="5dp" />
+            </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/view1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/create_maintenance_equipment"
+                android:layout_below="@id/view5"
                 android:layout_marginLeft="10dp">
 
                 <EditText
@@ -67,18 +119,18 @@
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/create_maintenance_equipment"
+                android:layout_below="@id/view5"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/view1">
-
+                <!--android:hint="@string/name"-->
                 <EditText
                     android:id="@+id/create_maintenance_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/name"
+
                     android:inputType="text"
                     android:paddingTop="5dp" />
             </android.support.design.widget.TextInputLayout>
@@ -111,6 +163,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_toRightOf="@id/view3">
+                <!--android:hint="@string/label_serial"-->
 
                 <EditText
                     android:id="@+id/create_maintenance_serial"
@@ -118,53 +171,16 @@
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/label_serial"
                     android:inputType="text"
                     android:paddingTop="5dp" />
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/view5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view4"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/view">
-
-                <EditText
-                    android:id="@+id/create_maintenance_date_create"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/label_maintenance_date"
-                    android:inputType="date"
-                    android:paddingTop="5dp" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/view7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view4"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@id/view">
-
-                <EditText
-                    android:id="@+id/create_maintenance_running_hour"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/label_running_hour"
-                    android:inputType="numberDecimal"
-                    android:paddingTop="5dp" />
-            </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/view6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/view5"
+                android:layout_below="@id/view4"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
 
@@ -279,7 +295,7 @@
                 android:layout_marginRight="10dp"
                 android:orientation="vertical" />
 
-            <AutoCompleteTextView
+            <com.scsvn.whc_2016.main.MyAutoCompleteTextView
                 android:id="@+id/create_maintenance_job_definition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -320,7 +336,7 @@
                 android:layout_marginRight="10dp"
                 android:orientation="vertical" />
 
-            <AutoCompleteTextView
+            <com.scsvn.whc_2016.main.MyAutoCompleteTextView
                 android:id="@+id/create_maintenance_part_remain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -362,7 +378,7 @@
                 android:layout_marginRight="10dp"
                 android:orientation="vertical" />
 
-            <AutoCompleteTextView
+            <com.scsvn.whc_2016.main.MyAutoCompleteTextView
                 android:id="@+id/create_maintenance_employee"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

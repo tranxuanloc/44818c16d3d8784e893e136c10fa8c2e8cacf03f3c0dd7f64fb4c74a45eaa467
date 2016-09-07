@@ -20,6 +20,7 @@ public class MaintenanceJob {
     public static final String RUNNING_HOUR = "RunningHour";
     public static final String REMARK = "Remark";
     public static final String MAINTENANCE_JOB_CONFIRM = "MaintenanceJobConfirm";
+    public static final String MAINTENANCE_JOB_CREARED_BY = "MaintenanceJobCrearedBy";
     @SerializedName(EQUIPMENT_NAME)
     private String name;
     @SerializedName(SERIAL_NUMBER)
@@ -54,7 +55,7 @@ public class MaintenanceJob {
     private int truckHD;
     @SerializedName(TRUCK_TM)
     private int truckTM;
-    @SerializedName("MaintenanceJobCrearedBy")
+    @SerializedName(MAINTENANCE_JOB_CREARED_BY)
     private String createBy;
     @SerializedName("MaintenanceJobConfirmedBy")
     private String confirmBy;
