@@ -15,7 +15,15 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
@@ -38,70 +46,25 @@
                 android:id="@+id/create_maintenance_equipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:completionThreshold="1"
                 android:hint="@string/label_equipment"
                 android:inputType="text" />
 
-            <TextView
-                android:id="@+id/create_maintenance_info"
+
+            <LinearLayout
+                android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/create_maintenance_equipment"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="#000"
-                android:visibility="gone" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/view5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignWithParentIfMissing="true"
-                android:layout_below="@id/create_maintenance_info"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/view">
-
-                <EditText
-                    android:id="@+id/create_maintenance_date_create"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/label_maintenance_date"
-                    android:inputType="date"
-                    android:paddingTop="5dp" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/view7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignWithParentIfMissing="true"
-                android:layout_below="@id/create_maintenance_info"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@id/view">
-
-                <EditText
-                    android:id="@+id/create_maintenance_running_hour"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/label_running_hour"
-                    android:inputType="numberDecimal"
-                    android:paddingTop="5dp" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/view1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view5"
                 android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eq_id"
+                    android:textColor="#666" />
 
                 <EditText
                     android:id="@+id/create_maintenance_id"
@@ -109,89 +72,158 @@
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/id"
+                    android:hint=""
                     android:inputType="text"
                     android:minEms="3"
                     android:paddingTop="5dp" />
-            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view5"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@id/view1">
-                <!--android:hint="@string/name"-->
                 <EditText
                     android:id="@+id/create_maintenance_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-
                     android:inputType="text"
                     android:paddingTop="5dp" />
-            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:id="@+id/view3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignRight="@id/view1"
-                android:layout_below="@id/view2"
+                android:layout_below="@id/view1"
                 android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_dept"
+                    android:textColor="#666" />
 
                 <EditText
                     android:id="@+id/create_maintenance_dept"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/label_dept"
                     android:inputType="text"
                     android:minEms="3"
                     android:paddingTop="5dp" />
-            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/view4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view2"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toRightOf="@id/view3">
-                <!--android:hint="@string/label_serial"-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_serial"
+                    android:textColor="#666" />
 
                 <EditText
                     android:id="@+id/create_maintenance_serial"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1.5"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:inputType="text"
                     android:paddingTop="5dp" />
-            </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_model"
+                    android:textColor="#666" />
+
+                <EditText
+                    android:id="@+id/create_maintenance_model"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="text"
+                    android:paddingTop="5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/view3"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/create_maintenance_title_created"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_maintenance_date"
+                    android:textColor="#666" />
+
+                <TextView
+                    android:id="@+id/create_maintenance_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textColor="#000"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/create_maintenance_date_create"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="date"
+                    android:paddingTop="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_running_hour"
+                    android:textColor="#666" />
+
+                <EditText
+                    android:id="@+id/create_maintenance_running_hour"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="numberDecimal"
+                    android:paddingTop="5dp" />
+
+            </LinearLayout>
 
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:id="@+id/view6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/view4"
+                android:layout_below="@id/view5"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_remark"
+                    android:textColor="#666" />
 
                 <EditText
                     android:id="@+id/create_maintenance_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/label_description"
                     android:inputType="textCapSentences|textMultiLine"
                     android:paddingTop="5dp" />
-            </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
 
             <LinearLayout
@@ -199,8 +231,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view6"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 

@@ -18,4 +18,10 @@
         android:title="@string/label_delete"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_create"
+        android:icon="@drawable/ic_content_add"
+        android:title="@string/label_create"
+        app:showAsAction="ifRoom" />
+
 </menu>

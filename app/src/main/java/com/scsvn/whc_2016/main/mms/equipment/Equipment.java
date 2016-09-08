@@ -16,6 +16,12 @@ public class Equipment {
     private String dept;
     @SerializedName("Location")
     private String location;
+    @SerializedName("Model")
+    private String model;
+
+    public String getModel() {
+        return model;
+    }
 
     public String getId() {
         return id;

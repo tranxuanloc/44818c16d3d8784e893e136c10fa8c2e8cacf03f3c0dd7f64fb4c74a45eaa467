@@ -25,8 +25,4 @@ public class MyAutoCompleteTextView extends AppCompatAutoCompleteTextView {
         return true;
     }
 
-
-    public void performFiltering() {
-        performFiltering(getText(), 0);
-    }
 }

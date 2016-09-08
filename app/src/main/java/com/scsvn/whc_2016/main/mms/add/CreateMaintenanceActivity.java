@@ -106,16 +106,6 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     private ArrayList<JobDefinitionViewHolder> listJob = new ArrayList<>();
     private ArrayList<PartRemainViewHolder> listPart = new ArrayList<>();
     private ArrayList<EmployeeViewHolder> listEmployee = new ArrayList<>();
-    private AdapterView.OnItemClickListener equipmentItemClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Equipment item = equipmentAdapter.getItem(position);
-            String dept = item.getDept();
-            getListJobDefinition(dept);
-            getListPartRemain(dept);
-            updateUIEquipment(item);
-        }
-    };
     private AdapterView.OnItemClickListener partRemainItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -149,6 +139,20 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     private String dept;
     private boolean isConfirm;
     private TextView maintenanceInfo;
+    private TextView maintenanceTitleCreateView;
+    private EditText equipmentModel;
+    private AdapterView.OnItemClickListener equipmentItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Equipment item = equipmentAdapter.getItem(position);
+            String dept = item.getDept();
+            getListJobDefinition(dept);
+            getListPartRemain(dept);
+            updateUIEquipment(item);
+        }
+    };
+    private MenuItem itemCreate;
+    private TextView actionBarTitleView;
 
     private void addEmployeeView(EmployeeAbstract item, int position) {
         EmployeeViewHolder holder = new EmployeeViewHolder();
@@ -317,6 +321,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void mapView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        actionBarTitleView = (TextView) toolbar.findViewById(R.id.title);
         equipmentEditText = (MyAutoCompleteTextView) findViewById(R.id.create_maintenance_equipment);
         partRemainEditText = (MyAutoCompleteTextView) findViewById(R.id.create_maintenance_part_remain);
         jobDefinitionEditText = (MyAutoCompleteTextView) findViewById(R.id.create_maintenance_job_definition);
@@ -331,7 +336,9 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         containerEmployee = (LinearLayout) findViewById(R.id.container_employee);
         maintenanceDesET = (EditText) findViewById(R.id.create_maintenance_description);
         runningHourET = (EditText) findViewById(R.id.create_maintenance_running_hour);
+        equipmentModel = (EditText) findViewById(R.id.create_maintenance_model);
         maintenanceInfo = (TextView) findViewById(R.id.create_maintenance_info);
+        maintenanceTitleCreateView = (TextView) findViewById(R.id.create_maintenance_title_created);
         h1ET = (EditText) findViewById(R.id.create_maintenance_h1);
         h2ET = (EditText) findViewById(R.id.create_maintenance_h2);
         h3ET = (EditText) findViewById(R.id.create_maintenance_h3);
@@ -387,8 +394,8 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     }
 
     private void updateUITypeDetail(Intent intent) {
-        getSupportActionBar().setTitle(getString(R.string.title_activity_maintenance_job_detail));
         switchMode();
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         username = LoginPref.getUsername(this);
         id = intent.getIntExtra(MaintenanceJob.MAINTENANCE_JOB_ID, 0);
         isConfirm = intent.getBooleanExtra(MaintenanceJob.MAINTENANCE_JOB_CONFIRM, false);
@@ -410,6 +417,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        actionBarTitleView.setText(String.format(Locale.getDefault(), "MJ-%d~%s", id, jobDate));
         maintenanceInfo.setVisibility(View.VISIBLE);
         maintenanceInfo.setText(info);
         equipmentIdView.setText(equipmentId);
@@ -653,6 +661,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         equipmentNameView.setText(item.getName());
         equipmentDeptView.setText(item.getDept());
         equipmentSerialView.setText(item.getSerialNumber());
+        equipmentModel.setText(item.getModel());
     }
 
 
@@ -1086,7 +1095,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus)
-            ((MyAutoCompleteTextView) v).performFiltering();
+            ((AutoCompleteTextView) v).setText("");
     }
 
     @Override
@@ -1095,6 +1104,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         itemDone = menu.findItem(R.id.action_done);
         itemEdit = menu.findItem(R.id.action_edit);
         itemDelete = menu.findItem(R.id.action_delete);
+        itemCreate = menu.findItem(R.id.action_create);
 
         if (isDetail) {
             itemDone.setVisible(false);
@@ -1103,6 +1113,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         } else {
             itemEdit.setVisible(false);
             itemDelete.setVisible(false);
+            itemCreate.setVisible(false);
         }
 
         return true;
@@ -1136,7 +1147,12 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                 dialog.show();
             }
 
+        } else if (item == itemCreate) {
+            Intent intent = new Intent(getApplicationContext(), CreateMaintenanceActivity.class);
+            intent.putExtra("TYPE", MaintenanceActivity.TYPE_CREATE);
+            startActivity(intent);
         }
+
         return true;
     }
 
@@ -1174,6 +1190,10 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         partRemainEditText.setVisibility(isDetail ? View.GONE : View.VISIBLE);
         jobDefinitionEditText.setVisibility(isDetail ? View.GONE : View.VISIBLE);
         employeeEditText.setVisibility(isDetail ? View.GONE : View.VISIBLE);
+        maintenanceTitleCreateView.setText(isDetail ? getString(R.string.label_created) : getString(R.string.label_maintenance_date));
+        maintenanceInfo.setVisibility(isDetail ? View.VISIBLE : View.GONE);
+        maintenanceDateEditText.setVisibility(isDetail ? View.GONE : View.VISIBLE);
+
         for (JobDefinitionViewHolder holder : listJob)
             holder.jobRemoveView.setVisibility(isDetail ? View.GONE : View.VISIBLE);
         for (PartRemainViewHolder holder : listPart)

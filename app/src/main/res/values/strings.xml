@@ -341,7 +341,7 @@
     <string name="title_activity_meeting_map">Map</string>
     <string name="label_maintenance">Maintenance</string>
     <string name="title_activity_maintenance_job">Maintenance Job</string>
-    <string name="title_activity_create_maintenance_job">Create Maintenance Job</string>
+    <string name="title_activity_create_maintenance_job">Create</string>
     <string name="label_equipment">Equipment</string>
     <string name="label_serial">Serial</string>
     <string name="label_running_hour">Run. Hour</string>
@@ -353,7 +353,7 @@
     <string name="label_dept">Dept</string>
     <string name="label_subject">Subject</string>
     <string name="description_remove_reminder">Remove reminder</string>
-    <string name="label_accident">Accident</string>
+    <string name="label_accident">Acci</string>
     <string name="description_remove_job_definition">Remove Job Definition</string>
     <string name="label_job_description">Job description</string>
     <string name="label_note">Note</string>
@@ -370,8 +370,13 @@
     <string name="label_ot">OT</string>
     <string name="label_evaluation">Evaluation</string>
     <string name="label_user">User</string>
+    <string name="label_id_name">ID/Name</string>
     <string name="title_activity_maintenance_job_detail">Detail</string>
     <string name="alert_delete_all_detail_before">Bạn phải xóa tất cả các thông tin trong Job Definition, Part Remain và Employee trước khi xóa phiếu này.</string>
     <string name="label_p_f">P/F</string>
+    <string name="eq_id">Eq.ID</string>
+    <string name="label_model">Model</string>
+    <string name="label_created">"Created: "</string>
+    <string name="label_create">Create</string>
 
 </resources>
