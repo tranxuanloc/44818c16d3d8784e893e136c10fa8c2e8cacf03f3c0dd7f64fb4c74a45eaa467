@@ -263,8 +263,6 @@
     <string name="is_electric">Cắm điện</string>
     <string name="not_yet_scan">Chưa quét</string>
     <string name="scanned">Đã quét</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_free_location_details">Free Location Details</string>
     <string name="gs_xac_nhan">GS Xác nhận</string>

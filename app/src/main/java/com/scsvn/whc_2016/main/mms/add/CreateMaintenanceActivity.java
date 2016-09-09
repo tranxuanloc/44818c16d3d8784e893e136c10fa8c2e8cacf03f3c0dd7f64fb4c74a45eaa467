@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -153,12 +152,14 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     };
     private MenuItem itemCreate;
     private TextView actionBarTitleView;
+    private View viewEmployee;
+    private View viewJob;
+    private boolean isUpdated;
 
     private void addEmployeeView(EmployeeAbstract item, int position) {
         EmployeeViewHolder holder = new EmployeeViewHolder();
         holder.isDetail = item.isDetail();
         holder.viewEmployee = LayoutInflater.from(CreateMaintenanceActivity.this).inflate(R.layout.item_mms_employee, null);
-        holder.titleEvaluation = (TextView) holder.viewEmployee.findViewById(R.id.item_mms_employee_title_evaluation);
         holder.idView = (EditText) holder.viewEmployee.findViewById(R.id.item_mms_employee_info);
         holder.durationET = (EditText) holder.viewEmployee.findViewById(R.id.item_mms_employee_duration);
         holder.otET = (EditText) holder.viewEmployee.findViewById(R.id.item_mms_employee_ot);
@@ -172,14 +173,11 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                 EmployeeViewHolder holder = (EmployeeViewHolder) v.getTag();
                 containerEmployee.removeView(holder.viewEmployee);
                 listEmployee.remove(holder);
-                if (listEmployee.size() > 0)
-                    updateEmployeeTitle(listEmployee.get(0));
                 if (holder.isDetail)
                     deleteEmployee(parserInt(holder.idView.getTag().toString()));
             }
         });
-        if (position == 0)
-            updateEmployeeTitle(holder);
+
         if (isDetail) {
             holder.employeeRemoveView.setVisibility(View.GONE);
             holder.noteET.setText(((MaintenanceEmployee) item).getRemark());
@@ -196,15 +194,6 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         if (position % 2 != 0)
             holder.viewEmployee.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAlternativeRow));
     }
-
-    private void updateEmployeeTitle(EmployeeViewHolder holder) {
-        ((TextInputLayout) holder.idView.getParent()).setHintEnabled(true);
-        ((TextInputLayout) holder.durationET.getParent()).setHintEnabled(true);
-        ((TextInputLayout) holder.otET.getParent()).setHintEnabled(true);
-        ((TextInputLayout) holder.noteET.getParent()).setHintEnabled(true);
-        holder.titleEvaluation.setVisibility(View.VISIBLE);
-    }
-
 
     private void addPartView(PartAbstract item, int position) {
         PartRemainViewHolder holder = new PartRemainViewHolder();
@@ -240,7 +229,6 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
             holder.viewPartRemain.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAlternativeRow));
     }
 
-
     private void addJobDailyView(JobDailyAbstract item, int position) {
         final JobDefinitionViewHolder holder = new JobDefinitionViewHolder();
         holder.isDetail = item.isDetail();
@@ -258,14 +246,11 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                 JobDefinitionViewHolder holder = (JobDefinitionViewHolder) v.getTag();
                 containerJob.removeView(holder.viewJobDefinition);
                 listJob.remove(holder);
-                if (listJob.size() > 0)
-                    updateJobDescriptionTitle(listJob.get(0));
                 if (holder.isDetail)
                     deleteJobDaily(holder.descriptionView.getTag().toString());
             }
         });
-        if (position == 0)
-            updateJobDescriptionTitle(holder);
+
         final PopupMenu menu = new PopupMenu(CreateMaintenanceActivity.this, holder.accidentView);
         menu.inflate(R.menu.job_definition_accident);
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -305,12 +290,6 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     }
 
-    private void updateJobDescriptionTitle(JobDefinitionViewHolder holder) {
-        ((TextInputLayout) holder.accidentView.getParent()).setHintEnabled(true);
-        ((TextInputLayout) holder.descriptionView.getParent()).setHintEnabled(true);
-        ((TextInputLayout) holder.noteView.getParent()).setHintEnabled(true);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -344,6 +323,8 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         h3ET = (EditText) findViewById(R.id.create_maintenance_h3);
         h4ET = (EditText) findViewById(R.id.create_maintenance_h4);
         containerView = (RelativeLayout) findViewById(R.id.create_maintenance_container);
+        viewEmployee = findViewById(R.id.viewEmployee);
+        viewJob = findViewById(R.id.viewJob);
     }
 
     private void setListener() {
@@ -425,7 +406,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         equipmentDeptView.setText(dept);
         equipmentSerialView.setText(serialNumber);
         maintenanceDateEditText.setText(jobDate);
-        maintenanceDateEditText.setTag(Utilities.formatDateTime_yyyyMMddHHmmssFromMili(calendar.getTimeInMillis()));
+        maintenanceDateEditText.setTag(Utilities.formatDateTime_ddMMyyHHmmFromMili(calendar.getTimeInMillis()));
         maintenanceDesET.setText(remark);
         runningHourET.setText(String.format(Locale.getDefault(), "%.1f", runningHour));
         h1ET.setText(h1);
@@ -435,7 +416,6 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
         getMaintenanceJobDaily();
     }
-
 
     private void getMaintenanceJobDaily() {
 
@@ -664,7 +644,6 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         equipmentModel.setText(item.getModel());
     }
 
-
     private void insertMaintenanceJob() {
         if (equipmentIdView.getText().length() == 0) {
             Snackbar.make(snackBarView, getString(R.string.field_not_empty, getString(R.string.id)), Snackbar.LENGTH_SHORT).show();
@@ -673,6 +652,12 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         if (maintenanceDateEditText.getText().length() == 0) {
             Snackbar.make(snackBarView, getString(R.string.field_not_empty, getString(R.string.label_maintenance_date)), Snackbar.LENGTH_SHORT).show();
             return;
+        }
+        for (JobDefinitionViewHolder holder : listJob) {
+            if (holder.accidentView.getText().length() == 0) {
+                Snackbar.make(snackBarView, getString(R.string.field_not_empty, "Accident"), Snackbar.LENGTH_SHORT).show();
+                return;
+            }
         }
 
         MaintenanceJobParameter parameter = new MaintenanceJobParameter(
@@ -706,7 +691,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
             else {
                 dialog.dismiss();
                 Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
-                setResultUpdate();
+                updateMode();
             }
         }
 
@@ -734,7 +719,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                             else {
                                 dialog.dismiss();
                                 Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
-                                setResultUpdate();
+                                updateMode();
                             }
                         }
                     }
@@ -788,7 +773,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                             else {
                                 dialog.dismiss();
                                 Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
-                                setResultUpdate();
+                                updateMode();
                             }
                         }
                     }
@@ -823,7 +808,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                             else {
                                 dialog.dismiss();
                                 Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
-                                setResultUpdate();
+                                updateMode();
                             }
                         }
                     }
@@ -874,7 +859,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                             else {
                                 dialog.dismiss();
                                 Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
-                                setResultUpdate();
+                                updateMode();
                             }
                         }
                     }
@@ -907,7 +892,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                             else {
                                 dialog.dismiss();
                                 Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
-                                setResultUpdate();
+                                updateMode();
                             }
                         }
                     }
@@ -959,7 +944,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                             } else {
                                 dialog.dismiss();
                                 Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
-                                setResultUpdate();
+                                updateMode();
                             }
                         }
                     }
@@ -990,7 +975,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                             } else {
                                 dialog.dismiss();
                                 Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
-                                setResultUpdate();
+                                updateMode();
                             }
                         }
                     }
@@ -1084,7 +1069,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 calendar.set(year, monthOfYear, dayOfMonth);
-                maintenanceDateEditText.setTag(Utilities.formatDateTime_yyyyMMddHHmmssFromMili(calendar.getTimeInMillis()));
+                maintenanceDateEditText.setTag(Utilities.formatDateTime_ddMMyyHHmmFromMili(calendar.getTimeInMillis()));
                 maintenanceDateEditText.setText(String.format(Locale.getDefault(), "%d/%d/%d", dayOfMonth, monthOfYear + 1, year));
 
             }
@@ -1156,7 +1141,6 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         return true;
     }
 
-
     private void deleteMaintenanceJob() {
         dialog.setMessage(getString(R.string.deleting));
         dialog.show();
@@ -1172,7 +1156,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                         if (response.isSuccess() && response.body() != null) {
                             dialog.dismiss();
                             Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
-                            setResultUpdate();
+                            updateMode();
                         }
                     }
 
@@ -1193,6 +1177,8 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         maintenanceTitleCreateView.setText(isDetail ? getString(R.string.label_created) : getString(R.string.label_maintenance_date));
         maintenanceInfo.setVisibility(isDetail ? View.VISIBLE : View.GONE);
         maintenanceDateEditText.setVisibility(isDetail ? View.GONE : View.VISIBLE);
+        viewEmployee.setVisibility(isDetail ? View.GONE : View.VISIBLE);
+        viewJob.setVisibility(isDetail ? View.GONE : View.VISIBLE);
 
         for (JobDefinitionViewHolder holder : listJob)
             holder.jobRemoveView.setVisibility(isDetail ? View.GONE : View.VISIBLE);
@@ -1205,9 +1191,17 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     }
 
-    private void setResultUpdate() {
-        setResult(RESULT_OK, new Intent());
-        onBackPressed();
+    private void updateMode() {
+        isDetail = true;
+        isUpdated = true;
+        switchMode();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isUpdated)
+            setResult(RESULT_OK, new Intent());
+        super.onBackPressed();
     }
 
     private class JobDefinitionViewHolder {
@@ -1236,7 +1230,6 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         EditText noteET;
         AppCompatCheckBox evaluationCB;
         ImageView employeeRemoveView;
-        TextView titleEvaluation;
         boolean isDetail;
     }
 }

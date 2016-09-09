@@ -185,6 +185,11 @@ public class Utilities {
         calendar.setTimeInMillis(milliseconds);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
         return format.format(calendar.getTime());
+    }public static String formatDateTime_ddMMyyHHmmFromMili(long milliseconds) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliseconds);
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy HH:mm", Locale.US);
+        return format.format(calendar.getTime());
     }
 
     public static String formatDateTime_yyyyMMddFromMili(long milliseconds) {

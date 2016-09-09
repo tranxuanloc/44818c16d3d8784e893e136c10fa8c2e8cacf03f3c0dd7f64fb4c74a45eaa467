@@ -128,7 +128,7 @@ public class MainActivity extends BaseActivity {
         } else if (sCase.equalsIgnoreCase(Const.TECHNICAL)) {
             indexQH = 1;
             indexQHSE = 0;
-            indexUpdateVersion = 7;
+            indexUpdateVersion = 8;
             dataUser.technical();
         }
     }

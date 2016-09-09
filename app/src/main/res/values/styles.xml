@@ -12,11 +12,16 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="EditTextNoBackground" parent="@android:style/Widget.EditText">
+        <item name="android:padding">5dp</item>
+        <item name="android:background">#0FFF</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

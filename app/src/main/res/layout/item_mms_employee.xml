@@ -1,114 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="5dp">
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/item_mms_employee_info"
+        style="@style/EditTextNoBackground"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="@string/label_id_name"
+        android:paddingTop="@dimen/adjust_edit_text_padding_top" />
+
+    <EditText
+        android:id="@+id/item_mms_employee_duration"
+        style="@style/EditTextNoBackground"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:hint="@string/label_duration"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:paddingTop="@dimen/adjust_edit_text_padding_top">
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/item_mms_employee_ot"
+        style="@style/EditTextNoBackground"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/label_ot"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:paddingTop="@dimen/adjust_edit_text_padding_top" />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/item_mms_employee_evaluation"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/icon_remove_width" />
+
+    <EditText
+        android:id="@+id/item_mms_employee_note"
+        style="@style/EditTextNoBackground"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:hint="@string/label_note"
+        android:imeOptions="actionDone"
+        android:inputType="text|textMultiLine"
+        android:paddingTop="@dimen/adjust_edit_text_padding_top" />
 
     <ImageView
         android:id="@+id/item_mms_employee_remove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+        android:layout_width="@dimen/icon_remove_width"
+        android:layout_height="@dimen/icon_remove_width"
         android:background="@drawable/selector_gray_transparent"
         android:clickable="true"
         android:contentDescription="@string/description_remove_job_definition"
         android:src="@drawable/ic_action_remove" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_toLeftOf="@id/item_mms_employee_remove"
-        android:textColorHint="#000"
-        app:hintEnabled="false">
-
-        <EditText
-            android:id="@+id/item_mms_employee_note"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="8"
-            android:hint="@string/label_note"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:paddingTop="5dp" />
-    </android.support.design.widget.TextInputLayout>
-
-    <TextView
-        android:id="@+id/item_mms_employee_title_evaluation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@id/view"
-        android:gravity="center_horizontal"
-        android:text="@string/label_p_f"
-        android:textColor="#000"
-        android:textSize="12sp"
-        android:visibility="gone" />
-
-    <android.support.v7.widget.AppCompatCheckBox
-        android:id="@+id/item_mms_employee_evaluation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_mms_employee_title_evaluation"
-        android:layout_marginTop="-5dp"
-        android:layout_toLeftOf="@id/view" />
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/item_mms_employee_evaluation"
-        android:textColorHint="#000"
-        app:hintEnabled="false">
-
-        <EditText
-            android:id="@+id/item_mms_employee_ot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/label_ot"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:minEms="2"
-            android:paddingTop="5dp" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/view2"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/view1"
-        android:textColorHint="#000"
-        app:hintEnabled="false">
-
-        <EditText
-            android:id="@+id/item_mms_employee_duration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/label_duration"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:paddingTop="5dp" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/view2"
-        android:textColorHint="#000"
-        app:hintEnabled="false">
-
-        <EditText
-            android:id="@+id/item_mms_employee_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:hint="@string/label_id_name"
-            android:imeOptions="actionNext"
-            android:paddingTop="5dp" />
-    </android.support.design.widget.TextInputLayout>
-
-</RelativeLayout>
+</LinearLayout>

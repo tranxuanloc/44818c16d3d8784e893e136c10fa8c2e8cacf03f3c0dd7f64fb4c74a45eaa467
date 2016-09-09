@@ -131,6 +131,7 @@ public class DataUser {
         data.add(new MenuInfo(10, context.getString(R.string.nang_suat), R.drawable.ic_nang_suat));
         data.add(new MenuInfo(18, context.getString(R.string.lich_su_ra_vao), R.drawable.ic_lich_su_ra_vao));
         data.add(new MenuInfo(14, context.getString(R.string.nhap_ngoai_gio), R.drawable.ic_ngoai_gio));
+        data.add(new MenuInfo(27, context.getString(R.string.label_maintenance), R.drawable.ic_scan_ho_so));
         data.add(new MenuInfo(17, context.getString(R.string.cap_nhat_moi), R.drawable.ic_cap_nhat_moi));
         data.add(new MenuInfo(12, context.getString(R.string.doi_mat_khau), R.drawable.ic_mat_khau));
     }
