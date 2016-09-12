@@ -77,7 +77,7 @@ public class ChangePasswordActivity extends BaseActivity {
         changePassword(view, parameter);
     }
 
-    private boolean isEmpty(EditText view) {
+    public boolean isEmpty(EditText view) {
         if (view.getText().toString().length() == 0) {
             Snackbar.make(view, "Trường này không được để trống", Snackbar.LENGTH_LONG).show();
             view.requestFocus();
@@ -86,7 +86,7 @@ public class ChangePasswordActivity extends BaseActivity {
         return false;
     }
 
-    private boolean matchPass() {
+    public boolean matchPass() {
         if (etNewPass.getText().toString().equals(etConfirmNewPass.getText().toString()))
             return true;
         Snackbar.make(tvUserName, "Mật khẩu mới và mật khẩu xác nhận không trùng nhau", Snackbar.LENGTH_LONG).show();

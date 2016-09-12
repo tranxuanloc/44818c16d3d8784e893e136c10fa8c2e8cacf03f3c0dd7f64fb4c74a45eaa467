@@ -52,4 +52,15 @@
         <item>Yes</item>
         <item>No</item>
     </string-array>
+    <string-array name="warehouse_id">
+        <item>Warehouse ID</item>
+        <item>123</item>
+        <item>45</item>
+        <item>All</item>
+    </string-array>
+    <integer-array name="warehouse_id_value">
+        <item>1</item>
+        <item>2</item>
+        <item>0</item>
+    </integer-array>
 </resources>

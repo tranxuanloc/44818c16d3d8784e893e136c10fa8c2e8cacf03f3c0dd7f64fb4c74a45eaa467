@@ -86,6 +86,9 @@ public interface MyRequests {
     @POST("/api/login")
     Call<LoginInfo> signIn(@Body com.scsvn.whc_2016.retrofit.LoginInfo loginInfo);
 
+    @POST("/api/RegisterUser")
+    Call<String> register(@Body RegisterParameter parameter);
+
     @POST("/api/LogOut")
     Call<String> signOut(@Body String userName);
 

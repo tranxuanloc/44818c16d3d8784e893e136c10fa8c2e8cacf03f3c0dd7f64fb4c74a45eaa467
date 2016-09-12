@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class DataUser {
     public static ArrayList<MenuInfo> data = new ArrayList<>();
     private Context context;
-    private int max = 27;
+    private int max = 28;
 
     public DataUser(Context context) {
         this.context = context;
@@ -43,6 +43,7 @@ public class DataUser {
         data.add(new MenuInfo(15, context.getString(R.string.opportunity_manager), R.drawable.ic_giao_viec));
         data.add(new MenuInfo(26, context.getString(R.string.calendar), R.drawable.ic_event));
         data.add(new MenuInfo(27, context.getString(R.string.label_maintenance), R.drawable.ic_scan_ho_so));
+        data.add(new MenuInfo(28, context.getString(R.string.label_register), R.drawable.ic_cua_toi));
         data.add(new MenuInfo(12, context.getString(R.string.doi_mat_khau), R.drawable.ic_mat_khau));
         data.add(new MenuInfo(17, context.getString(R.string.cap_nhat_moi), R.drawable.ic_cap_nhat_moi));
     }

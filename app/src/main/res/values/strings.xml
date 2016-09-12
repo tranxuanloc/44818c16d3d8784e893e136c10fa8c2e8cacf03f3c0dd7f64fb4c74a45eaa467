@@ -376,5 +376,11 @@
     <string name="label_model">Model</string>
     <string name="label_created">"Created: "</string>
     <string name="label_create">Create</string>
+    <string name="label_warehouse_id">Warehouse ID</string>
+    <string name="label_register">Register</string>
+    <string name="label_username">Username</string>
+    <string name="label_confirm_password">Confirm password</string>
+    <string name="title_activity_register">Register</string>
+    <string name="label_is_allow_outside">Is allow outside</string>
 
 </resources>

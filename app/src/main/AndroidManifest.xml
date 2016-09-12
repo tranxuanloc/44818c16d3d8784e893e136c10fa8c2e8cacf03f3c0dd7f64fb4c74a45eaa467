@@ -441,6 +441,10 @@
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main.register.RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

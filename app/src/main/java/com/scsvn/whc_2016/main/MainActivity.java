@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity {
             indexQHSE = 5;
             indexTruckContainer = 8;
             indexQH = 18;
-            indexUpdateVersion = 23;
+            indexUpdateVersion = 27;
             dataUser.manager();
         } else if (sCase.equalsIgnoreCase(Const.SUPERVISOR)) {
             indexPhieuCuaToi = 1;

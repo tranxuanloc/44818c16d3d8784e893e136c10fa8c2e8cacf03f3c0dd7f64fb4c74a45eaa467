@@ -40,6 +40,7 @@ import com.scsvn.whc_2016.main.palletcartonchecking.KiemPalletCartonActivity;
 import com.scsvn.whc_2016.main.palletcartonchecking.KiemPalletCartonNoEMDKActivity;
 import com.scsvn.whc_2016.main.phieucuatoi.PhieuCuaToiActivity;
 import com.scsvn.whc_2016.main.phieuhomnay.KhachHangActivity;
+import com.scsvn.whc_2016.main.register.RegisterActivity;
 import com.scsvn.whc_2016.main.technical.assign.AssignWorkActivity;
 import com.scsvn.whc_2016.main.technical.schedulejobplan.ScheduleJobActivity;
 import com.scsvn.whc_2016.main.tonkho.khachhang.StockOnHandActivity;
@@ -190,6 +191,8 @@ public class MenuAdapter extends ArrayAdapter<MenuInfo> {
             context.startActivity(new Intent(context, CRMActivity.class));
         else if (tag == 27)
             context.startActivity(new Intent(context, MaintenanceActivity.class));
+        else if (tag == 28)
+            context.startActivity(new Intent(context, RegisterActivity.class));
     }
 
     static class ViewHolder {
