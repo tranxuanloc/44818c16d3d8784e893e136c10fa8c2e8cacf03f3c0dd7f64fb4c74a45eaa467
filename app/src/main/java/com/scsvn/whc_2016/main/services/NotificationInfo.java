@@ -16,10 +16,12 @@ public class NotificationInfo {
     @SerializedName("NotiOrderType")
     private String type;
     @SerializedName("NotiQty")
-    private short NotiQty;
+    private short notiQty;
+    @SerializedName("OrderNumber")
+    private String orderNumber;
 
     public short getNotiQty() {
-        return NotiQty;
+        return notiQty;
     }
 
     public String getContent() {
@@ -36,5 +38,9 @@ public class NotificationInfo {
 
     public String getType() {
         return type;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
     }
 }

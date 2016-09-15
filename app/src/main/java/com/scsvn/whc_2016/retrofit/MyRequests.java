@@ -370,6 +370,9 @@ public interface MyRequests {
     @POST("/api/CRMMeetingUsersInsert")
     Call<String> addMeetingUsers(@Body MeetingUserParameter parameter);
 
+    @POST("/api/CRMMeetingUsersUpdate")
+    Call<String> updateMeetingUsers(@Body MeetingUserParameter parameter);
+
     @POST("/api/CRMOpportunitiesUpdate")
     Call<String> updateOpportunity(@Body OpportunityParameter parameter);
 
@@ -392,7 +395,7 @@ public interface MyRequests {
     Call<String> deleteMeeting(@Body int id);
 
     @POST("/api/CRMMeetingUserList")
-    Call<List<Guest>> getMeetingGuest(@Body int id);
+    Call<List<Guest>> getMeetingGuest(@Body MeetingUserParameter parameter);
 
     @POST("/api/MMSListEquipment")
     Call<List<Equipment>> getListEquipment(@Body EquipmentParameter parameter);

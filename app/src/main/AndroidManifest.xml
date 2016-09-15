@@ -424,7 +424,8 @@
         <activity
             android:name=".main.crm.add.AddCRMActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".main.crm.detail.MeetingDetailActivity"
             android:label="@string/title_activity_meeting_detail"

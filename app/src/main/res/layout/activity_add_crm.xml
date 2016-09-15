@@ -199,7 +199,6 @@
                 android:orientation="vertical"
                 android:padding="5dp">
 
-
             </LinearLayout>
 
             <Button
@@ -214,6 +213,21 @@
                 android:padding="5dp"
                 android:text="Add reminder"
                 android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/add_crm_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/container_reminder"
+                android:layout_margin="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/selector_gray_white"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Answer"
+                android:textAllCaps="false"
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:id="@+id/add_crm_container_invitees"

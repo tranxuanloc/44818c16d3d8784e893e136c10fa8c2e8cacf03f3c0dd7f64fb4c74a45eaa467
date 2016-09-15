@@ -126,7 +126,6 @@ public class CRMActivity extends BaseActivity implements View.OnClickListener, A
                     selection, selectionArgs, null);
             if (query != null && query.moveToFirst()) {
                 long id = query.getLong(0);
-                Log.d(TAG, "getIdCalendar() returned: " + query.getString(1));
                 query.close();
                 return id;
             } else

@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity {
             indexQHSE = 5;
             indexTruckContainer = 8;
             indexQH = 18;
-            indexUpdateVersion = 23;
+            indexUpdateVersion = 24;
             dataUser.supervisor();
         } else if (sCase.equalsIgnoreCase(Const.PRODUCT_CHECKER)) {
             indexPhieuCuaToi = 1;
@@ -147,7 +147,9 @@ public class MainActivity extends BaseActivity {
                             amountQHSE += info.getNotiQty();
                         else if ((info.getType().equalsIgnoreCase("CO") || info.getType().equalsIgnoreCase("TR")) && indexTruckContainer != -1)
                             amountTruckContainer += info.getNotiQty();
-                        else if (indexPhieuCuaToi != -1)
+                        else if (info.getType().equalsIgnoreCase("MT")) {
+
+                        } else if (indexPhieuCuaToi != -1)
                             amountPhieuCuaToi += info.getNotiQty();
                     }
                     if (amountPhieuCuaToi != 0)

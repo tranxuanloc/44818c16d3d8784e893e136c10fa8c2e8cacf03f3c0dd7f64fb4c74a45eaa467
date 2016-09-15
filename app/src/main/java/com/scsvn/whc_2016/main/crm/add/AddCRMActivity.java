@@ -16,12 +16,14 @@ import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -31,6 +33,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -40,6 +43,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
+import com.scsvn.whc_2016.main.crm.CRMActivity;
 import com.scsvn.whc_2016.main.crm.GridViewInvite;
 import com.scsvn.whc_2016.main.crm.Guest;
 import com.scsvn.whc_2016.main.crm.InviteUserAdapter;
@@ -113,6 +117,10 @@ public class AddCRMActivity extends BaseActivity
     private int[] reminderValues;
     private int timeReminderPos = 2;
     private int typeReminderPos;
+    private int choose = 0;
+    private Button answerButton;
+    private PopupMenu answerMenu;
+    private String timeZoneId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,10 +134,12 @@ public class AddCRMActivity extends BaseActivity
         mapView();
         setListener();
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         if (intent != null)
             calendarId = intent.getLongExtra(Calendars._ID, -1);
-
+        if (calendarId == -1)
+            initCalendar();
+        timeZoneId = TimeZone.getDefault().getID();
         reminderValues = getResources().getIntArray(R.array.reminder_values);
 
         username = LoginPref.getUsername(this);
@@ -166,6 +176,21 @@ public class AddCRMActivity extends BaseActivity
                 getMeetingDetail(meetingId);
                 getMeetingGuest(meetingId);
             }
+            if (getIntent().hasExtra("CONFIRM")) {
+                getLocalIdFromServer(username, meetingId);
+                answerButton.setVisibility(View.VISIBLE);
+                answerMenu = new PopupMenu(this, answerButton);
+                answerMenu.inflate(R.menu.choose_meeting);
+                answerMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.action_accept)
+                            choose = 1;
+                        else choose = -1;
+                        return true;
+                    }
+                });
+            }
             if (intent.hasExtra("MEETING_LOCAL_ID")) {
                 meetingLocalId = intent.getIntExtra("MEETING_LOCAL_ID", -1);
                 if (!isExistEvent())
@@ -189,7 +214,6 @@ public class AddCRMActivity extends BaseActivity
             do {
                 int minute = cursor.getInt(0);
                 int method = cursor.getInt(1);
-                Log.d(TAG, "getReminder() returned: " + minute + " ~ " + method);
                 timeReminderPos = Arrays.binarySearch(reminderValues, minute);
                 typeReminderPos = 0;
                 addReminderView();
@@ -219,6 +243,7 @@ public class AddCRMActivity extends BaseActivity
         containerInvitees = (GridViewInvite) panelInviteesView.findViewById(R.id.container_invitees);
         containerReminder = (LinearLayout) findViewById(R.id.container_reminder);
         addReminderButton = (Button) findViewById(R.id.add_crm_add_reminder);
+        answerButton = (Button) findViewById(R.id.add_crm_answer);
     }
 
     private void setListener() {
@@ -230,6 +255,7 @@ public class AddCRMActivity extends BaseActivity
         endTimeView.setOnClickListener(this);
         inviteesButton.setOnClickListener(this);
         addReminderButton.setOnClickListener(this);
+        answerButton.setOnClickListener(this);
         closeInviteesButton.setOnClickListener(this);
         customerIdView.setOnFocusChangeListener(this);
         customerIdView.setOnClickListener(this);
@@ -238,9 +264,21 @@ public class AddCRMActivity extends BaseActivity
         inviteesEditText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                inviteesUser.add(employeeAdapter.getItem(position));
-                inviteUserAdapter.notifyDataSetChanged();
+                EmployeeInfo item = employeeAdapter.getItem(position);
+                boolean isExist = false;
+                for (EmployeeInfo info : inviteesUser) {
+                    if (info.getEmployeeID() == item.getEmployeeID()) {
+                        isExist = true;
+                        break;
+                    }
+                }
+                if (!isExist) {
+                    inviteesUser.add(item);
+                    inviteUserAdapter.notifyDataSetChanged();
+                }
+
                 inviteesEditText.setText("");
+
             }
         });
         containerInvitees.setOnItemClickListener(this);
@@ -274,13 +312,39 @@ public class AddCRMActivity extends BaseActivity
                 });
     }
 
+    private void getLocalIdFromServer(String user, int meetingId) {
+        if (!Utilities.isConnected(this)) {
+            RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
+            return;
+        }
+        MyRetrofit.initRequest(this)
+                .getMeetingGuest(new MeetingUserParameter(user, meetingId))
+                .enqueue(new Callback<List<Guest>>() {
+                    @Override
+                    public void onResponse(Response<List<Guest>> response, Retrofit retrofit) {
+                        List<Guest> body = response.body();
+                        if (response.isSuccess() && body != null && body.size() > 0) {
+                            meetingLocalId = body.get(0).getMeetingLocalID();
+                            if (!isExistEvent())
+                                meetingLocalId = -1;
+                            getReminder();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        RetrofitError.errorNoAction(getApplicationContext(), t, BaseActivity.TAG, snackBarView);
+                    }
+                });
+    }
+
     private void getMeetingGuest(int meetingId) {
         if (!Utilities.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
         MyRetrofit.initRequest(this)
-                .getMeetingGuest(meetingId)
+                .getMeetingGuest(new MeetingUserParameter("", meetingId))
                 .enqueue(new Callback<List<Guest>>() {
                     @Override
                     public void onResponse(Response<List<Guest>> response, Retrofit retrofit) {
@@ -406,7 +470,15 @@ public class AddCRMActivity extends BaseActivity
         parameter.setMeetingLocalId(meetingLocalId);
 
         if (meetingId == -1) addMeeting(parameter);
-        else {
+        else if (choose != 0) {
+            MeetingUserParameter param = new MeetingUserParameter(
+                    username,
+                    meetingId,
+                    (int) meetingLocalId,
+                    choose
+            );
+            updateMeetingUsers(param);
+        } else {
             parameter.setMeetingId(meetingId);
             updateMeeting(parameter);
         }
@@ -427,7 +499,7 @@ public class AddCRMActivity extends BaseActivity
         values.put(Events.TITLE, titleView.getText().toString());
         values.put(Events.DESCRIPTION, descriptionView.getText().toString());
         values.put(Events.EVENT_LOCATION, locationView.getText().toString());
-        values.put(Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
+        values.put(Events.EVENT_TIMEZONE, timeZoneId);
         values.put(Events.ALL_DAY, allDaySwitchCompat.isChecked() ? 1 : 0);
         values.put(Events.HAS_ALARM, 1);
         values.put(Events.ACCESS_LEVEL, Events.ACCESS_PRIVATE);
@@ -585,7 +657,38 @@ public class AddCRMActivity extends BaseActivity
                     @Override
                     public void onResponse(Response<String> response, Retrofit retrofit) {
                         if (response.isSuccess() && response.body() != null) {
-                            //updateLocalEvent();
+                            MeetingUserParameter param = new MeetingUserParameter(
+                                    username,
+                                    meetingId,
+                                    (int) meetingLocalId,
+                                    1
+                            );
+                            updateMeetingUsers(param);
+                        } else
+                            Toast.makeText(getApplicationContext(), R.string.failed, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        dialog.dismiss();
+                        RetrofitError.errorNoAction(getApplicationContext(), t, BaseActivity.TAG, snackBarView);
+                    }
+                });
+    }
+
+    private void updateMeetingUsers(MeetingUserParameter parameter) {
+        if (!Utilities.isConnected(this)) {
+            dialog.dismiss();
+            RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
+            return;
+        }
+        MyRetrofit.initRequest(this)
+                .updateMeetingUsers(parameter)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Response<String> response, Retrofit retrofit) {
+                        if (response.isSuccess() && response.body() != null) {
+
                             dialog.dismiss();
                             Toast.makeText(getApplicationContext(), R.string.success, Toast.LENGTH_SHORT).show();
                             onBackPressed();
@@ -756,7 +859,9 @@ public class AddCRMActivity extends BaseActivity
             inviteesEditText.showDropDown();
         else if (v == addReminderButton) {
             addReminderView();
-
+        } else if (v == answerButton) {
+            if (answerMenu != null)
+                answerMenu.show();
         }
     }
 
@@ -842,6 +947,79 @@ public class AddCRMActivity extends BaseActivity
         inviteUserAdapter.notifyDataSetChanged();
     }
 
+    private void initCalendar() {
+        calendarId = getIdCalendar();
+    }
+
+    private long getIdCalendar() {
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR}, CRMActivity.CALENDAR_CODE);
+            return -1;
+        } else {
+
+            String selection = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("
+                    + CalendarContract.Calendars.ACCOUNT_TYPE + " = ?) AND ("
+                    + CalendarContract.Calendars.OWNER_ACCOUNT + " = ?))";
+            String[] selectionArgs = new String[]{CRMActivity.CALENDAR_ACCOUNT, CalendarContract.ACCOUNT_TYPE_LOCAL,
+                    CRMActivity.CALENDAR_ACCOUNT};
+
+            Cursor query = getContentResolver().query(CalendarContract.Calendars.CONTENT_URI,
+                    new String[]{CalendarContract.Calendars._ID, CalendarContract.Calendars.ALLOWED_REMINDERS},
+                    selection, selectionArgs, null);
+            if (query != null && query.moveToFirst()) {
+                long id = query.getLong(0);
+                query.close();
+                return id;
+            } else
+                return createCalendar();
+        }
+    }
+
+
+    private long createCalendar() {
+        ContentValues values = new ContentValues();
+        values.put(CalendarContract.Calendars.ACCOUNT_NAME, CRMActivity.CALENDAR_ACCOUNT);
+        values.put(CalendarContract.Calendars.ACCOUNT_TYPE, CalendarContract.ACCOUNT_TYPE_LOCAL);
+        values.put(CalendarContract.Calendars.NAME, CRMActivity.CALENDAR_NAME);
+        values.put(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME, CRMActivity.CALENDAR_NAME);
+        values.put(CalendarContract.Calendars.CALENDAR_COLOR, CRMActivity.CALENDAR_COLOR);
+        values.put(CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL, CalendarContract.Calendars.CAL_ACCESS_OWNER);
+        values.put(CalendarContract.Calendars.OWNER_ACCOUNT, CRMActivity.CALENDAR_ACCOUNT);
+        values.put(CalendarContract.Calendars.CALENDAR_TIME_ZONE, timeZoneId);
+        values.put(CalendarContract.Calendars.SYNC_EVENTS, 1);
+        values.put(CalendarContract.Calendars.VISIBLE, 1);
+        values.put(CalendarContract.Calendars.ALLOWED_REMINDERS, String.format(Locale.getDefault(), "%d,%d,%d,%d,%d",
+                CalendarContract.Reminders.METHOD_ALERT,
+                CalendarContract.Reminders.METHOD_ALARM,
+                CalendarContract.Reminders.METHOD_EMAIL,
+                CalendarContract.Reminders.METHOD_SMS,
+                CalendarContract.Reminders.METHOD_DEFAULT));
+        Uri.Builder builder = CalendarContract.Calendars.CONTENT_URI.buildUpon();
+        builder.appendQueryParameter(CalendarContract.Calendars.ACCOUNT_NAME, CRMActivity.CALENDAR_ACCOUNT);
+        builder.appendQueryParameter(CalendarContract.Calendars.ACCOUNT_TYPE, CalendarContract.ACCOUNT_TYPE_LOCAL);
+        builder.appendQueryParameter(CalendarContract.CALLER_IS_SYNCADAPTER, "true");
+        Uri uri = getContentResolver().insert(builder.build(), values);
+        if (uri != null)
+            return Long.parseLong(uri.getLastPathSegment());
+        return -1;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == CRMActivity.CALENDAR_CODE)
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                initCalendar();
+            } else
+                finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     private class Reminder {
         View container;

@@ -382,5 +382,7 @@
     <string name="label_confirm_password">Confirm password</string>
     <string name="title_activity_register">Register</string>
     <string name="label_is_allow_outside">Is allow outside</string>
+    <string name="label_accept">Accept</string>
+    <string name="label_decline">Decline</string>
 
 </resources>

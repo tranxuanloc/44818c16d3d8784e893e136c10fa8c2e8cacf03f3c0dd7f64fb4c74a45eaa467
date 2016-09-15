@@ -70,6 +70,7 @@ public class DataUser {
         data.add(new MenuInfo(14, context.getString(R.string.nhap_ngoai_gio), R.drawable.ic_ngoai_gio));
         data.add(new MenuInfo(22, context.getString(R.string.giao_viec), R.drawable.ic_scan_xuat));
         data.add(new MenuInfo(16, context.getString(R.string.lich_lam_viec), R.drawable.ic_lich_lam_viec));
+        data.add(new MenuInfo(26, context.getString(R.string.calendar), R.drawable.ic_event));
         data.add(new MenuInfo(21, context.getString(R.string.gps), R.drawable.ic_place));
         data.add(new MenuInfo(24, context.getString(R.string.fixed_asset), R.drawable.ic_equipment_inventory));
         data.add(new MenuInfo(12, context.getString(R.string.doi_mat_khau), R.drawable.ic_mat_khau));

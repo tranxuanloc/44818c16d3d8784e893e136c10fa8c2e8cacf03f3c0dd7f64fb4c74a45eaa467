@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.CalendarContract;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
@@ -20,6 +21,7 @@ import com.scsvn.whc_2016.main.MainActivity;
 import com.scsvn.whc_2016.main.VersionInfo;
 import com.scsvn.whc_2016.main.capnhatphienban.CapNhatUngDungActivity;
 import com.scsvn.whc_2016.main.containerandtruckinfor.ContainerAndTruckInfoActivity;
+import com.scsvn.whc_2016.main.crm.add.AddCRMActivity;
 import com.scsvn.whc_2016.main.phieucuatoi.PhieuCuaToiActivity;
 import com.scsvn.whc_2016.main.technical.assign.AssignWorkActivity;
 import com.scsvn.whc_2016.main.vesinhantoan.QHSEActivity;
@@ -98,8 +100,20 @@ public class NotificationServices extends IntentService {
                         } else if (info.getType().equalsIgnoreCase("TR")) {
                             idNotify = 14;
                             notificationIntent = new Intent(context, ContainerAndTruckInfoActivity.class);
-                        } else {
+                        } else if (info.getType().equalsIgnoreCase("MT")) {
                             idNotify = 15;
+                            notificationIntent = new Intent(context, AddCRMActivity.class);
+                            int meetingId = -1;
+                            try {
+                                meetingId = Integer.parseInt(info.getOrderNumber().split("-")[1]);
+                            } catch (NumberFormatException ignored) {
+
+                            }
+                            notificationIntent.putExtra("ID", meetingId);
+                            notificationIntent.putExtra("CONFIRM", true);
+                            notificationIntent.putExtra(CalendarContract.Calendars._ID, -1);
+                        } else {
+                            idNotify = 16;
                             notificationIntent = new Intent(context, MainActivity.class);
                         }
                         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

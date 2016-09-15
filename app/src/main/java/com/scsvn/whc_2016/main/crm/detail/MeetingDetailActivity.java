@@ -18,6 +18,7 @@ import com.scsvn.whc_2016.main.crm.Guest;
 import com.scsvn.whc_2016.main.crm.ListLabel;
 import com.scsvn.whc_2016.main.crm.add.AddCRMActivity;
 import com.scsvn.whc_2016.preferences.LoginPref;
+import com.scsvn.whc_2016.retrofit.MeetingUserParameter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
@@ -133,7 +134,7 @@ public class MeetingDetailActivity extends BaseActivity implements View.OnClickL
             return;
         }
         MyRetrofit.initRequest(this)
-                .getMeetingGuest(meetingId)
+                .getMeetingGuest(new MeetingUserParameter("", meetingId))
                 .enqueue(new Callback<List<Guest>>() {
                     @Override
                     public void onResponse(Response<List<Guest>> response, Retrofit retrofit) {

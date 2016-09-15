@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName;
 public class Guest {
     @SerializedName("MeetingID")
     private int meetingId;
+    @SerializedName("MeetingLocalID")
+    private int meetingLocalID;
     @SerializedName("UserID")
     private String userId;
     @SerializedName("VietnamName")
@@ -15,6 +17,10 @@ public class Guest {
 
     public int getMeetingId() {
         return meetingId;
+    }
+
+    public int getMeetingLocalID() {
+        return meetingLocalID;
     }
 
     public String getUserId() {
