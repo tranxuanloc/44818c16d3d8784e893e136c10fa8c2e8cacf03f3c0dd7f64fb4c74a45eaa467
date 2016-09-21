@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
     android:padding="@dimen/padding_5dp">
 
     <TextView
@@ -15,7 +16,9 @@
         android:id="@+id/tvEquipmentName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tvEquipmentID"/>
+        android:layout_toRightOf="@id/tvEquipmentID"
+        android:ellipsize="end"
+        android:maxLines="1" />
 
     <TextView
         android:id="@+id/tvFrequence"
@@ -40,5 +43,43 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/tvFrequence"
         android:layout_toRightOf="@id/tvHours"
+        android:textColor="#000" />
+
+    <Button
+        android:id="@+id/item_schedule_job_mj"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/selector_gray_transparent"
+        android:minHeight="24dp"
+        android:text="@string/label_mj" />
+
+
+    <TextView
+        android:id="@+id/tvMJId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/item_schedule_job_mj"
+        android:layout_alignRight="@id/item_schedule_job_mj"
+        android:layout_below="@id/item_schedule_job_mj"
+        android:gravity="center_horizontal"
+        android:textColor="#A00"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvEquipmentBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDate"
+        android:layout_marginRight="16dp"
+        android:textColor="#000"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvEquipmentTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDate"
         android:textColor="#000" />
 </RelativeLayout>

@@ -215,7 +215,7 @@
     <string name="use_local">Sử dụng mạng local (nội bộ)</string>
     <string name="use_public">Sử dụng mạng public (công cộng)</string>
     <string name="use_another_network">Sử dụng một địa chỉ mạng khác</string>
-    <string name="hint_ip_address">Địa chỉ IP, ex: 192.168.1.123:810</string>
+    <string name="hint_ip_address">Địa chỉ IP, ex: 192.168.104.29:810</string>
     <string name="access_location">Truy cập vị trí</string>
     <string name="title_activity_lich_su_chuyen_hang">Lịch sử chuyển hàng</string>
     <string name="title_activity_ton_kho">Tồn Kho</string>
@@ -384,5 +384,13 @@
     <string name="label_is_allow_outside">Is allow outside</string>
     <string name="label_accept">Accept</string>
     <string name="label_decline">Decline</string>
+    <string name="label_mj">MJ</string>
+    <string name="label_update_assign">Assign To</string>
+    <string name="label_it">IT</string>
+    <string name="label_me">ME</string>
+    <string name="label_mhe">MHE</string>
+    <string name="label_ref">REF</string>
+    <string name="label_s">s</string>
+    <string name="title_activity_update_schedule_job_assign">Update assign</string>
 
 </resources>

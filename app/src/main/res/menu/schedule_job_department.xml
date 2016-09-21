@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_department_filter"
+        android:title="@string/all"
+        app:showAsAction="ifRoom">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_all"
+                    android:checked="true"
+                    android:title="@string/all" />
+                <item
+                    android:id="@+id/action_dep_it"
+                    android:title="@string/label_it" />
+                <item
+                    android:id="@+id/action_dep_me"
+                    android:title="@string/label_me" />
+                <item
+                    android:id="@+id/action_dep_mhe"
+                    android:title="@string/label_mhe" />
+                <item
+                    android:id="@+id/action_dep_ot"
+                    android:title="@string/label_ot" />
+                <item
+                    android:id="@+id/action_dep_ref"
+                    android:title="@string/label_ref" />
+                <item
+                    android:id="@+id/action_dep_s"
+                    android:title="@string/label_s" />
+            </group>
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.scsvn.whc_2016.main.technical.schedulejobplan.UpdateScheduleJobActivity">
+
+    <TextView
+        android:id="@+id/tv_schedule_job_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:textColor="#000" />
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/actv_assign_to"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:completionThreshold="1"
+        android:digits="0123456789,"
+        android:hint="@string/nguoi_thuc_hien"
+        android:inputType="number" />
+
+    <Button
+        style="@style/AppTheme.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="updateAssign"
+        android:text="@string/ok" />
+</LinearLayout>

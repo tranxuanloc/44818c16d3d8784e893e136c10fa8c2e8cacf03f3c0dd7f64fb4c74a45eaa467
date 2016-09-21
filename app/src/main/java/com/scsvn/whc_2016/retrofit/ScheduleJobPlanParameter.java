@@ -5,8 +5,10 @@ package com.scsvn.whc_2016.retrofit;
  */
 public class ScheduleJobPlanParameter {
     private String UserName;
+    private String DepartmentCategoryID;
 
-    public ScheduleJobPlanParameter(String userName) {
+    public ScheduleJobPlanParameter(String userName, String department) {
         UserName = userName;
+        this.DepartmentCategoryID = department;
     }
 }

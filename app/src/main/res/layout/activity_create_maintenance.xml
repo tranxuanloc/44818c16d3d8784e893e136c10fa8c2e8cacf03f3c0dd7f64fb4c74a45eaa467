@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="#FFF"/>
+                android:textColor="#FFF" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
@@ -235,7 +235,8 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
@@ -302,6 +303,7 @@
                 android:id="@+id/view9"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
+                android:layout_alignWithParentIfMissing="true"
                 android:layout_below="@id/view8"
                 android:background="#A00" />
 

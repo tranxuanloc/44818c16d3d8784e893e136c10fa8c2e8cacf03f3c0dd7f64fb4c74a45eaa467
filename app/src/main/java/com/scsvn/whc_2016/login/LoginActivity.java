@@ -177,7 +177,7 @@ public class LoginActivity extends AppCompatActivity implements OnRequestPermiss
                 Utilities.hideKeyboard(LoginActivity.this);
                 if (radioGroup.getCheckedRadioButtonId() == R.id.rb_local) {
                     posRadioButton = 0;
-                    ip = "195.184.11.254:810";
+                    ip = "192.168.104.29:810";
                 } else if (radioGroup.getCheckedRadioButtonId() == R.id.rb_global) {
                     posRadioButton = 1;
                     ip = "115.78.13.10:810";

@@ -184,7 +184,7 @@ public interface MyRequests {
     Call<String> insertQHSE(@Body InsertQHSEParameter parameter);
 
     @POST("/api/qhse")
-    Call<List<AssignWorkInfo>> getAssignWork(@Body AssignWorkParemeter parameter);
+    Call<List<AssignWorkInfo>> getAssignWork(@Body AssignWorkParameter parameter);
 
     @POST("/api/MMS_ScheduledJobWeekPlan")
     Call<List<ScheduleJobPlanInfo>> getScheduleJobPlanInfo(@Body ScheduleJobPlanParameter parameter);

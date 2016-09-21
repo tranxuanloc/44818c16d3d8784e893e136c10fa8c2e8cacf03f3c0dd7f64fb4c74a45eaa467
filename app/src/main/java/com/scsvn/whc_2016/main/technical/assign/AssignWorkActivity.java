@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.preferences.LoginPref;
-import com.scsvn.whc_2016.retrofit.AssignWorkParemeter;
+import com.scsvn.whc_2016.retrofit.AssignWorkParameter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
@@ -111,7 +111,7 @@ public class AssignWorkActivity extends BaseActivity implements View.OnClickList
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, qhseAgain);
             return;
         }
-        MyRetrofit.initRequest(this).getAssignWork(new AssignWorkParemeter(0, userName)).enqueue(new Callback<List<AssignWorkInfo>>() {
+        MyRetrofit.initRequest(this).getAssignWork(new AssignWorkParameter(0, userName)).enqueue(new Callback<List<AssignWorkInfo>>() {
             @Override
             public void onResponse(Response<List<AssignWorkInfo>> response, Retrofit retrofit) {
                 Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));

@@ -95,6 +95,18 @@ public class Utilities {
         return sDate;
     }
 
+    public static String formatDate_ddMMyyyy(Date date) {
+        SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        return newFormat.format(date);
+    }
+
+    public static String formatDate_ddMMyyyy(long date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date);
+        SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        return newFormat.format(calendar.getTime());
+    }
+
     public static String formatDate_HHmm(String sDate) {
         if (sDate.substring(0, 4).equals("1900"))
             return "";
@@ -185,7 +197,9 @@ public class Utilities {
         calendar.setTimeInMillis(milliseconds);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
         return format.format(calendar.getTime());
-    }public static String formatDateTime_ddMMyyHHmmFromMili(long milliseconds) {
+    }
+
+    public static String formatDateTime_ddMMyyHHmmFromMili(long milliseconds) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliseconds);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy HH:mm", Locale.US);

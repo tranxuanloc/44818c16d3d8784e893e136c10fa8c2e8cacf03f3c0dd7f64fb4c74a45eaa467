@@ -46,6 +46,7 @@ import com.scsvn.whc_2016.main.mms.part.PartRemainAdapter;
 import com.scsvn.whc_2016.main.mms.part.WriteOff;
 import com.scsvn.whc_2016.main.phieuhomnay.giaoviec.EmployeeInfo;
 import com.scsvn.whc_2016.main.technical.assign.EmployeePresentAdapter;
+import com.scsvn.whc_2016.main.technical.schedulejobplan.ScheduleJobAdapter;
 import com.scsvn.whc_2016.preferences.LoginPref;
 import com.scsvn.whc_2016.retrofit.EmployeePresentParameter;
 import com.scsvn.whc_2016.retrofit.EquipmentParameter;
@@ -140,6 +141,12 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     private TextView maintenanceInfo;
     private TextView maintenanceTitleCreateView;
     private EditText equipmentModel;
+    private MenuItem itemCreate;
+    private TextView actionBarTitleView;
+    private View viewEmployee;
+    private View viewJob;
+    private boolean isUpdated;
+    private View truckContainerView;
     private AdapterView.OnItemClickListener equipmentItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -150,11 +157,6 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
             updateUIEquipment(item);
         }
     };
-    private MenuItem itemCreate;
-    private TextView actionBarTitleView;
-    private View viewEmployee;
-    private View viewJob;
-    private boolean isUpdated;
 
     private void addEmployeeView(EmployeeAbstract item, int position) {
         EmployeeViewHolder holder = new EmployeeViewHolder();
@@ -317,6 +319,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         runningHourET = (EditText) findViewById(R.id.create_maintenance_running_hour);
         equipmentModel = (EditText) findViewById(R.id.create_maintenance_model);
         maintenanceInfo = (TextView) findViewById(R.id.create_maintenance_info);
+        truckContainerView = findViewById(R.id.view8);
         maintenanceTitleCreateView = (TextView) findViewById(R.id.create_maintenance_title_created);
         h1ET = (EditText) findViewById(R.id.create_maintenance_h1);
         h2ET = (EditText) findViewById(R.id.create_maintenance_h2);
@@ -368,6 +371,15 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         getListEquipment();
 
         Intent intent = getIntent();
+        if (intent.hasExtra(ScheduleJobAdapter.DATE)) {
+            long date = intent.getLongExtra(ScheduleJobAdapter.DATE, 0);
+            calendar.setTimeInMillis(date);
+            id = intent.getIntExtra(MaintenanceJob.MAINTENANCE_JOB_ID, 0);
+        }
+        if (intent.hasExtra(ScheduleJobAdapter.WORKING_HOUR)) {
+            runningHourET.setText(String.format(Locale.getDefault(), "%.1f", intent.getFloatExtra(ScheduleJobAdapter.WORKING_HOUR, 0)));
+        }
+        updateMaintenanceDate(calendar.getTimeInMillis());
         isDetail = intent.getIntExtra("TYPE", MaintenanceActivity.TYPE_DETAIL) == MaintenanceActivity.TYPE_DETAIL;
         if (isDetail) {
             updateUITypeDetail(intent);
@@ -413,8 +425,15 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         h2ET.setText(String.format(Locale.getDefault(), "%d", h2));
         h3ET.setText(String.format(Locale.getDefault(), "%d", h3));
         h4ET.setText(String.format(Locale.getDefault(), "%d", h4));
-
+        visibleTruckContainer();
         getMaintenanceJobDaily();
+    }
+
+    private void visibleTruckContainer() {
+        if (equipmentDeptView.getText().toString().equalsIgnoreCase("MHE"))
+            truckContainerView.setVisibility(View.VISIBLE);
+        else
+            truckContainerView.setVisibility(View.GONE);
     }
 
     private void getMaintenanceJobDaily() {
@@ -541,9 +560,26 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                 .enqueue(new Callback<List<Equipment>>() {
                     @Override
                     public void onResponse(Response<List<Equipment>> response, Retrofit retrofit) {
-                        if (response.isSuccess() && response.body() != null) {
+                        List<Equipment> body = response.body();
+                        if (response.isSuccess() && body != null) {
                             equipmentAdapter.clear();
-                            equipmentAdapter.addAll(response.body());
+                            equipmentAdapter.addAll(body);
+
+                            if (getIntent().hasExtra(ScheduleJobAdapter.ID)) {
+                                String id = getIntent().getStringExtra(ScheduleJobAdapter.ID);
+                                int n = body.size();
+                                for (int i = 0; i < n; i++) {
+                                    Equipment item = body.get(i);
+                                    if (item.getId().equalsIgnoreCase(id)) {
+                                        String dept = item.getDept();
+                                        getListJobDefinition(dept);
+                                        getListPartRemain(dept);
+                                        updateUIEquipment(item);
+                                        break;
+                                    }
+                                }
+
+                            }
 
                             getListEmployee();
                             if (!isDetail)
@@ -642,15 +678,12 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         equipmentDeptView.setText(item.getDept());
         equipmentSerialView.setText(item.getSerialNumber());
         equipmentModel.setText(item.getModel());
+        visibleTruckContainer();
     }
 
     private void insertMaintenanceJob() {
         if (equipmentIdView.getText().length() == 0) {
             Snackbar.make(snackBarView, getString(R.string.field_not_empty, getString(R.string.id)), Snackbar.LENGTH_SHORT).show();
-            return;
-        }
-        if (maintenanceDateEditText.getText().length() == 0) {
-            Snackbar.make(snackBarView, getString(R.string.field_not_empty, getString(R.string.label_maintenance_date)), Snackbar.LENGTH_SHORT).show();
             return;
         }
         for (JobDefinitionViewHolder holder : listJob) {
@@ -1069,12 +1102,16 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 calendar.set(year, monthOfYear, dayOfMonth);
-                maintenanceDateEditText.setTag(Utilities.formatDateTime_ddMMyyHHmmFromMili(calendar.getTimeInMillis()));
-                maintenanceDateEditText.setText(String.format(Locale.getDefault(), "%d/%d/%d", dayOfMonth, monthOfYear + 1, year));
+                updateMaintenanceDate(calendar.getTimeInMillis());
 
             }
         }, yearNow, monthOfYearNow, dayOfMonthNow);
         datePicker.show();
+    }
+
+    private void updateMaintenanceDate(long date) {
+        maintenanceDateEditText.setTag(Utilities.formatDateTime_ddMMyyHHmmFromMili(date));
+        maintenanceDateEditText.setText(Utilities.formatDate_ddMMyyyy(date));
     }
 
     @Override

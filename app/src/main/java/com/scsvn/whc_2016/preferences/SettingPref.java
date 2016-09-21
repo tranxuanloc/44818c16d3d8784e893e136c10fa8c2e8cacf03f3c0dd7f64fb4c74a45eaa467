@@ -37,7 +37,7 @@ public class SettingPref {
     public static String[] getInfoNetwork(Context context) {
         if (preferences == null)
             preferences = context.getSharedPreferences(PREF_SETTING, Context.MODE_PRIVATE);
-        return new String[]{preferences.getString(IP, "195.184.11.254:810"), preferences.getString(POSITION, "0")};
+        return new String[]{preferences.getString(IP, "192.168.104.29:810"), preferences.getString(POSITION, "0")};
     }
 
     public static boolean getAccessLocation(Context context) {

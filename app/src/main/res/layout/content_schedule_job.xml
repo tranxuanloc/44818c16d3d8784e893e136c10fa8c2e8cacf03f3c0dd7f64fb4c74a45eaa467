@@ -27,9 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/outline_top"
-        android:gravity="end"
         android:paddingBottom="5dp"
-        android:paddingRight="80dp"
+        android:paddingLeft="16dp"
         android:paddingTop="5dp"
         android:textColor="@color/black" />
 </RelativeLayout>

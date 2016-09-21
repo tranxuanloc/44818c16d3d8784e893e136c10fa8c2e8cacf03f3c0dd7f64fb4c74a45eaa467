@@ -200,13 +200,13 @@ public class OrderDetailActivity extends BaseActivity
         for (OrderDetail orderDetail : listOrderDetail) {
 
             String result = orderDetail.getResult();
+            int quantity = Integer.parseInt(orderDetail.getQuantityOfPackages());
+            total += quantity;
 
             if (isResultScanValidWithCaseFilter(result)) {
 
                 if (result.equals(""))
                     quantityNormal++;
-                int quantity = Integer.parseInt(orderDetail.getQuantityOfPackages());
-                total += quantity;
                 if (result.equalsIgnoreCase("OK") || result.equalsIgnoreCase("XX"))
                     scanned += quantity;
 
