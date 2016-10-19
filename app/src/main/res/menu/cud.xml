@@ -2,26 +2,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_detail"
+        android:title="@string/label_detail"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_done"
         android:icon="@drawable/ic_action_done"
         android:title="@string/label_done"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_action_edit_content"
         android:title="@string/label_edit"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_delete"
         android:icon="@drawable/ic_action_delete"
         android:title="@string/label_delete"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_create"
         android:icon="@drawable/ic_content_add"
         android:title="@string/label_create"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
 </menu>

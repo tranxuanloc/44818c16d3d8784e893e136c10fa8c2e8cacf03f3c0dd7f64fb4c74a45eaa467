@@ -285,8 +285,8 @@
     <string name="adding">Đang thêm...</string>
     <string name="opportunity_name">Name</string>
     <string name="opportunity_description">Description</string>
-    <string name="opportunity_assign_to_user">Assign to user</string>
-    <string name="opportunity_probability">Probability</string>
+    <string name="opportunity_assign_to_user">Assign to</string>
+    <string name="opportunity_probability">Probability(%)</string>
     <string name="opportunity_type">Type</string>
     <string name="opportunity_sale_stage">Sale stage</string>
     <string name="opportunity_forecasting">Forecasting</string>
@@ -392,5 +392,26 @@
     <string name="label_ref">REF</string>
     <string name="label_s">s</string>
     <string name="title_activity_update_schedule_job_assign">Update assign</string>
+    <string name="label_due_date">Due date</string>
+    <string name="label_mj_detail">MJ detail</string>
+    <string name="title_activity_mj_details">Maintenance Job Details</string>
+    <string name="label_job">Job</string>
+    <string name="label_detail">Detail</string>
+    <string name="label_email">Email</string>
+    <string name="label_address">Address</string>
+    <string name="label_phone">Phone</string>
+    <string name="label_mobile">Mobile</string>
+    <string name="label_contact">Contact</string>
+    <string name="label_website">Web</string>
+    <string name="label_customer_category">Category</string>
+    <string name="label_result">Result</string>
+    <string name="label_save_all">Save all</string>
+    <string name="label_nang_suat_nhan_vien">Năng suất nhân viên</string>
+    <string name="label_ca">Ca</string>
+    <string name="label_chuc_vu">Chức vụ</string>
+    <string name="label_to">Tổ</string>
+    <string name="label_ngay">Ngày</string>
+    <string name="title_activity_nsnv">Năng suất nhân viên</string>
+    <string name="label_view">View</string>
 
 </resources>

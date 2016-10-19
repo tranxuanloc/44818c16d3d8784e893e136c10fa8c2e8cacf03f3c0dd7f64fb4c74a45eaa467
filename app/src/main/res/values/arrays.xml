@@ -63,4 +63,44 @@
         <item>2</item>
         <item>0</item>
     </integer-array>
+    <string-array name="mj_job">
+        <item>V</item>
+        <item>A</item>
+        <item>R</item>
+        <item>U</item>
+        <item>I</item>
+        <item>C</item>
+        <item>L</item>
+        <item>M</item>
+    </string-array>
+    <string-array name="mj_job_detail">
+        <item>V = OK</item>
+        <item>A = Cân chỉnh</item>
+        <item>R = Sửa chữa</item>
+        <item>U = Ngưng khẩn cấp</item>
+        <item>I = Kiểm tra thay thế</item>
+        <item>C = Vệ sinh</item>
+        <item>L = Bôi trơn</item>
+        <item>M = Đo kiểm, điều chỉnh</item>
+    </string-array>
+    <string-array name="sales_stage">
+        <item>--None--</item>
+        <item>Following</item>
+        <item>Prospecting</item>
+        <item>Qualification</item>
+        <item>Needs analysis</item>
+        <item>Value proposition</item>
+        <item>Id decision makers</item>
+        <item>Perception analysis</item>
+        <item>Proposal/price quote</item>
+        <item>Negotiation/review</item>
+        <item>Closed won</item>
+        <item>Closed lost</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="opportunity_type">
+        <item>--None--</item>
+        <item>Existing business</item>
+        <item>New business</item>
+    </string-array>
 </resources>

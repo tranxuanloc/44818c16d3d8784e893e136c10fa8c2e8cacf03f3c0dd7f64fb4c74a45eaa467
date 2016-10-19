@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/item_pallet_find_order_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:text="RO-361033"
+        android:textColor="#000"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/item_pallet_find_customer_ref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_toRightOf="@id/item_pallet_find_order_number"
+        android:text="Cus ref:  FS-2845"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/item_pallet_find_pallet_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/item_pallet_find_customer_ref"
+        android:text="81237891273"
+        android:textColor="#000" />
+
+
+    <TextView
+        android:id="@+id/item_pallet_find_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_pallet_find_order_number"
+        android:layout_marginRight="16dp"
+        android:text="D-06-18-1-1"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/item_pallet_find_current"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_pallet_find_order_number"
+        android:layout_marginRight="16dp"
+        android:layout_toRightOf="@id/item_pallet_find_location"
+        android:text="Remain: 7"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/item_pallet_find_after"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_pallet_find_order_number"
+        android:layout_toRightOf="@id/item_pallet_find_current"
+        android:text="After qty: 50"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/item_pallet_find_ro_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_pallet_find_location"
+        android:layout_marginRight="16dp"
+        android:text="Date: 2016-06-20"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/item_pallet_find_created_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_pallet_find_location"
+        android:layout_toRightOf="@id/item_pallet_find_ro_date"
+        android:text="Created: 2016-06-20"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/item_pallet_find_device"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_pallet_find_ro_date"
+        android:text="xx1238190238"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/item_pallet_find_ro_remark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_pallet_find_device"
+        android:text="Remark: 51U57323/Xuat mau 20/06/16"
+        android:textColor="#000" />
+
+</RelativeLayout>

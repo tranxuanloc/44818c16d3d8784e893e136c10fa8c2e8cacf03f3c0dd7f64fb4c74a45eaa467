@@ -11,15 +11,24 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.MultiAutoCompleteTextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.main.opportunity.add.AddOpportunityActivity;
+import com.scsvn.whc_2016.main.phieuhomnay.giaoviec.EmployeeInfo;
+import com.scsvn.whc_2016.main.technical.assign.EmployeePresentAdapter;
 import com.scsvn.whc_2016.preferences.LoginPref;
+import com.scsvn.whc_2016.retrofit.EmployeePresentParameter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.OpportunityParameter;
@@ -27,6 +36,7 @@ import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -35,24 +45,47 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class OpportunityDetailActivity extends BaseActivity implements View.OnClickListener, View.OnFocusChangeListener {
+public class OpportunityDetailActivity extends BaseActivity implements
+        View.OnClickListener, View.OnFocusChangeListener {
     private EditText nameView;
     private EditText descriptionView;
-    private EditText assignUserView;
-    private EditText saleStageView;
-    private EditText typeView;
+    private MultiAutoCompleteTextView assignUserView;
+    private Spinner saleStageView;
+    private Spinner typeView;
     private EditText probabilityView;
     private EditText palletView;
     private EditText cartonView;
     private EditText unitView;
     private EditText weightView;
+    private EditText emailView;
+    private EditText addressView;
+    private EditText phoneView;
+    private EditText mobileView;
+    private EditText contactView;
+    private EditText websiteView;
+    private AutoCompleteTextView customerCategoryView;
     private Button closeDateView;
-    private MenuItem edit;
-    private MenuItem done;
     private String closeDate = "";
-    private int opportunityId;
     private boolean isAdded;
+    private int customerCategoryId;
+    private int opportunityId;
     private AppCompatAutoCompleteTextView listCustomerIdView;
+    private LinearLayout rootView;
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v == assignUserView || v == customerCategoryView) {
+                ((AutoCompleteTextView) v).showDropDown();
+            }
+        }
+    };
+    private EmployeePresentAdapter userAdapter;
+    private CustomerCategoryAdapter categoryAdapter;
+    private MenuItem done;
+    private MenuItem edit;
+    private List<String> typeArray, saleStageArray;
+    private Calendar calendar;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,37 +99,75 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
     public void mapView() {
         nameView = (EditText) findViewById(R.id.et_opportunity_name);
         descriptionView = (EditText) findViewById(R.id.et_opportunity_description);
-        assignUserView = (EditText) findViewById(R.id.et_opportunity_assign_user);
-        saleStageView = (EditText) findViewById(R.id.et_opportunity_sale_stage);
+        assignUserView = (MultiAutoCompleteTextView) findViewById(R.id.actv_opportunity_assign_user);
+        saleStageView = (Spinner) findViewById(R.id.spinner_opportunity_sale_stage);
         probabilityView = (EditText) findViewById(R.id.et_opportunity_probability);
-        typeView = (EditText) findViewById(R.id.et_opportunity_type);
+        typeView = (Spinner) findViewById(R.id.spinner_opportunity_type);
         weightView = (EditText) findViewById(R.id.et_opportunity_weight);
         cartonView = (EditText) findViewById(R.id.et_opportunity_carton);
         unitView = (EditText) findViewById(R.id.et_opportunity_unit);
         palletView = (EditText) findViewById(R.id.et_opportunity_pallet);
+        emailView = (EditText) findViewById(R.id.et_opportunity_email);
+        addressView = (EditText) findViewById(R.id.et_opportunity_address);
+        phoneView = (EditText) findViewById(R.id.et_opportunity_phone);
+        mobileView = (EditText) findViewById(R.id.et_opportunity_mobile);
+        contactView = (EditText) findViewById(R.id.et_opportunity_contact);
+        websiteView = (EditText) findViewById(R.id.et_opportunity_website);
+        customerCategoryView = (AutoCompleteTextView) findViewById(R.id.actv_opportunity_category);
         closeDateView = (Button) findViewById(R.id.bt_opportunity_close_date);
         listCustomerIdView = (AppCompatAutoCompleteTextView) findViewById(R.id.opportunity_customer_id);
+        rootView = (LinearLayout) findViewById(R.id.opportunity_detail_root);
     }
 
     public void setListener() {
         closeDateView.setOnClickListener(this);
         listCustomerIdView.setOnFocusChangeListener(this);
         listCustomerIdView.setOnClickListener(this);
+        assignUserView.setOnClickListener(onClickListener);
+        customerCategoryView.setOnClickListener(onClickListener);
+        assignUserView.setOnFocusChangeListener(this);
+        customerCategoryView.setOnFocusChangeListener(this);
+        customerCategoryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                customerCategoryId = categoryAdapter.getItem(position).getId();
+            }
+        });
     }
 
     public void initial() {
         mapView();
-        snackBarView = nameView;
-        listCustomerIdView.setSelectAllOnFocus(true);
-        updateUI(false);
         setListener();
+        snackBarView = nameView;
+        calendar = Calendar.getInstance();
+        updateUI(false);
         opportunityId = getIntent().getIntExtra(Opportunity.OPPORTUNITY_ID, 0);
-        getListCustomer();
+
+        typeArray = Arrays.asList(getResources().getStringArray(R.array.opportunity_type));
+        ArrayAdapter<String> opportunityTypeAdapter = new ArrayAdapter<>(this, R.layout.simple_list_item_1, typeArray);
+        opportunityTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeView.setAdapter(opportunityTypeAdapter);
+
+        saleStageArray = Arrays.asList(getResources().getStringArray(R.array.sales_stage));
+        ArrayAdapter<String> opportunitySaleStageAdapter = new ArrayAdapter<>(this, R.layout.simple_list_item_1, saleStageArray);
+        opportunitySaleStageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        saleStageView.setAdapter(opportunitySaleStageAdapter);
+
+        userAdapter = new EmployeePresentAdapter(this, new ArrayList<EmployeeInfo>());
+        assignUserView.setAdapter(userAdapter);
+        assignUserView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
+        categoryAdapter = new CustomerCategoryAdapter(this, new ArrayList<OpportunityCustomerCategory>());
+        customerCategoryView.setAdapter(categoryAdapter);
+
+        listCustomerIdView.setSelectAllOnFocus(true);
+
         getOpportunity(opportunityId);
+
     }
 
     private void getOpportunity(int opportunityId) {
-        final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
+        dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 
         if (!Utilities.isConnected(this)) {
@@ -109,9 +180,65 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
                 .enqueue(new Callback<List<Opportunity>>() {
                     @Override
                     public void onResponse(Response<List<Opportunity>> response, Retrofit retrofit) {
-                        if (response.isSuccess() && response.body() != null && response.body().size() > 0) {
-                            updateData(response.body().get(0));
+                        List<Opportunity> body = response.body();
+                        if (response.isSuccess() && body != null && body.size() > 0) {
+                            updateData(body.get(0));
+
                         }
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        dialog.dismiss();
+                        RetrofitError.errorNoAction(getApplicationContext(), t, BaseActivity.TAG, snackBarView);
+                    }
+                });
+
+    }
+
+    public void getEmployeeID() {
+        String position = "0";
+        int department = 0;
+        MyRetrofit.initRequest(this).getEmployeeID(new EmployeePresentParameter(department, position)).enqueue(new Callback<List<EmployeeInfo>>() {
+            @Override
+            public void onResponse(Response<List<EmployeeInfo>> response, Retrofit retrofit) {
+                if (response.isSuccess() && response.body() != null) {
+                    userAdapter.clear();
+                    userAdapter.addAll(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+            }
+        });
+    }
+
+    private void getOpportunityCustomerCategory() {
+        if (!Utilities.isConnected(this)) {
+            dialog.dismiss();
+            RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
+            return;
+        }
+        MyRetrofit.initRequest(this)
+                .getOpportunityCustomerCategory()
+                .enqueue(new Callback<List<OpportunityCustomerCategory>>() {
+                    @Override
+                    public void onResponse(Response<List<OpportunityCustomerCategory>> response, Retrofit retrofit) {
+                        List<OpportunityCustomerCategory> body = response.body();
+                        if (response.isSuccess() && body != null) {
+                            categoryAdapter.clear();
+                            categoryAdapter.addAll(body);
+                            for (OpportunityCustomerCategory item : body)
+                                if (item.getId() == customerCategoryId) {
+                                    customerCategoryView.setText(item.getDescription());
+                                    break;
+                                }
+                            getEmployeeID();
+                            getListCustomer();
+                        } else
+                            Toast.makeText(getApplicationContext(), R.string.failed, Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
 
@@ -150,50 +277,39 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
         nameView.setText(item.getOpportunityName());
         descriptionView.setText(item.getDescription());
         assignUserView.setText(item.getAssignedToUser());
-        saleStageView.setText(item.getSalesStage());
+        saleStageView.setSelection(saleStageArray.indexOf(item.getSalesStage()));
         probabilityView.setText(String.format("%s", item.getProbability()));
-        typeView.setText(item.getOpportunityType());
+        typeView.setSelection(typeArray.indexOf(item.getOpportunityType()));
         weightView.setText(String.format("%s", item.getForecastingWeights()));
         cartonView.setText(String.format(Locale.getDefault(), "%d", item.getForecastingCartons()));
         unitView.setText(String.format(Locale.getDefault(), "%d", item.getForecastingUnits()));
         listCustomerIdView.setText(String.format(Locale.getDefault(), "%d", item.getCustomerId()));
         palletView.setText(String.format(Locale.getDefault(), "%d", item.getForecastingPallets()));
         closeDateView.setText(item.getClosedDate());
+        emailView.setText(item.getEmails());
+        addressView.setText(item.getAddress());
+        phoneView.setText(item.getPhone());
+        mobileView.setText(item.getMobile());
+        contactView.setText(item.getContacts());
+        websiteView.setText(item.getWebsite());
+        customerCategoryId = item.getCustomerCategory();
+        getOpportunityCustomerCategory();
 
     }
 
     private void updateUI(boolean editable) {
         if (editable) {
-            nameView.setInputType(InputType.TYPE_CLASS_TEXT);
-            descriptionView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-            assignUserView.setInputType(InputType.TYPE_CLASS_TEXT);
-            saleStageView.setInputType(InputType.TYPE_CLASS_TEXT);
-            probabilityView.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-            typeView.setInputType(InputType.TYPE_CLASS_TEXT);
-            weightView.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-            cartonView.setInputType(InputType.TYPE_CLASS_NUMBER);
-            unitView.setInputType(InputType.TYPE_CLASS_NUMBER);
-            palletView.setInputType(InputType.TYPE_CLASS_NUMBER);
-            listCustomerIdView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-            closeDateView.setEnabled(true);
+            rootView.setDescendantFocusability(LinearLayout.FOCUS_AFTER_DESCENDANTS);
+
         } else {
-            nameView.setInputType(InputType.TYPE_NULL);
-            descriptionView.setInputType(InputType.TYPE_NULL);
-            assignUserView.setInputType(InputType.TYPE_NULL);
-            saleStageView.setInputType(InputType.TYPE_NULL);
-            probabilityView.setInputType(InputType.TYPE_NULL);
-            typeView.setInputType(InputType.TYPE_NULL);
-            weightView.setInputType(InputType.TYPE_NULL);
-            cartonView.setInputType(InputType.TYPE_NULL);
-            unitView.setInputType(InputType.TYPE_NULL);
-            palletView.setInputType(InputType.TYPE_NULL);
-            listCustomerIdView.setInputType(InputType.TYPE_NULL);
-            closeDateView.setEnabled(false);
+            rootView.setDescendantFocusability(LinearLayout.FOCUS_BLOCK_DESCENDANTS);
         }
+        closeDateView.setEnabled(editable);
+        saleStageView.setEnabled(editable);
+        typeView.setEnabled(editable);
     }
 
     private void pickCloseDate() {
-        final Calendar calendar = Calendar.getInstance();
         final int yearNow = calendar.get(Calendar.YEAR);
         final int monthOfYearNow = calendar.get(Calendar.MONTH);
         final int dayOfMonthNow = calendar.get(Calendar.DAY_OF_MONTH);
@@ -261,18 +377,26 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
             Toast.makeText(getApplicationContext(), R.string.error_opportunity_close_date, Toast.LENGTH_SHORT).show();
             return;
         }
+
         OpportunityParameter parameter = new OpportunityParameter(LoginPref.getUsername(getApplicationContext()),
                 nameView.getText().toString(),
                 descriptionView.getText().toString(),
                 assignUserView.getText().toString(),
-                saleStageView.getText().toString(),
-                typeView.getText().toString(),
+                saleStageView.getSelectedItem().toString(),
+                typeView.getSelectedItem().toString(),
                 parserFloat(probabilityView.getText().toString()),
                 parserInt(palletView.getText().toString()),
                 parserInt(cartonView.getText().toString()),
                 parserInt(unitView.getText().toString()),
                 parserFloat(weightView.getText().toString()),
-                closeDate
+                closeDate,
+                emailView.getText().toString(),
+                addressView.getText().toString(),
+                phoneView.getText().toString(),
+                mobileView.getText().toString(),
+                contactView.getText().toString(),
+                websiteView.getText().toString(),
+                customerCategoryId
 
         );
         parameter.setOpportunityID(opportunityId);
@@ -332,7 +456,8 @@ public class OpportunityDetailActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus && listCustomerIdView.getInputType() != InputType.TYPE_NULL)
-            listCustomerIdView.showDropDown();
+        if (hasFocus)
+            ((AutoCompleteTextView) v).showDropDown();
     }
+
 }

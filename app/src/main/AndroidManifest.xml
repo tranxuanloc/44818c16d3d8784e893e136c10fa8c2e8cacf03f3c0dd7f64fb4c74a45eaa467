@@ -245,13 +245,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".main.palletcartonchecking.KiemPalletCartonActivity"
+            android:name=".main.palletcartonchecking.KiemPalletCartonEMDKActivity"
             android:label="@string/title_activity_pallet_carton_checking"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".main.palletcartonchecking.KiemPalletCartonNoEMDKActivity"
+            android:name=".main.palletcartonchecking.KiemPalletCartonActivity"
             android:label="@string/title_activity_pallet_carton_checking"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -449,6 +449,14 @@
         <activity
             android:name=".main.technical.schedulejobplan.UpdateScheduleJobActivity"
             android:label="@string/title_activity_update_schedule_job_assign"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.mms.detail.MaintenanceJobDetailsActivity"
+            android:label="@string/title_activity_mj_details"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.nangsuatnhanvien.NangSuatNhanVienActivity"
+            android:label="@string/title_activity_nsnv"
             android:screenOrientation="portrait" />
     </application>
 

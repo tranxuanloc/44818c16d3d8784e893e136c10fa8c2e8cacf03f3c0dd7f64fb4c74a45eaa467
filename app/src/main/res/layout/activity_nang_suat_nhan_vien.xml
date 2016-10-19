@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.scsvn.whc_2016.main.nangsuatnhanvien.NangSuatNhanVienActivity">
+
+    <GridLayout
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="5"
+        android:padding="5dp"
+        android:rowCount="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:text="@string/label_ngay"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/nsnv_tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/outlines"
+            android:clickable="true"
+            android:minEms="5"
+            android:padding="3dp"
+            android:textColor="#000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:minWidth="60dp"
+            android:text="@string/label_to"
+            android:textColor="#000" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/nsnv_department_sp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="center_vertical"
+            android:text="@string/label_ca"
+            android:textColor="#000" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/nsnv_shift_sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:minWidth="60dp"
+            android:text="@string/label_chuc_vu"
+            android:textColor="#000" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/nsnv_position_sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnSpan="2" />
+
+        <Button
+            style="@style/AppTheme.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_row="0"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:onClick="okClick"
+            android:text="@string/label_view"
+            android:textAllCaps="false" />
+
+    </GridLayout>
+
+
+    <ListView
+        android:id="@+id/lv_nang_suat_nhan_vien"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_alignTop="@id/lv_nang_suat_nhan_vien"
+        android:background="@drawable/shadow" />
+
+</RelativeLayout>

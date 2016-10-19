@@ -32,6 +32,7 @@ import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.main.MyAutoCompleteTextView;
 import com.scsvn.whc_2016.main.mms.MaintenanceActivity;
 import com.scsvn.whc_2016.main.mms.MaintenanceJob;
+import com.scsvn.whc_2016.main.mms.detail.MaintenanceJobDetailsActivity;
 import com.scsvn.whc_2016.main.mms.employee.EmployeeAbstract;
 import com.scsvn.whc_2016.main.mms.employee.MaintenanceEmployee;
 import com.scsvn.whc_2016.main.mms.equipment.Equipment;
@@ -46,6 +47,7 @@ import com.scsvn.whc_2016.main.mms.part.PartRemainAdapter;
 import com.scsvn.whc_2016.main.mms.part.WriteOff;
 import com.scsvn.whc_2016.main.phieuhomnay.giaoviec.EmployeeInfo;
 import com.scsvn.whc_2016.main.technical.assign.EmployeePresentAdapter;
+import com.scsvn.whc_2016.main.technical.schedulejobplan.ScheduleJobActivity;
 import com.scsvn.whc_2016.main.technical.schedulejobplan.ScheduleJobAdapter;
 import com.scsvn.whc_2016.preferences.LoginPref;
 import com.scsvn.whc_2016.retrofit.EmployeePresentParameter;
@@ -157,6 +159,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
             updateUIEquipment(item);
         }
     };
+    private MenuItem itemDetail;
 
     private void addEmployeeView(EmployeeAbstract item, int position) {
         EmployeeViewHolder holder = new EmployeeViewHolder();
@@ -418,7 +421,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         equipmentDeptView.setText(dept);
         equipmentSerialView.setText(serialNumber);
         maintenanceDateEditText.setText(jobDate);
-        maintenanceDateEditText.setTag(Utilities.formatDateTime_ddMMyyHHmmFromMili(calendar.getTimeInMillis()));
+        maintenanceDateEditText.setTag(Utilities.formatDateTime_yyyyMMddHHmmssFromMili(calendar.getTimeInMillis()));
         maintenanceDesET.setText(remark);
         runningHourET.setText(String.format(Locale.getDefault(), "%.1f", runningHour));
         h1ET.setText(h1);
@@ -742,7 +745,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                     @Override
                     public void onResponse(Response<Integer> response, Retrofit retrofit) {
                         if (response.isSuccess() && response.body() != null) {
-                            idMaintenanceJob = response.body();
+                            id = idMaintenanceJob = response.body();
                             if (listJob.size() > 0)
                                 insertListJob();
                             else if (listPart.size() > 0)
@@ -752,6 +755,10 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                             else {
                                 dialog.dismiss();
                                 Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
+                                itemEdit.setVisible(true);
+                                itemDone.setVisible(false);
+                                itemCreate.setVisible(true);
+                                itemDetail.setVisible(true);
                                 updateMode();
                             }
                         }
@@ -1110,13 +1117,13 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     }
 
     private void updateMaintenanceDate(long date) {
-        maintenanceDateEditText.setTag(Utilities.formatDateTime_ddMMyyHHmmFromMili(date));
+        maintenanceDateEditText.setTag(Utilities.formatDateTime_yyyyMMddHHmmssFromMili(date));
         maintenanceDateEditText.setText(Utilities.formatDate_ddMMyyyy(date));
     }
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus)
+        if (hasFocus || !(id != 0 && v == equipmentEditText))
             ((AutoCompleteTextView) v).setText("");
     }
 
@@ -1127,6 +1134,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         itemEdit = menu.findItem(R.id.action_edit);
         itemDelete = menu.findItem(R.id.action_delete);
         itemCreate = menu.findItem(R.id.action_create);
+        itemDetail = menu.findItem(R.id.action_detail);
 
         if (isDetail) {
             itemDone.setVisible(false);
@@ -1137,7 +1145,9 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
             itemDelete.setVisible(false);
             itemCreate.setVisible(false);
         }
-
+        if (id != 0)
+            itemDetail.setVisible(true);
+        else itemDetail.setVisible(false);
         return true;
     }
 
@@ -1173,6 +1183,11 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
             Intent intent = new Intent(getApplicationContext(), CreateMaintenanceActivity.class);
             intent.putExtra("TYPE", MaintenanceActivity.TYPE_CREATE);
             startActivity(intent);
+        } else if (item == itemDetail) {
+            Intent intent = new Intent(getApplicationContext(), MaintenanceJobDetailsActivity.class);
+            intent.putExtra(ScheduleJobActivity.MJ_ID, id);
+            intent.putExtra(ScheduleJobActivity.FREQUENCY, "");
+            startActivity(intent);
         }
 
         return true;
@@ -1206,6 +1221,8 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     }
 
     private void switchMode() {
+        if (isDetail)
+            containerView.requestFocus();
         containerView.setDescendantFocusability(isDetail ? ViewGroup.FOCUS_BLOCK_DESCENDANTS : ViewGroup.FOCUS_BEFORE_DESCENDANTS);
         equipmentEditText.setVisibility(isDetail ? View.GONE : View.VISIBLE);
         partRemainEditText.setVisibility(isDetail ? View.GONE : View.VISIBLE);

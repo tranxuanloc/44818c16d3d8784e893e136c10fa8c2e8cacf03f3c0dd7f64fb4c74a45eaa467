@@ -81,7 +81,9 @@ public class OrderDetailActivity extends BaseActivity
     private int quantityNormal = 0;
     private int barcodeNumber;
     private int positionJustScan = -1;
-
+    private boolean isPallet;
+    private OrderDetail palletInfo;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,7 +186,6 @@ public class OrderDetailActivity extends BaseActivity
         });
     }
 
-
     private void resetUI() {
         keySetGroupDO.clear();
         groupDO.clear();
@@ -202,6 +203,10 @@ public class OrderDetailActivity extends BaseActivity
             String result = orderDetail.getResult();
             int quantity = Integer.parseInt(orderDetail.getQuantityOfPackages());
             total += quantity;
+
+            if (scanResult.contains(orderDetail.getPalletID())) {
+                palletInfo = orderDetail;
+            }
 
             if (isResultScanValidWithCaseFilter(result)) {
 
@@ -304,6 +309,12 @@ public class OrderDetailActivity extends BaseActivity
         adapter.notifyDataSetChanged();
         if (positionJustScan != -1)
             listView.smoothScrollToPosition(positionJustScan);
+        if (isPallet) {
+            dialog = new AlertDialog.Builder(this)
+                    .setMessage(palletInfo.toString())
+                    .create();
+            dialog.show();
+        }
     }
 
     @Override
@@ -573,6 +584,11 @@ public class OrderDetailActivity extends BaseActivity
 
         @Override
         protected void onPostExecute(String result) {
+            isPallet = false;
+            if (dialog != null) {
+                dialog.dismiss();
+                dialog = null;
+            }
             etTakeScannerResult.setText("");
             etBarcode.setText(result);
             String type;
@@ -587,8 +603,10 @@ public class OrderDetailActivity extends BaseActivity
             if (type.equalsIgnoreCase("DO") || type.equalsIgnoreCase("DP")) {
                 orderNumber = String.format(Locale.getDefault(), "%s-%d", type, barcodeNumber);
                 getRequest();
-            } else
+            } else {
                 scanResult = result;
+                isPallet = true;
+            }
             getOrderDetail(listView);
         }
 

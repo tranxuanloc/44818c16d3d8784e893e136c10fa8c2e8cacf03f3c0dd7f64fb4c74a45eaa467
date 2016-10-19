@@ -32,12 +32,13 @@ import com.scsvn.whc_2016.main.lichlamviec.LichLamViecActivity;
 import com.scsvn.whc_2016.main.lichsuravao.LichSuRaVaoActivity;
 import com.scsvn.whc_2016.main.mms.MaintenanceActivity;
 import com.scsvn.whc_2016.main.nangsuat.NangSuatActivity;
+import com.scsvn.whc_2016.main.nangsuatnhanvien.NangSuatNhanVienActivity;
 import com.scsvn.whc_2016.main.nhaphoso.NhapHoSoActivity;
 import com.scsvn.whc_2016.main.nhaphoso.NhapHoSoNoEMDKActivity;
 import com.scsvn.whc_2016.main.nhapngoaigio.detail.ListOverTimeEntryActivity;
 import com.scsvn.whc_2016.main.opportunity.ListOpportunityActivity;
+import com.scsvn.whc_2016.main.palletcartonchecking.KiemPalletCartonEMDKActivity;
 import com.scsvn.whc_2016.main.palletcartonchecking.KiemPalletCartonActivity;
-import com.scsvn.whc_2016.main.palletcartonchecking.KiemPalletCartonNoEMDKActivity;
 import com.scsvn.whc_2016.main.phieucuatoi.PhieuCuaToiActivity;
 import com.scsvn.whc_2016.main.phieuhomnay.KhachHangActivity;
 import com.scsvn.whc_2016.main.register.RegisterActivity;
@@ -117,9 +118,9 @@ public class MenuAdapter extends ArrayAdapter<MenuInfo> {
         else if (tag == 7) {
             try {
                 Class.forName("com.symbol.emdk.EMDKManager");
-                context.startActivity(new Intent(context, KiemPalletCartonActivity.class));
+                context.startActivity(new Intent(context, KiemPalletCartonEMDKActivity.class));
             } catch (ClassNotFoundException e) {
-                context.startActivity(new Intent(context, KiemPalletCartonNoEMDKActivity.class));
+                context.startActivity(new Intent(context, KiemPalletCartonActivity.class));
             }
         } else if (tag == 8) {
             try {
@@ -130,6 +131,8 @@ public class MenuAdapter extends ArrayAdapter<MenuInfo> {
             }
         } else if (tag == 10)
             context.startActivity(new Intent(context, NangSuatActivity.class));
+        else if (tag == 29)
+            context.startActivity(new Intent(context, NangSuatNhanVienActivity.class));
         else if (tag == 19) {
             Intent intentQHSE = new Intent(context, QHSEActivity.class);
             intentQHSE.putExtra("numberQHSE", "0");

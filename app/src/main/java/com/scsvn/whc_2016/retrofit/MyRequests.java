@@ -38,6 +38,7 @@ import com.scsvn.whc_2016.main.lichlamviec.WorkingSchedulesEmployeePlanInfo;
 import com.scsvn.whc_2016.main.lichlamviec.WorkingSchedulesInfo;
 import com.scsvn.whc_2016.main.lichsuravao.EmployeeInOutInfo;
 import com.scsvn.whc_2016.main.mms.MaintenanceJob;
+import com.scsvn.whc_2016.main.mms.detail.MaintenanceJobDetail;
 import com.scsvn.whc_2016.main.mms.employee.MaintenanceEmployee;
 import com.scsvn.whc_2016.main.mms.equipment.Equipment;
 import com.scsvn.whc_2016.main.mms.job.JobDaily;
@@ -45,6 +46,10 @@ import com.scsvn.whc_2016.main.mms.job.JobDefinition;
 import com.scsvn.whc_2016.main.mms.part.PartRemain;
 import com.scsvn.whc_2016.main.mms.part.WriteOff;
 import com.scsvn.whc_2016.main.nangsuat.EmployeePerformanceInfo;
+import com.scsvn.whc_2016.main.nangsuatnhanvien.ComboDepartmentID;
+import com.scsvn.whc_2016.main.nangsuatnhanvien.ComboPositionID;
+import com.scsvn.whc_2016.main.nangsuatnhanvien.ComboShiftID;
+import com.scsvn.whc_2016.main.nangsuatnhanvien.EmployeeWorkingByDate;
 import com.scsvn.whc_2016.main.nhaphoso.ReceivingOrderDetailsInfo;
 import com.scsvn.whc_2016.main.nhapngoaigio.EmployeeIDFindInfo;
 import com.scsvn.whc_2016.main.nhapngoaigio.OverTimeOrderDetailsInfo;
@@ -52,8 +57,10 @@ import com.scsvn.whc_2016.main.nhapngoaigio.detail.OverTimeViewInfo;
 import com.scsvn.whc_2016.main.nhapngoaigio.detail.PayRollMonthIDInfo;
 import com.scsvn.whc_2016.main.opportunity.Customer;
 import com.scsvn.whc_2016.main.opportunity.Opportunity;
+import com.scsvn.whc_2016.main.opportunity.OpportunityCustomerCategory;
 import com.scsvn.whc_2016.main.palletcartonchecking.MovementHistoryInfo;
 import com.scsvn.whc_2016.main.palletcartonchecking.PalletCartonInfo;
+import com.scsvn.whc_2016.main.palletcartonchecking.PalletFind;
 import com.scsvn.whc_2016.main.phieucuatoi.PhieuCuaToiInfo;
 import com.scsvn.whc_2016.main.phieuhomnay.HomNayInfo;
 import com.scsvn.whc_2016.main.phieuhomnay.InOutToDayUnFinishInfo;
@@ -186,8 +193,11 @@ public interface MyRequests {
     @POST("/api/qhse")
     Call<List<AssignWorkInfo>> getAssignWork(@Body AssignWorkParameter parameter);
 
-    @POST("/api/MMS_ScheduledJobWeekPlan")
+    @POST("/api/MMSScheduledJobWeekPlan")
     Call<List<ScheduleJobPlanInfo>> getScheduleJobPlanInfo(@Body ScheduleJobPlanParameter parameter);
+
+    @POST("/api/MMSScheduledJobUpdate")
+    Call<String> updateScheduleJobPlan(@Body UpdateScheduleJobPlanParameter parameter);
 
     @POST("/api/QSHEComment")
     Call<List<com.scsvn.whc_2016.main.technical.assign.CommentInfo>> getAssignWorkComment(@Body CommentParameter parameter);
@@ -255,6 +265,9 @@ public interface MyRequests {
 
     @POST("/api/pallet_cartonchecking")
     Call<List<PalletCartonInfo>> getPalletCarton(@Body PalletCartonParameter parameter);
+
+    @POST("/api/PalletFind")
+    Call<List<PalletFind>> getPalletFind(@Body PalletFindParameter parameter);
 
     @POST("/api/MovementsHistories")
     Call<List<MovementHistoryInfo>> getMovementHistory(@Body String parameter);
@@ -361,6 +374,9 @@ public interface MyRequests {
     @POST("/api/CRMOpportunities")
     Call<List<Opportunity>> getOpportunities();
 
+    @POST("/api/CRMOpportunitiesCustomerCategory")
+    Call<List<OpportunityCustomerCategory>> getOpportunityCustomerCategory();
+
     @POST("/api/CRMOpportunitiesDetail")
     Call<List<Opportunity>> getOpportunity(@Body int opportunityId);
 
@@ -409,6 +425,12 @@ public interface MyRequests {
     @POST("/api/MMSViewMaintenanceJob")
     Call<List<MaintenanceJob>> getMaintenanceJob();
 
+    @POST("/api/MMSMaintenanceJobDetails")
+    Call<List<MaintenanceJobDetail>> getMaintenanceJobDetail(@Body MaintenanceJobDetailParameter parameter);
+
+    @POST("/api/MMSMaintenanceJobDetailUpdate")
+    Call<String> updateMaintenanceJobDetail(@Body MaintenanceJobDetailUpdateParameter parameter);
+
     @POST("/api/MMSMaintenanceJobDaily")
     Call<List<JobDaily>> getMaintenanceJobDaily(@Body int id);
 
@@ -450,5 +472,17 @@ public interface MyRequests {
 
     @POST("/api/MMSMaintenanceEmployeeDelete")
     Call<String> deleteMaintenanceEmployee(@Body MMSEmployeeParameter param);
+
+    @POST("/api/ComboDepartmentID")
+    Call<List<ComboDepartmentID>> getComboDepartmentID();
+
+    @POST("/api/ComboShiftID")
+    Call<List<ComboShiftID>> getComboShiftID();
+
+    @POST("/api/ComboPositionID")
+    Call<List<ComboPositionID>> getComboPositionID();
+
+    @POST("/api/EmployeeWorkingByDate")
+    Call<List<EmployeeWorkingByDate>> getEmployeeWorkingByDate(@Body EmployeeWorkingByDateParameter param);
 
 }

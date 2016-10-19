@@ -6,95 +6,31 @@
     tools:context="com.scsvn.whc_2016.main.opportunity.OpportunityDetailActivity">
 
     <LinearLayout
+        android:id="@+id/opportunity_detail_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="5dp">
 
-        <android.support.design.widget.TextInputLayout
+        <include layout="@layout/opportunity" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/et_opportunity_name"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/opportunity_name" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/et_opportunity_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/opportunity_description" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/et_opportunity_assign_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/opportunity_assign_to_user" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/et_opportunity_probability"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/opportunity_probability" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/et_opportunity_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/opportunity_type" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/et_opportunity_sale_stage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/opportunity_sale_stage" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:layout_marginRight="10dp"
+                android:text="@string/label_customer_id" />
 
             <android.support.v7.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/opportunity_customer_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:completionThreshold="1"
-                android:hint="@string/label_customer_id" />
+                android:completionThreshold="1" />
 
-        </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -119,7 +55,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/opportunity_pallets"
-                    android:imeOptions="actionNext" />
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -133,7 +70,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/opportunity_cartons"
-                    android:imeOptions="actionNext" />
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -147,7 +85,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/opportunity_units"
-                    android:imeOptions="actionNext" />
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -160,7 +99,8 @@
                     android:id="@+id/et_opportunity_weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/opportunity_weights" />
+                    android:hint="@string/opportunity_weights"
+                    android:inputType="numberDecimal" />
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>

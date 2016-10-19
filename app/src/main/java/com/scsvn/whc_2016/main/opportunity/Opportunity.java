@@ -49,6 +49,20 @@ public class Opportunity {
     private String closedDate;
     @SerializedName("CustomerID")
     private int customerId;
+    @SerializedName("Emails")
+    private String Emails;
+    @SerializedName("Address")
+    private String Address;
+    @SerializedName("Phone")
+    private String Phone;
+    @SerializedName("Mobile")
+    private String Mobile;
+    @SerializedName("Contacts")
+    private String Contacts;
+    @SerializedName("Website")
+    private String Website;
+    @SerializedName("CustomerCategory")
+    private int CustomerCategory;
 
     public int getCustomerId() {
         return customerId;
@@ -113,5 +127,33 @@ public class Opportunity {
 
     public String getCloseDateOriginal() {
         return closedDate;
+    }
+
+    public String getEmails() {
+        return Emails;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public String getMobile() {
+        return Mobile;
+    }
+
+    public String getContacts() {
+        return Contacts;
+    }
+
+    public String getWebsite() {
+        return Website;
+    }
+
+    public int getCustomerCategory() {
+        return CustomerCategory;
     }
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class DataUser {
     public static ArrayList<MenuInfo> data = new ArrayList<>();
     private Context context;
-    private int max = 28;
+    private int max = 29;
 
     public DataUser(Context context) {
         this.context = context;
@@ -34,6 +34,7 @@ public class DataUser {
         data.add(new MenuInfo(20, context.getString(R.string.ton_kho), R.drawable.ic_ton_kho));
         data.add(new MenuInfo(11, context.getString(R.string.lich_su_chuyen_hang), R.drawable.ic_lich_su_chuyen));
         data.add(new MenuInfo(10, context.getString(R.string.nang_suat), R.drawable.ic_nang_suat));
+        data.add(new MenuInfo(29, context.getString(R.string.label_nang_suat_nhan_vien), R.drawable.ic_nang_suat));
         data.add(new MenuInfo(18, context.getString(R.string.lich_su_ra_vao), R.drawable.ic_lich_su_ra_vao));
         data.add(new MenuInfo(14, context.getString(R.string.nhap_ngoai_gio), R.drawable.ic_ngoai_gio));
         data.add(new MenuInfo(22, context.getString(R.string.giao_viec), R.drawable.ic_scan_xuat));
@@ -67,6 +68,7 @@ public class DataUser {
         data.add(new MenuInfo(20, context.getString(R.string.ton_kho), R.drawable.ic_ton_kho));
         data.add(new MenuInfo(11, context.getString(R.string.lich_su_chuyen_hang), R.drawable.ic_lich_su_chuyen));
         data.add(new MenuInfo(10, context.getString(R.string.nang_suat), R.drawable.ic_nang_suat));
+        data.add(new MenuInfo(29, context.getString(R.string.label_nang_suat_nhan_vien), R.drawable.ic_nang_suat));
         data.add(new MenuInfo(18, context.getString(R.string.lich_su_ra_vao), R.drawable.ic_lich_su_ra_vao));
         data.add(new MenuInfo(14, context.getString(R.string.nhap_ngoai_gio), R.drawable.ic_ngoai_gio));
         data.add(new MenuInfo(22, context.getString(R.string.giao_viec), R.drawable.ic_scan_xuat));

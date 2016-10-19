@@ -98,15 +98,15 @@ public class MainActivity extends BaseActivity {
             indexPhieuCuaToi = 1;
             indexQHSE = 5;
             indexTruckContainer = 8;
-            indexQH = 18;
-            indexUpdateVersion = 28;
+            indexQH = 19;
+            indexUpdateVersion = 29;
             dataUser.manager();
         } else if (sCase.equalsIgnoreCase(Const.SUPERVISOR)) {
             indexPhieuCuaToi = 1;
             indexQHSE = 5;
             indexTruckContainer = 8;
-            indexQH = 18;
-            indexUpdateVersion = 24;
+            indexQH = 19;
+            indexUpdateVersion = 25;
             dataUser.supervisor();
         } else if (sCase.equalsIgnoreCase(Const.PRODUCT_CHECKER)) {
             indexPhieuCuaToi = 1;

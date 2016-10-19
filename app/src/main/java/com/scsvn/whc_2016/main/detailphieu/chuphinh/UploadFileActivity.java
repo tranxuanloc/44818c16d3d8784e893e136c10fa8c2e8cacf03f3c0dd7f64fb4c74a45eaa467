@@ -129,6 +129,7 @@ public class UploadFileActivity extends BaseActivity {
                 if (response.isSuccess() && response.body() != null) {
                     Snackbar.make(view, "Upload thành công", Snackbar.LENGTH_LONG).show();
                     ChupHinhActivity.isUpdate = true;
+                    onBackPressed();
                 }
                 dialog.dismiss();
             }

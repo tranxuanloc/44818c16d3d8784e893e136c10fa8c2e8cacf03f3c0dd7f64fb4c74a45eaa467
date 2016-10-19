@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.scsvn.whc_2016.main.mms.MaintenanceJob;
 import com.scsvn.whc_2016.main.mms.add.CreateMaintenanceActivity;
 import com.scsvn.whc_2016.utilities.Utilities;
 
+import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,7 +32,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Trần Xuân Lộc on 12/30/2015.
  */
-public class ScheduleJobAdapter extends ArrayAdapter<ScheduleJobPlanInfo> {
+public class ScheduleJobAdapter extends ArrayAdapter<ScheduleJobPlanInfo> implements Filterable {
     public static final String ID = "ID";
     public static final String WORKING_HOUR = "WORKING_HOUR";
     public static final String DATE = "DATE";
@@ -50,9 +53,24 @@ public class ScheduleJobAdapter extends ArrayAdapter<ScheduleJobPlanInfo> {
         }
     };
 
+    private ArrayList<ScheduleJobPlanInfo> dataRelease;
+    private ArrayList<ScheduleJobPlanInfo> dataOrigin;
+
     public ScheduleJobAdapter(Context context, ArrayList<ScheduleJobPlanInfo> objects) {
         super(context, R.layout.item_schedule_job, objects);
+        dataOrigin = objects;
+        dataRelease = objects;
 
+    }
+
+    @Override
+    public int getCount() {
+        return dataRelease.size();
+    }
+
+    @Override
+    public ScheduleJobPlanInfo getItem(int position) {
+        return dataRelease.get(position);
     }
 
     @Override
@@ -101,6 +119,38 @@ public class ScheduleJobAdapter extends ArrayAdapter<ScheduleJobPlanInfo> {
         return convertView;
     }
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results = new FilterResults();
+                if (constraint != null && constraint.length() > 0) {
+                    ArrayList<ScheduleJobPlanInfo> arrayFilter = new ArrayList<>();
+                    for (int i = 0; i < dataOrigin.size(); i++) {
+                        ScheduleJobPlanInfo info = dataOrigin.get(i);
+                        String name = Normalizer.normalize(info.getEquipmentName().toLowerCase(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+                        if (info.getEquipmentID().toLowerCase().contains(constraint) || name.contains(constraint)
+                                || Utilities.formatDate_ddMMyy(info.getDueDate()).contains(constraint)
+                                || Integer.toString(info.getMaintenanceJobID()).contains(constraint))
+                            arrayFilter.add(info);
+                    }
+                    results.count = arrayFilter.size();
+                    results.values = arrayFilter;
+                } else {
+                    results.count = dataOrigin.size();
+                    results.values = dataOrigin;
+                }
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                dataRelease = (ArrayList<ScheduleJobPlanInfo>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     static class ViewHolder {
         @Bind(R.id.tvEquipmentID)
