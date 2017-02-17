@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,7 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.main.opportunity.CustomerCategoryAdapter;
@@ -27,6 +29,7 @@ import com.scsvn.whc_2016.retrofit.EmployeePresentParameter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.OpportunityParameter;
+import com.scsvn.whc_2016.retrofit.QHSEAssignmentInsertParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
 
@@ -181,11 +184,11 @@ public class AddOpportunityActivity extends BaseActivity implements View.OnFocus
             Toast.makeText(getApplicationContext(), R.string.error_opportunity_close_date, Toast.LENGTH_SHORT).show();
             return;
         }
-
+        String assign = assignUserView.getText().toString();
         OpportunityParameter parameter = new OpportunityParameter(userName,
                 nameView.getText().toString(),
                 descriptionView.getText().toString(),
-                assignUserView.getText().toString(),
+                assign,
                 saleStageView.getSelectedItem().toString(),
                 typeView.getSelectedItem().toString(),
                 parserFloat(probabilityView.getText().toString()),
@@ -202,11 +205,11 @@ public class AddOpportunityActivity extends BaseActivity implements View.OnFocus
                 websiteView.getText().toString(),
                 customerCategoryId
         );
-        addOpportunities(parameter);
+        addOpportunities(parameter, assign);
     }
 
 
-    private void addOpportunities(OpportunityParameter parameter) {
+    private void addOpportunities(OpportunityParameter parameter, final String assign) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.adding));
         dialog.show();
 
@@ -221,10 +224,18 @@ public class AddOpportunityActivity extends BaseActivity implements View.OnFocus
                     @Override
                     public void onResponse(Response<String> response, Retrofit retrofit) {
                         if (response.isSuccess() && response.body() != null) {
-                            Toast.makeText(getApplicationContext(), R.string.success, Toast.LENGTH_SHORT).show();
+                            String idAssign = assign;
+                            int endAssign = assign.length() - 1;
+                            if (assign.lastIndexOf(",") == endAssign && endAssign > 1)
+                                idAssign = assign.substring(0, endAssign);
+                            QHSEAssignmentInsertParameter pa = new QHSEAssignmentInsertParameter(
+                                    LoginPref.getUsername(getApplicationContext()), /*QHSERNumber*/"", String.format("(%s)", idAssign));
+                            //executeQHSEAssignmentInsert(pa);
                             nameView.setText("");
                             closeDate = "";
                             isAdded = true;
+                            Toast.makeText(getApplicationContext(), R.string.success, Toast.LENGTH_SHORT).show();
+
                         } else
                             Toast.makeText(getApplicationContext(), R.string.failed, Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
@@ -236,6 +247,33 @@ public class AddOpportunityActivity extends BaseActivity implements View.OnFocus
                         RetrofitError.errorNoAction(getApplicationContext(), t, BaseActivity.TAG, snackBarView);
                     }
                 });
+    }
+
+    private void executeQHSEAssignmentInsert(final ProgressDialog dialog, QHSEAssignmentInsertParameter parameter) {
+        if (!Utilities.isConnected(this)) {
+            dialog.dismiss();
+            RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
+            return;
+        }
+        MyRetrofit.initRequest(this).executeQHSEAssignmentInsert(parameter).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Response<String> response, Retrofit retrofit) {
+                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
+                if (response.isSuccess() && response.body() != null) {
+
+                    dialog.dismiss();
+                    finish();
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                RetrofitError.errorNoAction(AddOpportunityActivity.this, t, TAG, snackBarView);
+                dialog.dismiss();
+            }
+        });
     }
 
     private void getOpportunityCustomerCategory() {

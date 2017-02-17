@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:grid="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ddd"
+    grid:columnCount="7">
+
+    <TextView
+        android:id="@+id/tv_time_slot"
+        android:layout_width="50dp"
+        android:background="@drawable/outline_right_bottom_dark"
+        android:gravity="center"
+        android:padding="2dp"
+        android:textColor="#000"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_weight"
+        android:layout_width="@dimen/booking_width"
+        android:background="@drawable/outline_right_bottom_dark"
+        android:gravity="center"
+        android:padding="2dp"
+        android:textColor="#A00"
+        android:textStyle="bold"
+        grid:layout_column="1"
+        grid:layout_columnWeight="1" />
+
+    <TextView
+        android:id="@+id/tv_weight_r"
+        android:layout_width="@dimen/booking_width"
+        android:background="@drawable/outline_right_bottom_dark"
+        android:gravity="center"
+        android:padding="2dp"
+        android:textColor="#1155ff"
+        android:textStyle="bold"
+        grid:layout_column="2"
+        grid:layout_columnWeight="1" />
+
+    <TextView
+        android:id="@+id/tv_weight_d"
+        android:layout_width="@dimen/booking_width"
+        android:background="@drawable/outline_right_bottom_dark"
+        android:gravity="center"
+        android:padding="2dp"
+        android:textColor="#007e2a"
+        android:textStyle="bold"
+        grid:layout_column="3"
+        grid:layout_columnWeight="1" />
+
+    <TextView
+        android:id="@+id/tv_pallet"
+        android:layout_width="0dp"
+        android:background="@drawable/outline_right_bottom_dark"
+        android:gravity="center"
+        android:padding="2dp"
+        android:textColor="#A00"
+        android:textStyle="bold"
+        grid:layout_column="4"
+        grid:layout_columnWeight="1" />
+
+    <TextView
+        android:id="@+id/tv_pallet_r"
+        android:layout_width="0dp"
+        android:background="@drawable/outline_right_bottom_dark"
+        android:gravity="center"
+        android:padding="2dp"
+        android:textColor="#1155ff"
+        android:textStyle="bold"
+        grid:layout_column="5"
+        grid:layout_columnWeight="1" />
+
+    <TextView
+        android:id="@+id/tv_pallet_d"
+        android:layout_width="0dp"
+        android:background="@drawable/outline_right_bottom_dark"
+        android:gravity="center"
+        android:padding="2dp"
+        android:textColor="#007e2a"
+        android:textStyle="bold"
+        grid:layout_column="6"
+        grid:layout_columnWeight="1" />
+
+</android.support.v7.widget.GridLayout>

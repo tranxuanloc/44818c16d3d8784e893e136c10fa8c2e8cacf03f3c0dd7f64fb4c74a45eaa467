@@ -118,9 +118,6 @@ public class OrderDetail implements Item {
         return DO;
     }
 
-    public int getBarcodeScanDetailID() {
-        return BarcodeScanDetailID;
-    }
 
     public int getRemainByProductAtLocation() {
         return RemainByProductAtLocation;
@@ -128,7 +125,7 @@ public class OrderDetail implements Item {
 
     @Override
     public String toString() {
-        return String.format(Locale.getDefault(), "PalletID: %s\nProductNumber: %s\nProductName: %s\nResult: %s\nQuantityOfPackages: %s\nDispatchingOrderDetailID: %d\nRemark: %s\nDispatchingLocationRemark: %s\nProductionDate: %s\nUseByDate: %s\nLabel: %s\nScannedType: %s\nDO: %s\nBarcodeScanDetailID: %d\nRemainByProductAtLocation: %d\nSpecialRequirement: %s", getPalletID(), getProductNumber(), getProductName(), getResult(), getQuantityOfPackages(), getDispatchingOrderDetailID(), getRemark(), getDispatchingLocationRemark(), getProductionDate(), getUseByDate(), getLabel(), getScannedType(), getDO(), getBarcodeScanDetailID(), getRemainByProductAtLocation(), getSpecialRequirement());
+        return String.format(Locale.getDefault(), "PalletID: %s\nResult: %s\nSố lượng: %s\n\nRemark: %s\nNSX: %s\nHSD: %s\nTồn: %d", getPalletID(), getResult(), getQuantityOfPackages(), getRemark(), getProductionDate(), getUseByDate(), getRemainByProductAtLocation());
     }
 
     @Override

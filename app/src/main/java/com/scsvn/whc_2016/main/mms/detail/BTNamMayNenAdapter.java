@@ -2,12 +2,11 @@ package com.scsvn.whc_2016.main.mms.detail;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,6 +39,7 @@ public class BTNamMayNenAdapter extends RecyclerView.Adapter<BTNamMayNenAdapter.
     private View snackBarView;
     private String userName;
     private SparseBooleanArray itemSelected = new SparseBooleanArray();
+    private int changePosition = -1;
 
     public BTNamMayNenAdapter(Context context, ArrayList<Object> objects, View view) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -81,7 +81,7 @@ public class BTNamMayNenAdapter extends RecyclerView.Adapter<BTNamMayNenAdapter.
     }
 
     @Override
-    public void onBindViewHolder(VH holder, int position) {
+    public void onBindViewHolder(VH holder, final int position) {
         if (holder instanceof HeaderViewHolder) {
             Header header = (Header) objects.get(position);
             ((HeaderViewHolder) holder).titleTV.setText(header.getTitle());
@@ -89,7 +89,7 @@ public class BTNamMayNenAdapter extends RecyclerView.Adapter<BTNamMayNenAdapter.
             final MaintenanceJobDetail detail = (MaintenanceJobDetail) objects.get(position);
             final DetailViewHolder detailHolder = (DetailViewHolder) holder;
             detailHolder.resultCB.setChecked(detail.isCheckResult());
-            detailHolder.resultCB.setText(String.format("User %s", detail.getCreatedBy()));
+            detailHolder.resultCB.setText(String.format("%s", detail.getCreatedBy()));
             detailHolder.nameTV.setText(detail.getItemName());
             detailHolder.noteET.setText(detail.getRemark());
             detailHolder.resultCB.setOnClickListener(new View.OnClickListener() {
@@ -99,16 +99,24 @@ public class BTNamMayNenAdapter extends RecyclerView.Adapter<BTNamMayNenAdapter.
                     updateMaintenanceJobDetail(detail.getId(), detail.isCheckResult(), detail.getRemark(), userName);
                 }
             });
-            detailHolder.noteET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            detailHolder.noteET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        detail.setRemark(detailHolder.noteET.getText().toString());
-                        updateMaintenanceJobDetail(detail.getId(), detail.isCheckResult(), detail.getRemark(), userName);
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        changePosition = position;
+                    } else {
+                        if (changePosition >= 0) {
+                            detail.setRemark(detailHolder.noteET.getText().toString());
+                            MaintenanceJobDetail detail = (MaintenanceJobDetail) objects.get(changePosition);
+                            updateMaintenanceJobDetail(detail.getId(), detail.isCheckResult(), detail.getRemark(), userName);
+                        }
+                        changePosition = -1;
                     }
-                    return false;
+
+                    Log.d(TAG, "onFocusChange() returned: " + position + "~" + hasFocus + "~" + changePosition);
                 }
             });
+
             detailHolder.updateIV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

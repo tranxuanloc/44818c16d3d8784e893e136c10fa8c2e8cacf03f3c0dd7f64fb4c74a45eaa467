@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.kiemqa.metroqacheckingproduct.MetroCheckingProductActivity;
 import com.scsvn.whc_2016.retrofit.MetroQACheckingListProductsParameter;
@@ -44,6 +42,10 @@ public class QACheckingListProductsActivity extends AppCompatActivity implements
     ListView listView;
     @Bind(R.id.tv_metro_suppliers)
     TextView tvSuppliers;
+    @Bind(R.id.tv_metro_list_product_order_quantity)
+    TextView tvOrderQuantity;
+    @Bind(R.id.tv_metro_list_product_actual_quantity)
+    TextView tvActualQuantity;
     private View.OnClickListener tryAgain;
     private String reportDate;
     private int supplierID;
@@ -89,14 +91,18 @@ public class QACheckingListProductsActivity extends AppCompatActivity implements
         MyRetrofit.initRequest(this).getMetroQACheckingListProducts(new MetroQACheckingListProductsParameter(reportDate, supplierID)).enqueue(new Callback<List<QACheckingListProductsInfo>>() {
             @Override
             public void onResponse(Response<List<QACheckingListProductsInfo>> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     adapter.clear();
                     adapter.addAll(response.body());
                     listID.clear();
+                    float orderQuantity = 0, actualQuantity = 0;
                     for (QACheckingListProductsInfo info : response.body()) {
+                        orderQuantity += info.getOrderQuantity();
+                        actualQuantity += info.getActualQuantity();
                         listID.add(info.getReceivingOrderDetailID());
                     }
+                    tvOrderQuantity.setText(String.format(Locale.getDefault(), "%s", orderQuantity));
+                    tvActualQuantity.setText(String.format(Locale.getDefault(), "%s", actualQuantity));
                 }
                 dialog.dismiss();
             }
@@ -108,7 +114,6 @@ public class QACheckingListProductsActivity extends AppCompatActivity implements
             }
         });
     }
-
 
 
     @Override

@@ -3,31 +3,26 @@ package com.scsvn.whc_2016.main.kiemcontainer.detail;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.GridView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.main.kiemcontainer.KiemContainerActivity;
+import com.scsvn.whc_2016.main.postiamge.GridImage;
+import com.scsvn.whc_2016.main.postiamge.PostImage;
+import com.scsvn.whc_2016.main.postiamge.Thumb;
+import com.scsvn.whc_2016.main.postiamge.ThumbImageAdapter;
 import com.scsvn.whc_2016.preferences.LoginPref;
-import com.scsvn.whc_2016.retrofit.AttachmentParameter;
 import com.scsvn.whc_2016.retrofit.CompletedCheckingParameter;
 import com.scsvn.whc_2016.retrofit.ContainerCheckingDetailParameter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
@@ -35,30 +30,20 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.retrofit.UpdateContainerCheckingParameter;
 import com.scsvn.whc_2016.utilities.Const;
-import com.scsvn.whc_2016.utilities.ResizeImage;
 import com.scsvn.whc_2016.utilities.Utilities;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.RequestBody;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
 public class DetailContainerActivity extends BaseActivity {
 
-    private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
-    private static final String IMAGE_DIRECTORY_NAME = "WHC-2016 FILE";
     private final String TAG = DetailContainerActivity.class.getSimpleName();
     @Bind(R.id.tv_cont_number)
     TextView tvContCheckingNumber;
@@ -90,17 +75,14 @@ public class DetailContainerActivity extends BaseActivity {
     CheckBox cbContCheckingXa;
     @Bind(R.id.cb_cont_checking_electric)
     CheckBox cbElectricity;
-    @Bind(R.id.iv_cont_image)
-    ImageView ivImage;
-    private Uri uriImage;
-    private String orderNumber, userName;
+    @Bind(R.id.grid_image)
+    GridView gridImage;
+    private ProgressDialog dialog;
+    private ThumbImageAdapter gridImageAdapter;
     private View.OnClickListener action;
     private int contInOutID, checkingID;
     private boolean isClickDone;
-    private ProgressDialog dialog;
-    private Date dateCreate;
-    private String originalFileName, md5FileName, containerCheckingNumber, vehicleType;
-    private File outputMediaFile;
+    private String QHSERNumber, vehicleType, userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +106,9 @@ public class DetailContainerActivity extends BaseActivity {
                 getContainerInfo(tvContCheckingNumber, contInOutID);
             }
         };
+
+        gridImageAdapter = new ThumbImageAdapter(this, new ArrayList<Thumb>());
+        gridImage.setAdapter(gridImageAdapter);
         getContainerInfo(tvContCheckingNumber, contInOutID);
     }
 
@@ -139,7 +124,6 @@ public class DetailContainerActivity extends BaseActivity {
 
             @Override
             public void onResponse(Response<List<ContainerDetailInfo>> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null && response.body().size() > 0) {
                     ContainerDetailInfo info = response.body().get(0);
                     cbContCheckingChuaHD.setChecked(info.isNoOperation());
@@ -156,7 +140,6 @@ public class DetailContainerActivity extends BaseActivity {
                     etContCheckingTcThietLap.setText(info.getTemperatureSetup());
                     etContCheckingCua.setText(info.getDockNumber());
                     checkingID = info.getCheckingID();
-                    Log.e(TAG, "onResponse: " + checkingID);
                 }
                 dialog.dismiss();
             }
@@ -227,7 +210,6 @@ public class DetailContainerActivity extends BaseActivity {
 
             @Override
             public void onResponse(Response<String> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     KiemContainerActivity.isUpdated = true;
                     completeChecking(tvContCheckingNumber);
@@ -241,74 +223,17 @@ public class DetailContainerActivity extends BaseActivity {
         });
     }
 
-    public void upload(final View view) {
-        RequestBody requestBodyFile =
-                RequestBody.create(MediaType.parse("multipart/form-data"), outputMediaFile);
-        md5FileName = Utilities.md5(originalFileName) + ".jpg";
-        RequestBody requestBodyFileName =
-                RequestBody.create(MediaType.parse("multipart/form-data"), md5FileName);
-        RequestBody requestBodyDescription =
-                RequestBody.create(MediaType.parse("multipart/form-data"), etContCheckingGhiChu.getText().toString());
-
-        Call<String> call = MyRetrofit.initRequest(this).uploadFile(requestBodyFile, requestBodyFileName, requestBodyDescription);
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Response<String> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
-                updateData(view);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.e("onFailure", t.getMessage());
-                dialog.dismiss();
-            }
-        });
-    }
-
-    public void updateData(final View view) {
-        if (!Utilities.isConnected(this)) {
-            dialog.dismiss();
-            return;
-        }
-        AttachmentParameter parameter = new AttachmentParameter(
-                Utilities.formatDateTime_yyyyMMddHHmmssFromMili(dateCreate.getTime()),
-                etContCheckingGhiChu.getText().toString(),
-                md5FileName,
-                (int) outputMediaFile.length() / 1024,
-                0,
-                LoginPref.getInfoUser(this, LoginPref.USERNAME),
-                0,
-                3,
-                containerCheckingNumber, originalFileName);
-        MyRetrofit.initRequest(this).setAttachment(parameter).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Response<String> response, Retrofit retrofit) {
-                if (response.isSuccess() && response.body() != null)
-                    finish();
-                else
-                    dialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                dialog.dismiss();
-                RetrofitError.errorNoAction(DetailContainerActivity.this, t, TAG, view);
-            }
-        });
-    }
-
     public void completeChecking(final View view) {
 
         MyRetrofit.initRequest(this).completedChecking(new CompletedCheckingParameter(checkingID, userName)).enqueue(new Callback<String>() {
 
             @Override
             public void onResponse(Response<String> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
-                    containerCheckingNumber = response.body();
-                    if (outputMediaFile != null) {
-                        upload(tvContCheckingNumber);
+                    QHSERNumber = response.body();
+                    PostImage postImage = new PostImage(DetailContainerActivity.this, dialog, view, etContCheckingGhiChu.getText().toString(), QHSERNumber);
+                    if (files.size() > 0) {
+                        postImage.uploadImage(files, files.size() - 1);
                     } else
                         finish();
                 }
@@ -335,13 +260,54 @@ public class DetailContainerActivity extends BaseActivity {
         if (id == android.R.id.home)
             finish();
         else if (id == R.id.action_camera) {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            outputMediaFile = getOutputMediaFile();
-            uriImage = Uri.fromFile(outputMediaFile);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uriImage);
-            startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+            imageChooser();
         }
         return true;
+    }
+
+    private void imageChooser() {
+        android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(this)
+                .setTitle(R.string.chon_nguon_anh).setItems(new CharSequence[]{getString(R.string.chon_hinh_tu_may_anh), getString(R.string.chon_hinh_tu_bo_suu_tap)},
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case 0:
+                                        checkCaptureImage();
+                                        break;
+                                    case 1:
+                                        checkPickImage();
+                                        break;
+                                }
+                            }
+                        })
+                .create();
+        dialog.show();
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == CODE_CAMERA) {
+            if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                intentPickImage();
+            }
+        } else if (requestCode == CODE_READ_EXTERNAL_STORAGE) {
+            if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                intentCaptureImage();
+            }
+        }
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CODE_CAPTURE_IMAGE && resultCode == RESULT_OK) {
+            files = GridImage.updateGridImage(imageCapturedUri.getPath(), gridImageAdapter);
+        } else if (requestCode == CODE_PICK_IMAGE && resultCode == RESULT_OK) {
+            files = GridImage.updateGridImage(this, data, gridImageAdapter);
+        }
     }
 
 
@@ -357,67 +323,10 @@ public class DetailContainerActivity extends BaseActivity {
         super.onStop();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
-            try {
-                ResizeImage.resizeImageFromFile(uriImage.getPath(), Const.IMAGE_UPLOAD_WIDTH);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            mediaScanIntent.setData(uriImage);
-            this.sendBroadcast(mediaScanIntent);
-
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 3;
-            Bitmap bitmap = BitmapFactory.decodeFile(uriImage.getPath(), options);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Utilities.getScreenWidth(this) / 2);
-            params.addRule(RelativeLayout.BELOW, R.id.et_cont_checking_ghi_chu);
-            params.setMargins(0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics()), 0, 0);
-            ivImage.setLayoutParams(params);
-            ivImage.setImageBitmap(bitmap);
-        }
-    }
-
-    private File getOutputMediaFile() {
-        String IMAGE_DIRECTORY_NAME = "Camera";
-        File mediaStorageDir = new File(
-                Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                IMAGE_DIRECTORY_NAME);
-
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                Log.d(TAG, "Oops! Failed create "
-                        + IMAGE_DIRECTORY_NAME + " directory");
-                return null;
-            }
-        }
-
-        dateCreate = new Date();
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_Hms",
-                Locale.getDefault()).format(dateCreate);
-        originalFileName = "IMG_" + timeStamp;
-        return new File(mediaStorageDir.getPath() + File.separator
-                + originalFileName + ".jpg");
-//        String originalFileName = containerCheckingNumber + "_IMG_" + timeStamp + ".jpg";
-//        return new File(mediaStorageDir.getPath() + File.separator
-//                + Utilities.md5(originalFileName) + ".jpg");
-    }
 
     @Override
     public void onBackPressed() {
         update();
         super.onBackPressed();
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (uriImage != null) {
-            File file = new File(uriImage.getPath());
-            file.delete();
-        }
-        super.onDestroy();
     }
 }

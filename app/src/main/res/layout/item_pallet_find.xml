@@ -40,23 +40,23 @@
         android:text="D-06-18-1-1"
         android:textColor="#000" />
 
-    <TextView
-        android:id="@+id/item_pallet_find_current"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_pallet_find_order_number"
-        android:layout_marginRight="16dp"
-        android:layout_toRightOf="@id/item_pallet_find_location"
-        android:text="Remain: 7"
-        android:textColor="#000" />
 
     <TextView
         android:id="@+id/item_pallet_find_after"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/item_pallet_find_order_number"
-        android:layout_toRightOf="@id/item_pallet_find_current"
+        android:layout_marginRight="16dp"
+        android:layout_toRightOf="@id/item_pallet_find_location"
         android:text="After qty: 50"
+        android:textColor="#000" />
+    <TextView
+        android:id="@+id/item_pallet_find_current"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_pallet_find_order_number"
+        android:layout_toRightOf="@id/item_pallet_find_after"
+        android:text="Remain: 7"
         android:textColor="#000" />
 
     <TextView

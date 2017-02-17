@@ -4,8 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.util.Log;
+import android.os.Environment;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,14 +17,16 @@ import java.io.IOException;
 public class ResizeImage {
     private static final String TAG = ResizeImage.class.getSimpleName();
 
-    public static int resizeImageFromFile(String filePath, int newWidth) throws FileNotFoundException {
+    public static String resizeImageFromFile(String filePath, int newWidth) throws FileNotFoundException {
+        File file = new File(Environment.getExternalStorageDirectory(), Const.WHC_DIRECTORY);
+        if (!file.exists())
+            file.mkdir();
+
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(filePath, options);
         int originalWidth = options.outWidth;
-        int originalHeight = options.outHeight;
-        Log.e(TAG, "resizeImageFromFile: " + originalWidth + " " + originalHeight);
-        int inSampleSize = 1;
+        int inSampleSize = 8;
         if (originalWidth > newWidth)
             inSampleSize = originalWidth / newWidth;
         options.inJustDecodeBounds = false;
@@ -39,7 +42,6 @@ public class ResizeImage {
             e.printStackTrace();
         }
         int orientation = ei != null ? ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED) : 0;
-        Log.e(TAG, "resizeImageFromFile: " + orientation);
         switch (orientation) {
             case ExifInterface.ORIENTATION_ROTATE_90:
                 src = rotateImage(src, 90);
@@ -51,14 +53,18 @@ public class ResizeImage {
                 src = rotateImage(src, 270);
                 break;
         }
+        String[] split = filePath.split(File.separator);
+        filePath = String.format("%s%s%s%s%s",
+                Environment.getExternalStorageDirectory(), File.separator,
+                Const.WHC_DIRECTORY, File.separator,
+                split[split.length - 1]);
         FileOutputStream out = new FileOutputStream(filePath);
-        boolean compressResult = src.compress(Bitmap.CompressFormat.JPEG, 96, out);
-        Log.e("ResizeImage", "resizeImageFromFile: " + compressResult + inSampleSize);
+        src.compress(Bitmap.CompressFormat.JPEG, 96, out);
 
         src.recycle();
 
 
-        return inSampleSize;
+        return filePath;
     }
 
     public static Bitmap rotateImage(Bitmap source, float angle) {

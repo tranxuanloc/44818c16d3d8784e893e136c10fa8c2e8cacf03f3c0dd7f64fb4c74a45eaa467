@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.scsvn.whc_2016.R;
+import com.scsvn.whc_2016.main.booking.BookingActivity;
 import com.scsvn.whc_2016.main.capnhatphienban.CapNhatUngDungActivity;
 import com.scsvn.whc_2016.main.changepassword.ChangePasswordActivity;
 import com.scsvn.whc_2016.main.chuyenhang.ChuyenHangActivity;
@@ -192,10 +193,14 @@ public class MenuAdapter extends ArrayAdapter<MenuInfo> {
             context.startActivity(new Intent(context, ListOpportunityActivity.class));
         else if (tag == 26)
             context.startActivity(new Intent(context, CRMActivity.class));
+        else if (tag == 30)
+            context.startActivity(new Intent(context, BookingActivity.class));
         else if (tag == 27)
             context.startActivity(new Intent(context, MaintenanceActivity.class));
         else if (tag == 28)
             context.startActivity(new Intent(context, RegisterActivity.class));
+        else if (tag == 31)
+            context.startActivity(new Intent(context, DeviceInfoActivity.class));
     }
 
     static class ViewHolder {

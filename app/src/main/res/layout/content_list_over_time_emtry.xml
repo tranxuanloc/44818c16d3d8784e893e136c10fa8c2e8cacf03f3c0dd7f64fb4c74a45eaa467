@@ -75,7 +75,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="2dp"
             android:layout_weight="1"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:enabled="false"
             android:imeOptions="actionDone"
             android:inputType="number"

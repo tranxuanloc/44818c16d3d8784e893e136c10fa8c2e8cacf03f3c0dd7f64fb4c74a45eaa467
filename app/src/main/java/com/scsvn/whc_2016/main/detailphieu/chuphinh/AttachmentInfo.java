@@ -52,7 +52,7 @@ public class AttachmentInfo {
     }
 
     public int getAttachmentFileSize() {
-        return attachmentFileSize / 1024;
+        return attachmentFileSize;
     }
 
     public void setAttachmentFileSize(int attachmentFileSize) {

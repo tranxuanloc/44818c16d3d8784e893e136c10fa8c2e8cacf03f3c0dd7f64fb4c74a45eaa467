@@ -1,10 +1,12 @@
 package com.scsvn.whc_2016.retrofit;
 
+import java.util.UUID;
+
 /**
  * Created by tranxuanloc on 8/3/2016.
  */
 public class OpportunityParameter {
-    private int OpportunityID;
+    private UUID OpportunityID;
     private String UserName;
     private String OpportunityName;
     private String Description;
@@ -71,7 +73,7 @@ public class OpportunityParameter {
         CustomerID = customerID;
     }
 
-    public void setOpportunityID(int opportunityID) {
+    public void setOpportunityID(UUID opportunityID) {
         OpportunityID = opportunityID;
     }
 }

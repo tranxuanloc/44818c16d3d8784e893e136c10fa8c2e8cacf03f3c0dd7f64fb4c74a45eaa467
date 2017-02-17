@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -438,10 +439,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.mms.add.CreateMaintenanceActivity"
-            android:label="@string/title_activity_create_maintenance_job"
+            android:label=""
             android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".main.register.RegisterActivity"
             android:label="@string/title_activity_register"
@@ -457,6 +459,15 @@
         <activity
             android:name=".main.nangsuatnhanvien.NangSuatNhanVienActivity"
             android:label="@string/title_activity_nsnv"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.booking.BookingActivity"
+            android:label="@string/title_activity_booking"
+            android:screenOrientation="portrait" />
+        <activity android:name="org.achartengine.GraphicalActivity" />
+        <activity
+            android:name=".main.DeviceInfoActivity"
+            android:label="Device info"
             android:screenOrientation="portrait" />
     </application>
 

@@ -1,7 +1,9 @@
 package com.scsvn.whc_2016.retrofit;
 
 import com.scsvn.whc_2016.login.LoginInfo;
+import com.scsvn.whc_2016.main.TimeServer;
 import com.scsvn.whc_2016.main.VersionInfo;
+import com.scsvn.whc_2016.main.booking.Booking;
 import com.scsvn.whc_2016.main.chuyenhang.ListLocationInfo;
 import com.scsvn.whc_2016.main.chuyenhang.LocationInfo;
 import com.scsvn.whc_2016.main.chuyenhang.lichsu.StockMovementHistoriesInfo;
@@ -79,6 +81,7 @@ import com.scsvn.whc_2016.main.vitritrong.FreeLocationInfo;
 import com.squareup.okhttp.RequestBody;
 
 import java.util.List;
+import java.util.UUID;
 
 import retrofit.Call;
 import retrofit.http.Body;
@@ -347,7 +350,7 @@ public interface MyRequests {
     @POST("/api/MetroQACheckingProductList")
     Call<List<QACheckingListProductsInfo>> getMetroQACheckingListProducts(@Body MetroQACheckingListProductsParameter parameter);
 
-    @POST("/api/MetroQACheckingProduct")
+        @POST("/api/MetroQACheckingProduct")
     Call<List<MetroCheckingProductInfo>> getMetroQACheckingProducts(@Body MetroQACheckingProductsParameter parameter);
 
     @POST("/api/MetroQACheckingCarton")
@@ -378,7 +381,7 @@ public interface MyRequests {
     Call<List<OpportunityCustomerCategory>> getOpportunityCustomerCategory();
 
     @POST("/api/CRMOpportunitiesDetail")
-    Call<List<Opportunity>> getOpportunity(@Body int opportunityId);
+    Call<List<Opportunity>> getOpportunity(@Body UUID opportunityId);
 
     @POST("/api/CRMOpportunitiesCustomer")
     Call<List<Customer>> getListCustomer(@Body Byte flag);
@@ -440,6 +443,9 @@ public interface MyRequests {
     @POST("/api/MMSMaintenanceEmployeeView")
     Call<List<MaintenanceEmployee>> getMaintenanceEmployee(@Body MaintenanceJobEmployeeParameter param);
 
+    @POST("/api/MMSScheduledJobMJInsert")
+    Call<String> insertMMSSJ(@Body MMSSJParameter param);
+
     @POST("/api/MMSInsertMaintenanceJob")
     Call<Integer> insertMaintenanceJob(@Body MaintenanceJobParameter param);
 
@@ -484,5 +490,11 @@ public interface MyRequests {
 
     @POST("/api/EmployeeWorkingByDate")
     Call<List<EmployeeWorkingByDate>> getEmployeeWorkingByDate(@Body EmployeeWorkingByDateParameter param);
+
+    @POST("/api/CustomerBookingByTimeSlot")
+    Call<List<Booking>> getBookings(@Body CustomerBookingByTimeSlotParameter param);
+
+    @POST("/api/GetTime")
+    Call<List<TimeServer>> getTimeServer();
 
 }

@@ -41,16 +41,18 @@ public class PalletFindAdapter extends ArrayAdapter<PalletFind> {
         holder.customerRefTV.setText(String.format("CusRef:  %s", info.getCustomerRef()));
         holder.locationNumberTV.setText(String.format("%s", info.getLocationNumber().trim()));
         holder.currentQtyTV.setText(String.format(Locale.getDefault(), "Tồn:  %d", info.getCurrentQuantity()));
-        holder.afterQtyTV.setText(String.format(Locale.getDefault(), "After Qty:  %d", info.getAfterDPQuantity()));
+        holder.afterQtyTV.setText(String.format(Locale.getDefault(), "SL:  %d", info.getAfterDPQuantity()));
         holder.roDateTV.setText(String.format("Date:  %s", Utilities.formatDate_ddMMyyyy(info.getReceivingOrderDate())));
         holder.remarkTV.setText(String.format("%s", info.getRemark()));
         holder.createdTimeTV.setText(String.format("Created: %s by %s", Utilities.formatDate_ddMMyyHHmm(info.getCreatedTime()), info.getScannedBy()));
         holder.deviceTV.setText(String.format("Device: %s    Result: %s", info.getDeviceNumber(), info.getResult()));
 
-        if (receivingOrderNumber.contains("RO"))
+        if (receivingOrderNumber.contains("RO")) {
             convertView.setBackgroundColor(Color.WHITE);
-        else
+        } else {
             convertView.setBackgroundColor(Color.parseColor("#C7EDFC"));
+            holder.currentQtyTV.setVisibility(View.GONE);
+        }
 
         return convertView;
     }

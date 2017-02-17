@@ -177,26 +177,28 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/view4"
             android:layout_marginTop="5dp"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:gravity="top"
             android:hint="@string/ghi_chu"
             android:lines="4"
             android:padding="8dp" />
 
-        <ImageView
-            android:id="@+id/iv_cont_image"
+        <GridView
+            android:id="@+id/grid_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_cont_checking_ghi_chu"
             android:layout_marginTop="10dp"
-            android:scaleType="centerCrop" />
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:verticalSpacing="5dp" />
 
         <Button
             android:id="@+id/bt_cont_checking_done"
             style="@style/AppTheme.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iv_cont_image"
+            android:layout_below="@id/grid_image"
             android:text="@string/hoan_thanh" />
     </RelativeLayout>
 </ScrollView>

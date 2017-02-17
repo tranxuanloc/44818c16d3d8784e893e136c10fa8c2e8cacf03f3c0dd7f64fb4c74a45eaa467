@@ -25,7 +25,7 @@
             android:id="@+id/nsnv_tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:clickable="true"
             android:minEms="5"
             android:padding="3dp"

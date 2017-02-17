@@ -22,6 +22,7 @@ import com.scsvn.whc_2016.utilities.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import retrofit.Callback;
 import retrofit.Response;
@@ -49,7 +50,7 @@ public class ListOpportunityActivity extends BaseActivity implements AdapterView
         }
     };
     private String username;
-    private int opportunityId;
+    private UUID opportunityId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +125,7 @@ public class ListOpportunityActivity extends BaseActivity implements AdapterView
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Opportunity item = adapter.getItem(position);
         Intent intent = new Intent(getApplicationContext(), OpportunityDetailActivity.class);
-        intent.putExtra(Opportunity.OPPORTUNITY_ID, item.getOpportunityID());
+        intent.putExtra(Opportunity.OPPORTUNITY_ID, item.getOpportunityID().toString());
         startActivityForResult(intent, REQUEST_CODE);
     }
 

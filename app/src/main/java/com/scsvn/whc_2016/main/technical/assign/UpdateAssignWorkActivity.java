@@ -5,17 +5,13 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -24,18 +20,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.GridView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.main.phieuhomnay.giaoviec.EmployeeInfo;
+import com.scsvn.whc_2016.main.postiamge.GridImage;
+import com.scsvn.whc_2016.main.postiamge.PostImage;
+import com.scsvn.whc_2016.main.postiamge.Thumb;
+import com.scsvn.whc_2016.main.postiamge.ThumbImageAdapter;
 import com.scsvn.whc_2016.preferences.LoginPref;
-import com.scsvn.whc_2016.retrofit.AttachmentParameter;
 import com.scsvn.whc_2016.retrofit.EmployeePresentParameter;
 import com.scsvn.whc_2016.retrofit.InsertAssignWorkParameter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
@@ -43,24 +40,18 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.QHSEAssignmentInsertParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
-import com.scsvn.whc_2016.utilities.ResizeImage;
 import com.scsvn.whc_2016.utilities.Utilities;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.RequestBody;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
@@ -79,8 +70,6 @@ public class UpdateAssignWorkActivity extends BaseActivity {
     public static final String PROGRESS = "PROGRESS";
     public static final String ORDER_NUMBER = "ORDER_NUMBER";
     private static final String TAG = UpdateAssignWorkActivity.class.getSimpleName();
-    private final int CHOOSE_IMAGE = 101;
-    private final int TAKE_IMAGE = 102;
     @Bind(R.id.et_qhse_request_content)
     EditText etRequestContent;
     @Bind(R.id.et_qhse_area)
@@ -95,8 +84,6 @@ public class UpdateAssignWorkActivity extends BaseActivity {
     TextView tvCreateTime;
     @Bind(R.id.acs_qhse_category)
     AppCompatSpinner acsCategory;
-    @Bind(R.id.iv_qhse_image)
-    ImageView ivImage;
     @Bind(R.id.actv_qhse_worker)
     MultiAutoCompleteTextView actvWorker;
     @Bind(R.id.bt_qhse_dead_line)
@@ -105,15 +92,15 @@ public class UpdateAssignWorkActivity extends BaseActivity {
     TextView tvProgress;
     @Bind(R.id.sbProgress)
     SeekBar sbProgress;
-    private Uri uriImage;
-    private String QHSERNumber, originalFileName, md5FileName;
-    private ProgressDialog dialog;
-    private Date dateCreate;
-    private File outputMediaFile;
-    private int sampleSize;
+    @Bind(R.id.grid_image)
+    GridView gridImage;
     private Calendar calendar;
     private String sDeadLine;
     private EmployeePresentAdapter adapter;
+    private String QHSERNumber;
+    private ProgressDialog dialog;
+    private ThumbImageAdapter gridImageAdapter;
+    private Target target;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +120,6 @@ public class UpdateAssignWorkActivity extends BaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 tvProgress.setText(String.format(Locale.US, "%d%%", progress));
-
             }
 
             @Override
@@ -146,6 +132,9 @@ public class UpdateAssignWorkActivity extends BaseActivity {
 
             }
         });
+        gridImageAdapter = new ThumbImageAdapter(this, new ArrayList<Thumb>());
+        gridImage.setAdapter(gridImageAdapter);
+
         Intent intent = getIntent();
         if (intent != null) {
             QHSERNumber = intent.getStringExtra(QHSENUMBER);
@@ -164,10 +153,25 @@ public class UpdateAssignWorkActivity extends BaseActivity {
             btDeadLine.setText(Utilities.formatDate_ddMMyyyy(sDeadLine));
             actvWorker.setText(String.format(Locale.US, "%s,", intent.getStringExtra(ASSIGN_TO)));
             etOrderNumber.setText(intent.getStringExtra(ORDER_NUMBER));
-            String imageName = intent.getStringExtra(PhotoAttachment);
+            final String imageName = intent.getStringExtra(PhotoAttachment);
             if (imageName.length() > 0) {
-                ivImage.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Utilities.getScreenWidth(this) / 2));
-                Utilities.getPicasso(this).load(Utilities.generateUrlImage(this, imageName)).into(ivImage);
+                 target = new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        gridImageAdapter.add(new Thumb(bitmap));
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                };
+                Utilities.getPicasso(this).load(Utilities.generateUrlImage(UpdateAssignWorkActivity.this, imageName)).into(target);
             }
         }
         adapter = new EmployeePresentAdapter(this, new ArrayList<EmployeeInfo>());
@@ -197,7 +201,6 @@ public class UpdateAssignWorkActivity extends BaseActivity {
         MyRetrofit.initRequest(this).getEmployeeID(new EmployeePresentParameter(department, position)).enqueue(new Callback<List<EmployeeInfo>>() {
             @Override
             public void onResponse(Response<List<EmployeeInfo>> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     adapter.clear();
                     adapter.addAll(response.body());
@@ -266,7 +269,6 @@ public class UpdateAssignWorkActivity extends BaseActivity {
         MyRetrofit.initRequest(this).insertAssignWork(parameter).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Response<String> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     String idAssign = actvWorker.getText().toString();
                     boolean b = idAssign.lastIndexOf(',') == idAssign.length() - 1;
@@ -297,10 +299,11 @@ public class UpdateAssignWorkActivity extends BaseActivity {
         MyRetrofit.initRequest(this).executeQHSEAssignmentInsert(parameter).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Response<String> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
-                    if (outputMediaFile != null) {
-                        upload(view);
+                    PostImage postImage = new PostImage(UpdateAssignWorkActivity.this, dialog, view, etRequestContent.getText().toString(), QHSERNumber);
+                    if (files.size() > 0) {
+                        postImage.uploadImage(files, files.size() - 1);
+                        AssignWorkActivity.isSuccess = true;
                     } else {
                         AssignWorkActivity.isSuccess = true;
                         dialog.dismiss();
@@ -308,7 +311,6 @@ public class UpdateAssignWorkActivity extends BaseActivity {
                     }
 
                 } else {
-                    Log.e(TAG, "onResponse: failed");
                     Snackbar.make(view, getString(R.string.error_system), Snackbar.LENGTH_LONG).show();
                     dialog.dismiss();
                 }
@@ -318,66 +320,6 @@ public class UpdateAssignWorkActivity extends BaseActivity {
             public void onFailure(Throwable t) {
                 RetrofitError.errorNoAction(UpdateAssignWorkActivity.this, t, TAG, view);
                 dialog.dismiss();
-            }
-        });
-    }
-
-    public void upload(final View view) {
-        RequestBody requestBodyFile =
-                RequestBody.create(MediaType.parse("multipart/form-data"), outputMediaFile);
-        md5FileName = Utilities.md5(originalFileName) + ".jpg";
-        RequestBody requestBodyFileName =
-                RequestBody.create(MediaType.parse("multipart/form-data"), md5FileName);
-        RequestBody requestBodyDescription =
-                RequestBody.create(MediaType.parse("multipart/form-data"), etRequestContent.getText().toString());
-
-        Call<String> call = MyRetrofit.initRequest(this).uploadFile(requestBodyFile, requestBodyFileName, requestBodyDescription);
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Response<String> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
-                updateData(view);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                t.printStackTrace();
-                dialog.dismiss();
-            }
-        });
-    }
-
-    public void updateData(final View view) {
-        if (!Utilities.isConnected(this)) {
-            dialog.dismiss();
-            return;
-        }
-        AttachmentParameter parameter = new AttachmentParameter(
-                Utilities.formatDateTime_yyyyMMddHHmmssFromMili(dateCreate.getTime()),
-                etRequestContent.getText().toString(),
-                md5FileName,
-                (int) outputMediaFile.length() / 1024,
-                0,
-                LoginPref.getInfoUser(this, LoginPref.USERNAME),
-                0,
-                3,
-                QHSERNumber, originalFileName);
-        MyRetrofit.initRequest(this).setAttachment(parameter).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Response<String> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
-                if (response.isSuccess() && response.body() != null) {
-                    AssignWorkActivity.isSuccess = true;
-                    finish();
-                    Log.e(TAG, "onResponse: updateData success");
-                }
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                dialog.dismiss();
-                RetrofitError.errorNoAction(UpdateAssignWorkActivity.this, t, TAG, view);
             }
         });
     }
@@ -401,119 +343,49 @@ public class UpdateAssignWorkActivity extends BaseActivity {
     }
 
     private void imageChooser() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Chọn nguồn ảnh").setItems(new CharSequence[]{getString(R.string.chon_hinh_tu_may_anh), getString(R.string.chon_hinh_tu_bo_suu_tap)}, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 1:
-                        Intent galleryIntent = new Intent();
-                        galleryIntent.setType("image/*");
-                        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                        if (galleryIntent.resolveActivity(getPackageManager()) != null) {
-                            Intent chooserIntent = Intent.createChooser(galleryIntent, "Chọn ứng dụng");
-                            startActivityForResult(chooserIntent, CHOOSE_IMAGE);
-                        }
-                        break;
-                    case 0:
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        outputMediaFile = getOutputMediaFile();
-                        uriImage = Uri.fromFile(outputMediaFile);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriImage);
-                        startActivityForResult(intent, TAKE_IMAGE);
-                        break;
-                }
-            }
-
-
-        });
-        AlertDialog dialog = builder.create();
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.chon_nguon_anh).setItems(new CharSequence[]{getString(R.string.chon_hinh_tu_may_anh), getString(R.string.chon_hinh_tu_bo_suu_tap)},
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case 0:
+                                        checkCaptureImage();
+                                        break;
+                                    case 1:
+                                        checkPickImage();
+                                        break;
+                                }
+                            }
+                        })
+                .create();
         dialog.show();
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == CODE_CAMERA) {
+            if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                intentPickImage();
+            }
+        } else if (requestCode == CODE_READ_EXTERNAL_STORAGE) {
+            if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                intentCaptureImage();
+            }
+        }
+
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == TAKE_IMAGE && resultCode == RESULT_OK) {
-            try {
-                sampleSize = ResizeImage.resizeImageFromFile(uriImage.getPath(), Const.IMAGE_UPLOAD_WIDTH);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            mediaScanIntent.setData(uriImage);
-            this.sendBroadcast(mediaScanIntent);
-
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = sampleSize;
-            Bitmap bitmap = BitmapFactory.decodeFile(uriImage.getPath(), options);
-            ivImage.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Utilities.getScreenWidth(this) / 2));
-            ivImage.setImageBitmap(bitmap);
-        } else if (requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK) {
-            uriImage = data.getData();
-            if (uriImage != null) {
-                String realPath = getRealPathFromURI(uriImage);
-                if (realPath != null && !realPath.isEmpty()) {
-                    outputMediaFile = new File(realPath);
-                    uriImage = Uri.fromFile(outputMediaFile);
-                    originalFileName = outputMediaFile.getName();
-                    dateCreate = new Date(outputMediaFile.lastModified());
-                    try {
-                        sampleSize = ResizeImage.resizeImageFromFile(realPath, Const.IMAGE_UPLOAD_WIDTH);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                    mediaScanIntent.setData(uriImage);
-                    this.sendBroadcast(mediaScanIntent);
-                    Log.e(TAG, "onActivityResult: " + realPath);
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inSampleSize = sampleSize;
-                    Bitmap bitmap = BitmapFactory.decodeFile(realPath, options);
-                    ivImage.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Utilities.getScreenWidth(this) / 2));
-                    ivImage.setImageBitmap(bitmap);
-                }
-            }
+        if (requestCode == CODE_CAPTURE_IMAGE && resultCode == RESULT_OK) {
+            files = GridImage.updateGridImage(imageCapturedUri.getPath(), gridImageAdapter);
+        } else if (requestCode == CODE_PICK_IMAGE && resultCode == RESULT_OK) {
+            files = GridImage.updateGridImage(this, data, gridImageAdapter);
         }
     }
-
-    private String getRealPathFromURI(Uri contentURI) {
-        String result = "";
-        String[] projection = {MediaStore.MediaColumns.DATA};
-        Cursor cursor = getContentResolver().query(contentURI, projection, null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            int idx = cursor.getColumnIndex(MediaStore.MediaColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-        return result;
-    }
-
-    private File getOutputMediaFile() {
-        String IMAGE_DIRECTORY_NAME = "Camera";
-        File mediaStorageDir = new File(
-                Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                IMAGE_DIRECTORY_NAME);
-
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                Log.d(TAG, "Oops! Failed create "
-                        + IMAGE_DIRECTORY_NAME + " directory");
-                return null;
-            }
-        }
-
-        dateCreate = new Date();
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_Hms",
-                Locale.getDefault()).format(dateCreate);
-        originalFileName = "IMG_" + timeStamp;
-        return new File(mediaStorageDir.getPath() + File.separator
-                + originalFileName + ".jpg");
-//        String originalFileName = QHSERNumber + "_IMG_" + timeStamp + ".jpg";
-//        return new File(mediaStorageDir.getPath() + File.separator
-//                + Utilities.md5(originalFileName) + ".jpg");
-    }
-
 
     @Override
     protected void onResume() {
@@ -527,4 +399,10 @@ public class UpdateAssignWorkActivity extends BaseActivity {
         super.onStop();
     }
 
+    @Override
+    protected void onDestroy() {
+        if (target!=null)
+            Picasso.with(this).cancelRequest(target);
+        super.onDestroy();
+    }
 }

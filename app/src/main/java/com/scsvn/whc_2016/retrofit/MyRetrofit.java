@@ -19,9 +19,9 @@ public class MyRetrofit {
     public static MyRequests initRequest(Context context) {
         String BASE_URL = String.format("http://%s", SettingPref.getInfoNetwork(context)[0]);
         OkHttpClient client = new OkHttpClient();
-        client.setConnectTimeout(10, TimeUnit.SECONDS);
-        client.setWriteTimeout(10, TimeUnit.SECONDS);
-        client.setReadTimeout(10, TimeUnit.SECONDS);
+        client.setConnectTimeout(0, TimeUnit.SECONDS);
+        client.setWriteTimeout(0, TimeUnit.SECONDS);
+        client.setReadTimeout(0, TimeUnit.SECONDS);
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         client.interceptors().add(interceptor);

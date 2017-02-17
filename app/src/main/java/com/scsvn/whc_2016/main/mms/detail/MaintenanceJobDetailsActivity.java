@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
+import com.scsvn.whc_2016.main.mms.MaintenanceJob;
 import com.scsvn.whc_2016.main.technical.schedulejobplan.ScheduleJobActivity;
 import com.scsvn.whc_2016.preferences.LoginPref;
 import com.scsvn.whc_2016.retrofit.MaintenanceJobDetailParameter;
@@ -71,6 +72,7 @@ public class MaintenanceJobDetailsActivity extends BaseActivity {
         username = LoginPref.getUsername(this);
         snackBarView = listView;
         mjId = getIntent().getIntExtra(ScheduleJobActivity.MJ_ID, 0);
+        getSupportActionBar().setTitle(getIntent().getStringExtra(MaintenanceJob.EQUIPMENT_NAME));
         frequency = getIntent().getStringExtra(ScheduleJobActivity.FREQUENCY);
         listView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         listView.setHasFixedSize(true);

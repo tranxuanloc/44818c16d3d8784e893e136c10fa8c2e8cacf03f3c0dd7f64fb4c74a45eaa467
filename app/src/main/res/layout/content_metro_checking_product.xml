@@ -134,9 +134,10 @@
 
     <TextView
         android:id="@+id/label8"
-        android:layout_width="120dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/label4"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:text="SL từ chối (unit)" />
 
@@ -146,8 +147,30 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/label8"
         android:layout_toRightOf="@id/label8"
-        android:background="@drawable/outlines"
-        android:ems="4"
+        android:background="@drawable/outlines_light"
+        android:ems="3"
+        android:inputType="numberDecimal"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/label11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/label5"
+        android:layout_below="@id/label4"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/tv_metro_product_sl_tu_choi"
+        android:text="SL thùng giao" />
+
+    <EditText
+        android:id="@+id/tv_metro_product_sl_thung_giao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label11"
+        android:layout_toRightOf="@id/label11"
+        android:background="@drawable/outlines_light"
+        android:ems="3"
         android:inputType="numberDecimal"
         android:textColor="@color/black" />
 
@@ -173,7 +196,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/acs_metro_product_ly_do"
         android:layout_marginTop="10dp"
-        android:background="@drawable/outlines"
+        android:background="@drawable/outlines_light"
         android:hint="Ghi chú"
         android:inputType="textMultiLine"
         android:paddingBottom="5dp"
@@ -222,12 +245,13 @@
         android:background="@drawable/selector_gray_white"
         android:src="@drawable/ic_hardware_keyboard_arrow_right" />
 
-    <ImageView
-        android:id="@+id/iv_metro_product_photo"
+    <GridView
+        android:id="@+id/grid_image"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/iv_metro_product_previous"
         android:layout_marginTop="10dp"
-        android:contentDescription="@string/photo"
-        android:scaleType="centerCrop" />
+        android:horizontalSpacing="5dp"
+        android:numColumns="2"
+        android:verticalSpacing="5dp" />
 </RelativeLayout>

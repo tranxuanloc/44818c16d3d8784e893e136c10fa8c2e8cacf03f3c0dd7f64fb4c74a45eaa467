@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -15,7 +16,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +27,6 @@ import android.widget.RadioGroup;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.gson.Gson;
 import com.scsvn.whc_2016.BuildConfig;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.login.LoginActivity;
@@ -44,6 +43,8 @@ import com.scsvn.whc_2016.retrofit.NotificationParameter;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -67,6 +68,8 @@ public class MainActivity extends BaseActivity {
     private SwitchCompat switchCompat;
     private int navigate;
     private int amountQHSE, amountQH, amountPhieuCuaToi, amountTruckContainer;
+    private int sizeData;
+    private boolean isAcceptChangeDateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +81,13 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         String permission = LoginPref.getInfoUser(this, LoginPref.POSITION_GROUP);
-        Log.e(TAG, "onCreate: " + permission);
         String realName = LoginPref.getInfoUser(this, LoginPref.REAL_NAME);
         userName = LoginPref.getInfoUser(this, LoginPref.USERNAME);
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(realName);
 
         getDataByPermission(permission);
+        sizeData = DataUser.data.size();
         adapter = new MenuAdapter(this, DataUser.data);
         gridView.setAdapter(adapter);
         if (!BuildConfig.VERSION_NAME.equalsIgnoreCase(VersionPref.getVersion(MainActivity.this)))
@@ -99,7 +102,7 @@ public class MainActivity extends BaseActivity {
             indexQHSE = 5;
             indexTruckContainer = 8;
             indexQH = 19;
-            indexUpdateVersion = 29;
+            indexUpdateVersion = 30;
             dataUser.manager();
         } else if (sCase.equalsIgnoreCase(Const.SUPERVISOR)) {
             indexPhieuCuaToi = 1;
@@ -110,8 +113,8 @@ public class MainActivity extends BaseActivity {
             dataUser.supervisor();
         } else if (sCase.equalsIgnoreCase(Const.PRODUCT_CHECKER)) {
             indexPhieuCuaToi = 1;
-            indexQHSE = 5;
-            indexUpdateVersion = 19;
+            indexQHSE = 3;
+            indexUpdateVersion = 12;
             dataUser.productChecker();
         } else if (sCase.equalsIgnoreCase(Const.FORKLIFT_DRIVER)) {
             indexPhieuCuaToi = 1;
@@ -130,6 +133,15 @@ public class MainActivity extends BaseActivity {
             indexQHSE = 0;
             indexUpdateVersion = 8;
             dataUser.technical();
+        } else if (sCase.equalsIgnoreCase(Const.GROUP_DOCUMENTS)) {
+            indexPhieuCuaToi = 1;
+            indexQH = 14;
+            indexQHSE = 5;
+            indexUpdateVersion = 18;
+            dataUser.documents();
+        } else {
+            indexUpdateVersion = 0;
+            dataUser.lowerUser();
         }
     }
 
@@ -137,7 +149,6 @@ public class MainActivity extends BaseActivity {
         MyRetrofit.initRequest(this).getNotification(new NotificationParameter(userName)).enqueue(new Callback<List<NotificationInfo>>() {
             @Override
             public void onResponse(Response<List<NotificationInfo>> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 amountPhieuCuaToi = amountQH = amountQHSE = amountTruckContainer = 0;
                 if (response.isSuccess() && response.body() != null && response.body().size() > 0) {
                     for (NotificationInfo info : response.body()) {
@@ -152,13 +163,13 @@ public class MainActivity extends BaseActivity {
                         } else if (indexPhieuCuaToi != -1)
                             amountPhieuCuaToi += info.getNotiQty();
                     }
-                    if (amountPhieuCuaToi != 0)
+                    if (amountPhieuCuaToi != 0 && indexPhieuCuaToi < sizeData)
                         DataUser.data.get(indexPhieuCuaToi).setNumber((short) amountPhieuCuaToi);
-                    if (amountQH != 0)
+                    if (amountQH != 0 && indexQH < sizeData)
                         DataUser.data.get(indexQH).setNumber((short) amountQH);
-                    if (amountQHSE != 0)
+                    if (amountQHSE != 0 && indexQHSE < sizeData)
                         DataUser.data.get(indexQHSE).setNumber((short) amountQHSE);
-                    if (amountTruckContainer != 0)
+                    if (amountTruckContainer != 0 && indexTruckContainer < sizeData)
                         DataUser.data.get(indexTruckContainer).setNumber((short) amountTruckContainer);
                     adapter.notifyDataSetChanged();
                 }
@@ -174,15 +185,56 @@ public class MainActivity extends BaseActivity {
         MyRetrofit.initRequest(this).getWHCVersion().enqueue(new Callback<List<VersionInfo>>() {
             @Override
             public void onResponse(Response<List<VersionInfo>> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null && response.body().size() > 0) {
                     VersionInfo info = response.body().get(0);
-                    if (!BuildConfig.VERSION_NAME.equalsIgnoreCase(info.getVersionNo())) {
+                    if (!BuildConfig.VERSION_NAME.equalsIgnoreCase(info.getVersionNo()) && indexUpdateVersion < sizeData) {
                         DataUser.data.get(indexUpdateVersion).setNumber((short) 1);
                         adapter.notifyDataSetChanged();
                     } else {
                         VersionPref.setVersionDate(MainActivity.this, info.getVersionDate());
-                        Log.e(TAG, "onResponse: " + info.getVersionDate());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+            }
+        });
+    }
+
+    private void getTimeServer() {
+        isAcceptChangeDateTime = false;
+
+        MyRetrofit.initRequest(this).getTimeServer().enqueue(new Callback<List<TimeServer>>() {
+            @Override
+            public void onResponse(Response<List<TimeServer>> response, Retrofit retrofit) {
+                List<TimeServer> body = response.body();
+                if (response.isSuccess() && body != null && body.size() > 0) {
+                    Date date = Calendar.getInstance().getTime();
+                    long l = date.getTime() - body.get(0).getTime();
+                    if (Math.abs(l) >= 3 * 60 * 1000) {
+                        AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                                .setMessage("Thời gian trên thiết bị không khớp với thời gian trên hệ thống. Vui lòng cập nhật lại thời gian trên thiết bị.")
+                                .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        isAcceptChangeDateTime = true;
+                                        Intent intent = new Intent(Settings.ACTION_DATE_SETTINGS);
+                                        if (intent.resolveActivity(getPackageManager()) != null) {
+                                            startActivity(intent);
+                                        }
+                                    }
+                                })
+                                .create();
+                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                if (!isAcceptChangeDateTime)
+                                    getTimeServer();
+                            }
+                        });
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.show();
                     }
                 }
             }
@@ -255,7 +307,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        Log.e(TAG, "onResume: ");
+        super.onResume();
+
         LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (manager.getAllProviders().contains(LocationManager.GPS_PROVIDER)) {
             boolean isGPSEnabled = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -271,7 +324,8 @@ public class MainActivity extends BaseActivity {
         boolean unitech = UnitechConst.isUnitech();
         if (unitech)
             startScanUnitech();
-        super.onResume();
+
+        getTimeServer();
     }
 
     @Override
@@ -316,14 +370,12 @@ public class MainActivity extends BaseActivity {
                     if (code == ConnectionResult.SUCCESS)
                         stopService(new Intent(MainActivity.this, UpdateLocationServices.class));
                 }
-                Log.e(TAG, "onCheckedChanged: " + isChecked);
             }
         });
         final EditText ipManual = (EditText) view.findViewById(R.id.et_manual_ip);
         String[] infoNetwork = SettingPref.getInfoNetwork(this);
         ip = infoNetwork[0];
         posRadioButton = Integer.parseInt(infoNetwork[1]);
-        ipManual.setText(infoNetwork[0]);
         final RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.rb_group);
         if (infoNetwork[1].equalsIgnoreCase("1"))
             ((RadioButton) radioGroup.findViewById(R.id.rb_global)).setChecked(true);
@@ -352,7 +404,7 @@ public class MainActivity extends BaseActivity {
                 Utilities.hideKeyboard(MainActivity.this);
                 if (radioGroup.getCheckedRadioButtonId() == R.id.rb_local) {
                     posRadioButton = 0;
-                    ip = "195.184.11.254:810";
+                    ip = "192.168.104.29:810";
                 } else if (radioGroup.getCheckedRadioButtonId() == R.id.rb_global) {
                     posRadioButton = 1;
                     ip = "115.78.13.10:810";
@@ -385,9 +437,7 @@ public class MainActivity extends BaseActivity {
         if (requestCode == REQUEST_CODE)
             if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startService(new Intent(this, UpdateLocationServices.class));
-                Log.e(TAG, "onRequestPermissionsResult: allow");
             } else {
-                Log.e(TAG, "onRequestPermissionsResult: denied");
                 switchCompat.setChecked(false);
             }
     }
@@ -402,6 +452,5 @@ public class MainActivity extends BaseActivity {
                 switchCompat.setChecked(false);
         }
 
-        Log.e(TAG, "onActivityResult: " + requestCode + " " + resultCode);
     }
 }

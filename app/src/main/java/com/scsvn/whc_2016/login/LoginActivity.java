@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements OnRequestPermiss
 
     private int navigate;
     private int posRadioButton;
-    private String ip = "195.184.11.254:810";
+    private String ip = "192.168.104.29:810";
     private ActionBar actionBar;
     private String[] infoNetwork;
 
@@ -145,10 +145,12 @@ public class LoginActivity extends AppCompatActivity implements OnRequestPermiss
     }
 
     public void setNetwork() {
+        infoNetwork = SettingPref.getInfoNetwork(this);
+        ip = infoNetwork[0];
+        posRadioButton = Integer.parseInt(infoNetwork[1]);
+
         final View view = View.inflate(this, R.layout.setting_network, null);
         final EditText ipManual = (EditText) view.findViewById(R.id.et_manual_ip);
-
-        ipManual.setText(infoNetwork[0]);
         final RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.rb_group);
         if (infoNetwork[1].equalsIgnoreCase("1"))
             ((RadioButton) radioGroup.findViewById(R.id.rb_global)).setChecked(true);

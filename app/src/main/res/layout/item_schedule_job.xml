@@ -52,7 +52,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:background="@drawable/selector_gray_transparent"
-        android:minHeight="24dp"
         android:text="@string/label_mj" />
 
 

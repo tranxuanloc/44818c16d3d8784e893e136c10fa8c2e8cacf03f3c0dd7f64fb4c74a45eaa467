@@ -33,7 +33,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:completionThreshold="1"
             android:imeOptions="actionDone"
             android:inputType="numberDecimal|numberSigned"

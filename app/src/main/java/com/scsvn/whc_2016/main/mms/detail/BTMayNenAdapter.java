@@ -4,12 +4,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,6 +43,7 @@ public class BTMayNenAdapter extends RecyclerView.Adapter<BTMayNenAdapter.VH> im
     private String userName;
     private SparseBooleanArray itemSelected = new SparseBooleanArray();
     private boolean isUpdateAll;
+    private int changePosition = -1;
 
     public BTMayNenAdapter(Context context, ArrayList<Object> objects, View view) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -85,7 +85,7 @@ public class BTMayNenAdapter extends RecyclerView.Adapter<BTMayNenAdapter.VH> im
     }
 
     @Override
-    public void onBindViewHolder(VH holder, int position) {
+    public void onBindViewHolder(VH holder, final int position) {
         if (holder instanceof HeaderViewHolder) {
             Header header = (Header) objects.get(position);
             ((HeaderViewHolder) holder).titleTV.setText(header.getTitle());
@@ -112,14 +112,9 @@ public class BTMayNenAdapter extends RecyclerView.Adapter<BTMayNenAdapter.VH> im
                                     if (jobChoose.contains(i)) {
                                         jobChoose.remove(i);
                                     } else jobChoose.add(i);
-                                }
-                            })
-                            .setPositiveButton(context.getString(R.string.ok), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
                                     StringBuilder builder = new StringBuilder();
-                                    for (Integer i : jobChoose) {
-                                        builder.append(mjJob[i]).append("+");
+                                    for (Integer j : jobChoose) {
+                                        builder.append(mjJob[j]).append("+");
                                     }
                                     if (jobChoose.size() > 0)
                                         builder.deleteCharAt(builder.length() - 1);
@@ -127,6 +122,7 @@ public class BTMayNenAdapter extends RecyclerView.Adapter<BTMayNenAdapter.VH> im
                                     ((TextView) v).setText(result);
                                     detail.setResult(result);
                                     updateMaintenanceJobDetail(detail.getId(), detail.getResult(), detail.getRemark(), userName);
+
                                 }
                             })
                             .setNegativeButton(context.getString(R.string.label_cancel), null)
@@ -134,14 +130,20 @@ public class BTMayNenAdapter extends RecyclerView.Adapter<BTMayNenAdapter.VH> im
                     dialog.show();
                 }
             });
-            detailHolder.noteET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            detailHolder.noteET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        detail.setRemark(detailHolder.noteET.getText().toString());
-                        updateMaintenanceJobDetail(detail.getId(), detail.getResult(), detail.getRemark(), userName);
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        changePosition = position;
+                    } else {
+                        if (changePosition >= 0) {
+                            detail.setRemark(detailHolder.noteET.getText().toString());
+                            MaintenanceJobDetail detail = (MaintenanceJobDetail) objects.get(changePosition);
+                            updateMaintenanceJobDetail(detail.getId(), detail.getResult(), detail.getRemark(), userName);
+                        }
+                        changePosition = -1;
                     }
-                    return false;
+                    Log.d(TAG, "onFocusChange() returned: " + position + "~" + hasFocus + "~" + changePosition);
                 }
             });
             detailHolder.updateIV.setOnClickListener(new View.OnClickListener() {

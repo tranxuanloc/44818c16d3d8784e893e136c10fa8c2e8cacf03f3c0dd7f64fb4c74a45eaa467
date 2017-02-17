@@ -5,10 +5,10 @@ android {
     buildToolsVersion '23.0.3'
     defaultConfig {
         applicationId "com.scsvn.whc_2016"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
-        versionName "1.4.6"
+        versionName "1.5.0"
         multiDexEnabled true
     }
     packagingOptions {
@@ -49,5 +49,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:9.4.0'
     compile 'com.google.android.gms:play-services-places:9.4.0'
     compile 'com.android.support:cardview-v7:23.4.0'
+    compile 'ch.acra:acra:4.9.0'
     compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:gridlayout-v7:23.0.0'
+    compile files('libs/achartengine-1.2.0.jar')
 }

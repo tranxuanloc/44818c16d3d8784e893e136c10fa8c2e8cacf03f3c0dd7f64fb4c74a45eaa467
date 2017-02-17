@@ -12,7 +12,6 @@ import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +54,7 @@ import com.scsvn.whc_2016.retrofit.EquipmentParameter;
 import com.scsvn.whc_2016.retrofit.JobDailyParameter;
 import com.scsvn.whc_2016.retrofit.JobDefinitionParameter;
 import com.scsvn.whc_2016.retrofit.MMSEmployeeParameter;
+import com.scsvn.whc_2016.retrofit.MMSSJParameter;
 import com.scsvn.whc_2016.retrofit.MaintenanceJobEmployeeParameter;
 import com.scsvn.whc_2016.retrofit.MaintenanceJobParameter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
@@ -129,9 +129,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
             addJobDailyView(item, listJob.size());
         }
     };
-    private MenuItem itemDone;
-    private MenuItem itemEdit;
-    private MenuItem itemDelete;
+    private ImageView itemDone, itemEdit, itemDelete, itemCreate;
     private RelativeLayout containerView;
     private int indexJobDaily;
     private Integer idMaintenanceJob;
@@ -143,7 +141,6 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     private TextView maintenanceInfo;
     private TextView maintenanceTitleCreateView;
     private EditText equipmentModel;
-    private MenuItem itemCreate;
     private TextView actionBarTitleView;
     private View viewEmployee;
     private View viewJob;
@@ -159,7 +156,9 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
             updateUIEquipment(item);
         }
     };
-    private MenuItem itemDetail;
+    private TextView itemDetail;
+    private String equipName;
+    private boolean fromSJ;
 
     private void addEmployeeView(EmployeeAbstract item, int position) {
         EmployeeViewHolder holder = new EmployeeViewHolder();
@@ -331,6 +330,11 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         containerView = (RelativeLayout) findViewById(R.id.create_maintenance_container);
         viewEmployee = findViewById(R.id.viewEmployee);
         viewJob = findViewById(R.id.viewJob);
+        itemDone = (ImageView) findViewById(R.id.action_done);
+        itemEdit = (ImageView) findViewById(R.id.action_edit);
+        itemDelete = (ImageView) findViewById(R.id.action_delete);
+        itemCreate = (ImageView) findViewById(R.id.action_create);
+        itemDetail = (TextView) findViewById(R.id.action_detail);
     }
 
     private void setListener() {
@@ -347,6 +351,11 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         partRemainEditText.setOnClickListener(this);
         jobDefinitionEditText.setOnClickListener(this);
         employeeEditText.setOnClickListener(this);
+        itemDone.setOnClickListener(this);
+        itemEdit.setOnClickListener(this);
+        itemDelete.setOnClickListener(this);
+        itemCreate.setOnClickListener(this);
+        itemDetail.setOnClickListener(this);
     }
 
     private void initial() {
@@ -378,6 +387,8 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
             long date = intent.getLongExtra(ScheduleJobAdapter.DATE, 0);
             calendar.setTimeInMillis(date);
             id = intent.getIntExtra(MaintenanceJob.MAINTENANCE_JOB_ID, 0);
+            containerView.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+            fromSJ = true;
         }
         if (intent.hasExtra(ScheduleJobAdapter.WORKING_HOUR)) {
             runningHourET.setText(String.format(Locale.getDefault(), "%.1f", intent.getFloatExtra(ScheduleJobAdapter.WORKING_HOUR, 0)));
@@ -386,6 +397,23 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         isDetail = intent.getIntExtra("TYPE", MaintenanceActivity.TYPE_DETAIL) == MaintenanceActivity.TYPE_DETAIL;
         if (isDetail) {
             updateUITypeDetail(intent);
+        }
+
+
+        if (isDetail) {
+            itemDone.setVisibility(View.GONE);
+            if (isConfirm)
+                itemDelete.setVisibility(View.GONE);
+        } else {
+            itemEdit.setVisibility(View.GONE);
+            itemDelete.setVisibility(View.GONE);
+            itemCreate.setVisibility(View.GONE);
+        }
+        if (id != 0)
+            itemDetail.setVisibility(View.VISIBLE);
+        else itemDetail.setVisibility(View.GONE);
+        if (fromSJ) {
+            itemDone.setVisibility(View.GONE);
         }
     }
 
@@ -396,7 +424,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         id = intent.getIntExtra(MaintenanceJob.MAINTENANCE_JOB_ID, 0);
         isConfirm = intent.getBooleanExtra(MaintenanceJob.MAINTENANCE_JOB_CONFIRM, false);
         String equipmentId = intent.getStringExtra(MaintenanceJob.EQUIPMENT_ID);
-        String equipName = intent.getStringExtra(MaintenanceJob.EQUIPMENT_NAME);
+        equipName = intent.getStringExtra(MaintenanceJob.EQUIPMENT_NAME);
         String serialNumber = intent.getStringExtra(MaintenanceJob.SERIAL_NUMBER);
         String info = intent.getStringExtra(MaintenanceJob.MAINTENANCE_JOB_CREARED_BY);
         dept = intent.getStringExtra(MaintenanceJob.DEPT);
@@ -413,7 +441,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        actionBarTitleView.setText(String.format(Locale.getDefault(), "MJ-%d~%s", id, jobDate));
+        actionBarTitleView.setText(String.format(Locale.getDefault(), "MJ-%d\n%s", id, jobDate));
         maintenanceInfo.setVisibility(View.VISIBLE);
         maintenanceInfo.setText(info);
         equipmentIdView.setText(equipmentId);
@@ -543,6 +571,28 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     }
 
+    private void insertMMSSJ(MMSSJParameter parameter) {
+
+        if (!Utilities.isConnected(this)) {
+            RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
+            return;
+        }
+        MyRetrofit.initRequest(this)
+                .insertMMSSJ(parameter)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Response<String> response, Retrofit retrofit) {
+                        setResult(RESULT_OK, new Intent().putExtra(Intent.EXTRA_TEXT, true));
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        RetrofitError.errorNoAction(getApplicationContext(), t, TAG, snackBarView);
+                    }
+                });
+
+    }
+
     private void updateUIEmployee(List<MaintenanceEmployee> body) {
         int size = body.size();
         for (int i = 0; i < size; i++) {
@@ -578,6 +628,12 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                                         getListJobDefinition(dept);
                                         getListPartRemain(dept);
                                         updateUIEquipment(item);
+                                        insertMMSSJ(new MMSSJParameter(item.getId(),
+                                                userName,
+                                                getIntent().getIntExtra(ScheduleJobAdapter.SJ_ID, 0),
+                                                true)
+                                        );
+
                                         break;
                                     }
                                 }
@@ -755,10 +811,10 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                             else {
                                 dialog.dismiss();
                                 Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_SHORT).show();
-                                itemEdit.setVisible(true);
-                                itemDone.setVisible(false);
-                                itemCreate.setVisible(true);
-                                itemDetail.setVisible(true);
+                                itemEdit.setVisibility(View.VISIBLE);
+                                itemDone.setVisibility(View.GONE);
+                                itemCreate.setVisibility(View.VISIBLE);
+                                itemDetail.setVisibility(View.VISIBLE);
                                 updateMode();
                             }
                         }
@@ -1098,7 +1154,42 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
                 pickDate();
         } else if (v == equipmentEditText || v == jobDefinitionEditText || v == partRemainEditText || v == employeeEditText)
             ((AutoCompleteTextView) v).showDropDown();
+        else if (v == itemDone) {
+            insertMaintenanceJob();
+        } else if (v == itemEdit) {
+            itemEdit.setVisibility(View.GONE);
+            itemDone.setVisibility(View.VISIBLE);
+            isDetail = false;
+            switchMode();
+        } else if (v == itemDelete) {
+            if (listJob.size() > 0 || listPart.size() > 0 || listEmployee.size() > 0) {
+                Toast.makeText(getApplicationContext(), getString(R.string.alert_delete_all_detail_before), Toast.LENGTH_LONG).show();
+            } else {
+                AlertDialog dialog = new AlertDialog.Builder(this)
+                        .setMessage(getString(R.string.alert_delete))
+                        .setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteMaintenanceJob();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.label_cancel), null)
+                        .create();
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+            }
 
+        } else if (v == itemCreate) {
+            Intent intent = new Intent(getApplicationContext(), CreateMaintenanceActivity.class);
+            intent.putExtra("TYPE", MaintenanceActivity.TYPE_CREATE);
+            startActivity(intent);
+        } else if (v == itemDetail) {
+            Intent intent = new Intent(getApplicationContext(), MaintenanceJobDetailsActivity.class);
+            intent.putExtra(ScheduleJobActivity.MJ_ID, id);
+            intent.putExtra(MaintenanceJob.EQUIPMENT_NAME, equipName);
+            intent.putExtra(ScheduleJobActivity.FREQUENCY, "");
+            startActivity(intent);
+        }
     }
 
     private void pickDate() {
@@ -1123,75 +1214,10 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus || !(id != 0 && v == equipmentEditText))
-            ((AutoCompleteTextView) v).setText("");
+        /*if (hasFocus || !(id != 0 && v == equipmentEditText))
+            ((AutoCompleteTextView) v).setText("");*/
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.cud, menu);
-        itemDone = menu.findItem(R.id.action_done);
-        itemEdit = menu.findItem(R.id.action_edit);
-        itemDelete = menu.findItem(R.id.action_delete);
-        itemCreate = menu.findItem(R.id.action_create);
-        itemDetail = menu.findItem(R.id.action_detail);
-
-        if (isDetail) {
-            itemDone.setVisible(false);
-            if (isConfirm)
-                itemDelete.setVisible(false);
-        } else {
-            itemEdit.setVisible(false);
-            itemDelete.setVisible(false);
-            itemCreate.setVisible(false);
-        }
-        if (id != 0)
-            itemDetail.setVisible(true);
-        else itemDetail.setVisible(false);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        if (item == itemDone) {
-            insertMaintenanceJob();
-        } else if (item == itemEdit) {
-            itemEdit.setVisible(false);
-            itemDone.setVisible(true);
-            isDetail = false;
-            switchMode();
-        } else if (item == itemDelete) {
-            if (listJob.size() > 0 || listPart.size() > 0 || listEmployee.size() > 0) {
-                Toast.makeText(getApplicationContext(), getString(R.string.alert_delete_all_detail_before), Toast.LENGTH_LONG).show();
-            } else {
-                AlertDialog dialog = new AlertDialog.Builder(this)
-                        .setMessage(getString(R.string.alert_delete))
-                        .setPositiveButton(getString(R.string.label_delete), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                deleteMaintenanceJob();
-                            }
-                        })
-                        .setNegativeButton(getString(R.string.label_cancel), null)
-                        .create();
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.show();
-            }
-
-        } else if (item == itemCreate) {
-            Intent intent = new Intent(getApplicationContext(), CreateMaintenanceActivity.class);
-            intent.putExtra("TYPE", MaintenanceActivity.TYPE_CREATE);
-            startActivity(intent);
-        } else if (item == itemDetail) {
-            Intent intent = new Intent(getApplicationContext(), MaintenanceJobDetailsActivity.class);
-            intent.putExtra(ScheduleJobActivity.MJ_ID, id);
-            intent.putExtra(ScheduleJobActivity.FREQUENCY, "");
-            startActivity(intent);
-        }
-
-        return true;
-    }
 
     private void deleteMaintenanceJob() {
         dialog.setMessage(getString(R.string.deleting));

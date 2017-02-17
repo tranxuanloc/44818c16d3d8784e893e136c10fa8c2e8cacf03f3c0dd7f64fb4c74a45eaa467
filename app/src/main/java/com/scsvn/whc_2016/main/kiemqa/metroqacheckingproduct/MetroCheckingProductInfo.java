@@ -32,6 +32,20 @@ public class MetroCheckingProductInfo {
     private String RejectReason;
     @SerializedName("CheckingBy")
     private String CheckingBy;
+    @SerializedName("TotalCarton")
+    private float TotalCarton;
+    @SerializedName("TotalCheckingWeights")
+    private float TotalCheckingWeights;
+    @SerializedName("TotalDamageWeights")
+    private float TotalDamageWeights;
+
+    public float getTotalCheckingWeights() {
+        return TotalCheckingWeights;
+    }
+
+    public float getTotalDamageWeights() {
+        return TotalDamageWeights;
+    }
 
     public float getActualQuantity() {
         return ActualQuantity;
@@ -83,5 +97,9 @@ public class MetroCheckingProductInfo {
 
     public String getRemark() {
         return Remark;
+    }
+
+    public float getTotalCarton() {
+        return TotalCarton;
     }
 }

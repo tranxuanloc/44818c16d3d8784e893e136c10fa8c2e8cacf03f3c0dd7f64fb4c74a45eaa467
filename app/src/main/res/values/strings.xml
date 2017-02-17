@@ -413,5 +413,14 @@
     <string name="label_ngay">Ngày</string>
     <string name="title_activity_nsnv">Năng suất nhân viên</string>
     <string name="label_view">View</string>
+    <string name="creating_new_article">Đang tạo bài mới...</string>
+    <string name="chart">Chart</string>
+    <string name="label_today">Today</string>
+    <string name="warehouse_123">123</string>
+    <string name="warehouse_45">45</string>
+    <string name="title_activity_booking">Customer Booking View</string>
+    <string name="label_bookings">Bookings</string>
+    <string name="label_device_info">Device info</string>
+    <string name="lb_android_id">Android ID:&#160;</string>
 
 </resources>

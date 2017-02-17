@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
-        android:background="@drawable/outlines"
+        android:background="@drawable/outlines_light"
         android:gravity="top"
         android:hint="@string/ghi_chu"
         android:minLines="5"

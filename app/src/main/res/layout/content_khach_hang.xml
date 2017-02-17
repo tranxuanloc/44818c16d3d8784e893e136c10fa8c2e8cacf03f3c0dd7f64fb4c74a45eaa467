@@ -8,6 +8,7 @@
     tools:context="com.scsvn.whc_2016.main.phieuhomnay.KhachHangActivity"
     tools:showIn="@layout/activity_khach_hang">
 
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"

@@ -163,16 +163,19 @@ public class HomNayActivity extends BaseActivity implements AdapterView.OnItemLo
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        HomNayInfo item = adapter.getItem(position);
         try {
             Class.forName("com.symbol.emdk.EMDKManager");
             Intent intent = new Intent(HomNayActivity.this, OrderDetailWithMDKActivity.class);
-            intent.putExtra(OrderDetailWithMDKActivity.ORDER_NUMBER, adapter.getItem(position).getOrderNumber());
-            intent.putExtra("SCAN_TYPE", adapter.getItem(position).getScannedType());
+            intent.putExtra(OrderDetailWithMDKActivity.ORDER_NUMBER, item.getOrderNumber());
+            intent.putExtra("SCAN_TYPE", item.getScannedType());
+            intent.putExtra("CUSTOMER_TYPE", item.getCustomerType());
             startActivity(intent);
         } catch (ClassNotFoundException e) {
             Intent intent = new Intent(HomNayActivity.this, OrderDetailActivity.class);
-            intent.putExtra(OrderDetailWithMDKActivity.ORDER_NUMBER, adapter.getItem(position).getOrderNumber());
-            intent.putExtra("SCAN_TYPE", adapter.getItem(position).getScannedType());
+            intent.putExtra(OrderDetailWithMDKActivity.ORDER_NUMBER, item.getOrderNumber());
+            intent.putExtra("SCAN_TYPE", item.getScannedType());
+            intent.putExtra("CUSTOMER_TYPE", item.getCustomerType());
             startActivity(intent);
         }
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_warehouse_all"
+            android:checked="true"
+            android:title="@string/all" />
+        <item
+            android:id="@+id/action_warehouse_123"
+            android:title="@string/warehouse_123" />
+        <item
+            android:id="@+id/action_warehouse_45"
+            android:title="@string/warehouse_45" />
+    </group>
+</menu>

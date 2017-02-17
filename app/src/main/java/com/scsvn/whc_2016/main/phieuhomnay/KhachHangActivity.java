@@ -1,11 +1,13 @@
 package com.scsvn.whc_2016.main.phieuhomnay;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,10 +33,12 @@ import com.scsvn.whc_2016.utilities.Utilities;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
@@ -45,11 +51,16 @@ public class KhachHangActivity extends BaseActivity {
     SwipeRefreshLayout refreshLayout;
     @Bind(R.id.tv_total_weight)
     TextView tvTotalWeight;
+    @Bind(R.id.btChooseDate)
+    Button btChooseDate;
     private String userName;
     private View.OnClickListener action;
     private KhachHangAdapter adapter;
     private int wareHouseID;
     private MenuItem item_kho;
+    private boolean groupDocument;
+    private Calendar calendar;
+    private String reportDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +69,12 @@ public class KhachHangActivity extends BaseActivity {
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Utilities.showBackIcon(getSupportActionBar());
+
+        ActionBar supportActionBar = getSupportActionBar();
+        assert supportActionBar != null;
+        supportActionBar.setDisplayShowTitleEnabled(false);
+        Utilities.showBackIcon(supportActionBar);
+
         wareHouseID = LoginPref.getWarehoueID(this);
         userName = LoginPref.getInfoUser(this, LoginPref.USERNAME);
         action = new View.OnClickListener() {
@@ -67,6 +83,7 @@ public class KhachHangActivity extends BaseActivity {
                 getPhieuHomNayByCustomer(listView, wareHouseID);
             }
         };
+
         refreshLayout.setColorSchemeResources(R.color.colorPrimary);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -74,6 +91,7 @@ public class KhachHangActivity extends BaseActivity {
                 getPhieuHomNayByCustomer(listView, wareHouseID);
             }
         });
+
         adapter = new KhachHangAdapter(this, new ArrayList<InOutToDayUnFinishInfo>());
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,10 +103,20 @@ public class KhachHangActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+        groupDocument = LoginPref.getPositionGroup(getApplicationContext()).equalsIgnoreCase(Const.GROUP_DOCUMENTS);
+        if (groupDocument) {
+            wareHouseID = 3;
+        }
+        calendar = Calendar.getInstance();
+        reportDate = Utilities.formatDateTime_yyyyMMddHHmmssFromMili(calendar.getTimeInMillis());
+        btChooseDate.setText(Utilities.formatDate_ddMMyyyy(reportDate));
+
         getPhieuHomNayByCustomer(listView, wareHouseID);
     }
 
     public void getPhieuHomNayByCustomer(final View view, int wareHouseID) {
+        reportDate = reportDate.split("T")[0];
         adapter.clear();
         if (RetrofitError.getSnackbar() != null)
             RetrofitError.getSnackbar().dismiss();
@@ -102,7 +130,7 @@ public class KhachHangActivity extends BaseActivity {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;
         }
-        MyRetrofit.initRequest(this).getPhieuCustomer(new InOutToDayUnFinishParameter(wareHouseID, userName)).enqueue(new Callback<List<InOutToDayUnFinishInfo>>() {
+        MyRetrofit.initRequest(this).getPhieuCustomer(new InOutToDayUnFinishParameter(wareHouseID, userName, reportDate)).enqueue(new Callback<List<InOutToDayUnFinishInfo>>() {
             @Override
             public void onResponse(Response<List<InOutToDayUnFinishInfo>> response, Retrofit retrofit) {
                 Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
@@ -129,6 +157,7 @@ public class KhachHangActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_today, menu);
         item_kho = menu.findItem(R.id.action_menu);
+        MenuItem item_ho_so = menu.findItem(R.id.action_giao_ho_so);
         if (wareHouseID == 0) {
             menu.findItem(R.id.action_all).setChecked(true);
             item_kho.setTitle(getResources().getString(R.string.tat_ca));
@@ -141,6 +170,15 @@ public class KhachHangActivity extends BaseActivity {
         } else if (wareHouseID == 3) {
             menu.findItem(R.id.action_giao_ho_so).setChecked(true);
             item_kho.setTitle(getResources().getString(R.string.ho_so));
+        }
+        boolean groupSupervisor = LoginPref.getPositionGroup(getApplicationContext()).equalsIgnoreCase(Const.SUPERVISOR);
+        boolean groupManager = LoginPref.getPositionGroup(getApplicationContext()).equalsIgnoreCase(Const.MANAGER);
+        if (groupDocument) {
+            wareHouseID = 3;
+            item_kho.setTitle(getResources().getString(R.string.ho_so));
+            item_kho.setEnabled(false);
+        } else if (!(groupManager || groupSupervisor)) {
+            item_ho_so.setVisible(false);
         }
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -215,6 +253,38 @@ public class KhachHangActivity extends BaseActivity {
             }
         }
         return true;
+    }
+
+    @OnClick(R.id.btChooseDate)
+    public void chooseDate() {
+
+        DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                calendar.set(year, monthOfYear, dayOfMonth);
+                reportDate = Utilities.formatDateTime_yyyyMMddHHmmssFromMili(calendar.getTimeInMillis());
+                btChooseDate.setText(Utilities.formatDate_ddMMyyyy(reportDate));
+                getPhieuHomNayByCustomer(listView, wareHouseID);
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
+    @OnClick(R.id.ivArrowLeft)
+    public void previousDay() {
+        calendar.add(Calendar.DATE, -1);
+        reportDate = Utilities.formatDateTime_yyyyMMddHHmmssFromMili(calendar.getTimeInMillis());
+        btChooseDate.setText(Utilities.formatDate_ddMMyyyy(reportDate));
+        getPhieuHomNayByCustomer(listView, wareHouseID);
+    }
+
+    @OnClick(R.id.ivArrowRight)
+    public void nextDay() {
+        calendar.add(Calendar.DATE, 1);
+        reportDate = Utilities.formatDateTime_yyyyMMddHHmmssFromMili(calendar.getTimeInMillis());
+        btChooseDate.setText(Utilities.formatDate_ddMMyyyy(reportDate));
+        getPhieuHomNayByCustomer(listView, wareHouseID);
     }
 
     @Override

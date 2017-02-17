@@ -17,6 +17,8 @@ public class HomNayInfo {
     private String customerNumber;
     @SerializedName("CustomerName")
     private String customerName;
+    @SerializedName("CustomerType")
+    private String customerType;
     @SerializedName("DockNumber")
     private String dockNumber;
     @SerializedName("OrderType")
@@ -25,6 +27,10 @@ public class HomNayInfo {
     private int TotalPackages;
     @SerializedName("ScannedType")
     private byte ScannedType;
+
+    public String getCustomerType() {
+        return customerType;
+    }
 
     public byte getScannedType() {
         return ScannedType;

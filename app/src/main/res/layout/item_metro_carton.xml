@@ -11,7 +11,7 @@
         android:id="@+id/item_tv_metro_carton_index"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="3.5"
         android:focusable="false"
         android:gravity="center"
         android:textColor="@color/black" />
@@ -20,7 +20,7 @@
         android:id="@+id/item_et_metro_carton_weight"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1.5"
+        android:layout_weight="6"
         android:background="@drawable/outline_left"
         android:gravity="center"
         android:imeOptions="actionDone"
@@ -32,7 +32,7 @@
         android:id="@+id/item_et_metro_carton_damage_weight"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1.5"
+        android:layout_weight="6"
         android:background="@drawable/outline_left"
         android:gravity="center"
         android:imeOptions="actionDone"
@@ -44,7 +44,7 @@
         android:id="@+id/item_tv_metro_carton_damage_percent"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="6"
         android:background="@drawable/outline_left"
         android:focusable="false"
         android:gravity="center"
@@ -52,6 +52,13 @@
 
     <ImageView
         android:id="@+id/item_iv_metro_carton_edit"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/outline_left"
+        android:scaleType="center" />
+
+    <ImageView
+        android:id="@+id/item_iv_metro_carton_delete"
         android:layout_width="30dp"
         android:layout_height="match_parent"
         android:background="@drawable/outline_left"

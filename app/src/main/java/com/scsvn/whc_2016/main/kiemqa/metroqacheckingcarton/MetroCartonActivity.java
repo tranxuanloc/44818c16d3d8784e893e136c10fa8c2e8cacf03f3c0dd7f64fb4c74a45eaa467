@@ -90,7 +90,6 @@ public class MetroCartonActivity extends AppCompatActivity implements AdapterVie
         MyRetrofit.initRequest(this).getMetroQACheckingCarton(new MetroQACheckingCartonParameter(roID)).enqueue(new Callback<List<MetroCartonInfo>>() {
             @Override
             public void onResponse(Response<List<MetroCartonInfo>> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     arrayList.clear();
                     arrayList.addAll(response.body());
@@ -98,6 +97,7 @@ public class MetroCartonActivity extends AppCompatActivity implements AdapterVie
                 }
                 dialog.dismiss();
             }
+
             @Override
             public void onFailure(Throwable t) {
                 RetrofitError.errorWithAction(MetroCartonActivity.this, t, TAG, view, tryAgain);
@@ -144,7 +144,6 @@ public class MetroCartonActivity extends AppCompatActivity implements AdapterVie
                     roID,
                     username
             );
-            Log.d(TAG, "cartonAdd() returned: " + new Gson().toJson(parameter));
             executeMetroQACheckingCartonInsert(listView, parameter);
             listView.requestFocus();
         }
@@ -160,8 +159,6 @@ public class MetroCartonActivity extends AppCompatActivity implements AdapterVie
         MyRetrofit.initRequest(this).executeMetroQACheckingCartonInsert(parameter).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Response<String> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
-                dialog.dismiss();
                 if (response.isSuccess() && response.body() != null && response.body().length() > 0) {
                     MetroCartonInfo cartonInfo = arrayList.get(arrayList.size() - 1);
                     cartonInfo.setReceivingCartonCheckingID(Integer.parseInt(response.body()));
@@ -172,8 +169,10 @@ public class MetroCartonActivity extends AppCompatActivity implements AdapterVie
                     fab.setImageResource(R.drawable.ic_action_them);
                     switchNewInsert++;
                     Toast.makeText(MetroCartonActivity.this, "Đã lưu", Toast.LENGTH_LONG).show();
+
                 } else
                     Toast.makeText(MetroCartonActivity.this, "Có lỗi xảy ra, dữ liệu chưa được lưu", Toast.LENGTH_LONG).show();
+                dialog.dismiss();
             }
 
             @Override
@@ -235,7 +234,6 @@ public class MetroCartonActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-        Log.d(TAG, "onItemLongClick() returned: " + position);
         final MetroCartonInfo item = adapter.getItem(position);
         if (!item.isNew()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MetroCartonActivity.this)

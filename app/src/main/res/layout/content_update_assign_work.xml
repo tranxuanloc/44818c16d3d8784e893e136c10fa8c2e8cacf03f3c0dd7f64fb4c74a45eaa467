@@ -143,11 +143,14 @@
 
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/iv_qhse_image"
+        <GridView
+            android:id="@+id/grid_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop" />
+            android:layout_marginTop="10dp"
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:verticalSpacing="5dp" />
 
         <Button
             android:id="@+id/bt_qhse_create"

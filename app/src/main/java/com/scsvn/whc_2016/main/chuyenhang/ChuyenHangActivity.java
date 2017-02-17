@@ -136,6 +136,7 @@ public class ChuyenHangActivity extends AppCompatActivity implements TextView.On
                     } else {
                         if (object == 1) {
                             tvOriginalFrom.setText("");
+
                         } else if (object == 2) {
                             tvOriginalTo.setText("");
                         }

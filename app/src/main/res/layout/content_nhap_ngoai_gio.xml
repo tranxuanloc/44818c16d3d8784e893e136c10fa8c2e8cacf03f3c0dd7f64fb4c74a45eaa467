@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_alignRight="@id/label1"
             android:layout_below="@id/label1"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:gravity="center_vertical"
             android:imeOptions="actionDone"
             android:inputType="number"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/label2"
             android:layout_below="@id/label2"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:padding="5dp"
             android:textColor="#000" />
 
@@ -157,7 +157,7 @@
             android:layout_alignLeft="@id/label2"
             android:layout_alignTop="@id/label4"
             android:layout_below="@id/ngoai_gio_cb_many_date"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:gravity="center_vertical"
             android:padding="5dp"
             android:textColor="#000" />
@@ -178,7 +178,7 @@
             android:layout_height="30dp"
             android:layout_alignLeft="@id/label2"
             android:layout_alignTop="@id/label5"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:gravity="center_vertical"
             android:padding="5dp"
             android:textColor="#000" />
@@ -199,7 +199,7 @@
             android:layout_height="30dp"
             android:layout_alignLeft="@id/label2"
             android:layout_alignTop="@id/label6"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:gravity="center_vertical"
             android:inputType="numberDecimal"
             android:padding="5dp"
@@ -229,7 +229,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/label2"
             android:layout_alignTop="@id/label7"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:gravity="top"
             android:lines="2"
             android:padding="5dp"
@@ -252,7 +252,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/label2"
             android:layout_alignTop="@id/label8"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:padding="5dp"
             android:textColor="#000" />
 
@@ -272,7 +272,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/label2"
             android:layout_alignTop="@id/label9"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:padding="5dp"
             android:textColor="#000" />
 
@@ -292,7 +292,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/label2"
             android:layout_alignTop="@id/label10"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:padding="5dp"
             android:textColor="#000" />
 
@@ -312,7 +312,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/label2"
             android:layout_alignTop="@id/label11"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:padding="5dp"
             android:textColor="#000" />
         <Button

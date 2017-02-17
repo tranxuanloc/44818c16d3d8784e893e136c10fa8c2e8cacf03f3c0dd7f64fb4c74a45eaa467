@@ -8,6 +8,42 @@
     tools:context=".main.kiemqa.metroqacheckinglistproducts.QACheckingListProductsActivity"
     tools:showIn="@layout/activity_metro_list_product">
 
+    <LinearLayout
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:minHeight="30dp"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_metro_list_product_order_quantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#A00"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_metro_list_product_actual_quantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tv_metro_suppliers"
         android:layout_width="match_parent"
@@ -21,6 +57,7 @@
         android:id="@+id/lvOrderDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/view"
         android:layout_below="@id/tv_metro_suppliers" />
 
     <View

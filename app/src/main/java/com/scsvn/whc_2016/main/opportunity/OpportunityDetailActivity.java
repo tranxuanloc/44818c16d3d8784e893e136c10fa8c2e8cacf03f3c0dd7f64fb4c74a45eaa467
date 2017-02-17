@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +41,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import retrofit.Callback;
 import retrofit.Response;
@@ -68,7 +70,7 @@ public class OpportunityDetailActivity extends BaseActivity implements
     private String closeDate = "";
     private boolean isAdded;
     private int customerCategoryId;
-    private int opportunityId;
+    private UUID opportunityId;
     private AppCompatAutoCompleteTextView listCustomerIdView;
     private LinearLayout rootView;
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -141,7 +143,8 @@ public class OpportunityDetailActivity extends BaseActivity implements
         snackBarView = nameView;
         calendar = Calendar.getInstance();
         updateUI(false);
-        opportunityId = getIntent().getIntExtra(Opportunity.OPPORTUNITY_ID, 0);
+        opportunityId = UUID.fromString(getIntent().getStringExtra(Opportunity.OPPORTUNITY_ID));
+        Log.d(TAG, "initial() returned: " + opportunityId);
 
         typeArray = Arrays.asList(getResources().getStringArray(R.array.opportunity_type));
         ArrayAdapter<String> opportunityTypeAdapter = new ArrayAdapter<>(this, R.layout.simple_list_item_1, typeArray);
@@ -166,7 +169,7 @@ public class OpportunityDetailActivity extends BaseActivity implements
 
     }
 
-    private void getOpportunity(int opportunityId) {
+    private void getOpportunity(UUID opportunityId) {
         dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 

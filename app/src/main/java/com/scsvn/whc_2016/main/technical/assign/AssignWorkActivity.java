@@ -1,20 +1,15 @@
 package com.scsvn.whc_2016.main.technical.assign;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.preferences.LoginPref;
@@ -37,8 +32,6 @@ import retrofit.Retrofit;
 public class AssignWorkActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = AssignWorkActivity.class.getSimpleName();
     protected static boolean isSuccess;
-    private final int IMAGE = 101;
-    private final int CAMERA = 102;
     @Bind(R.id.lvOrderDetail)
     ListView listView;
     @Bind(R.id.swipeRefresh)
@@ -65,7 +58,6 @@ public class AssignWorkActivity extends BaseActivity implements View.OnClickList
 
         if (getIntent() != null)
             numberQHSE = getIntent().getStringExtra("numberQHSE");
-        Log.e(TAG, "initial: " + numberQHSE);
         qhseAgain = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +92,6 @@ public class AssignWorkActivity extends BaseActivity implements View.OnClickList
     }
 
     public void getQHSE(final View view) {
-        //final String userName = LoginPref.getInfoUser(this, LoginPref.USERNAME);
         if (RetrofitError.getSnackbar() != null)
             RetrofitError.getSnackbar().dismiss();
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
@@ -114,19 +105,10 @@ public class AssignWorkActivity extends BaseActivity implements View.OnClickList
         MyRetrofit.initRequest(this).getAssignWork(new AssignWorkParameter(0, userName)).enqueue(new Callback<List<AssignWorkInfo>>() {
             @Override
             public void onResponse(Response<List<AssignWorkInfo>> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     List<AssignWorkInfo> body = response.body();
                     adapter.clear();
                     adapter.addAll(body);
-                   /* if (!(numberQHSE == null || numberQHSE.equalsIgnoreCase("0"))) {
-                        for (int i = 0; i < body.size(); i++) {
-                            if (body.get(i).getAssignedTo() == Integer.parseInt(userName)) {
-                                listView.smoothScrollToPosition(i + 1);
-                                break;
-                            }
-                        }
-                    }*/
                 }
                 dialog.dismiss();
                 swipeRefresh.setRefreshing(false);
@@ -160,7 +142,6 @@ public class AssignWorkActivity extends BaseActivity implements View.OnClickList
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        Log.e(TAG, "onNewIntent: " + (intent == null));
     }
 
 
@@ -186,30 +167,4 @@ public class AssignWorkActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    private void imageChooser() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Chọn nguồn ảnh").setItems(new CharSequence[]{"Bộ sưu tập", "Máy ảnh"}, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        Intent galleryIntent = new Intent();
-                        galleryIntent.setType("image/*");
-                        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                        Intent chooserIntent = Intent.createChooser(galleryIntent, "Chọn ứng dụng");
-                        startActivityForResult(chooserIntent, IMAGE);
-                        break;
-                    case 1:
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(intent, CAMERA);
-                        break;
-
-                }
-            }
-
-
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
 }

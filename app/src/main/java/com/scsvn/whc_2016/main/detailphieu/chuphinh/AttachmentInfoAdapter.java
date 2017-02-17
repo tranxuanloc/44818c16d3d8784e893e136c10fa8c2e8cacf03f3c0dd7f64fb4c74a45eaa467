@@ -11,6 +11,7 @@ import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.utilities.Utilities;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,7 +37,7 @@ public class AttachmentInfoAdapter extends ArrayAdapter<AttachmentInfo> {
         } else holder = (ViewHolder) convertView.getTag();
         AttachmentInfo info = getItem(position);
         holder.tvFileName.setText(info.getOriginalFileName());
-        holder.tvFileSize.setText(String.format("Size: %dkb", info.getAttachmentFileSize()));
+        holder.tvFileSize.setText(String.format(Locale.getDefault(), "Size: %dkb", info.getAttachmentFileSize()));
         holder.tvFileCreateTime.setText(Utilities.formatDate_ddMMyyyyHHmm(info.getAttachmentDate()));
         holder.tvFileDescription.setText(info.getAttachmentDescription());
         holder.tvFileCreateUser.setText(String.format("User: %s", info.getAttachmentUser()));

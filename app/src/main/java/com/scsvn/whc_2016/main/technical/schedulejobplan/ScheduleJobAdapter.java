@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class ScheduleJobAdapter extends ArrayAdapter<ScheduleJobPlanInfo> implem
     public static final String ID = "ID";
     public static final String WORKING_HOUR = "WORKING_HOUR";
     public static final String DATE = "DATE";
+    public static final String SJ_ID = "SJ_ID";
     private static final String TAG = ScheduleJobAdapter.class.getSimpleName();
     private Calendar calendar = Calendar.getInstance();
     private int week = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -44,12 +46,18 @@ public class ScheduleJobAdapter extends ArrayAdapter<ScheduleJobPlanInfo> implem
         public void onClick(View v) {
             ScheduleJobPlanInfo info = (ScheduleJobPlanInfo) v.getTag();
             Intent intent = new Intent(getContext(), CreateMaintenanceActivity.class);
+            try {
+                int sjID = Integer.parseInt(info.getId().replaceAll("\\D*", ""));
+                intent.putExtra(SJ_ID, sjID);
+            } catch (NumberFormatException ex){
+
+            }
             intent.putExtra("TYPE", MaintenanceActivity.TYPE_CREATE);
             intent.putExtra(ID, info.getEquipmentID());
             intent.putExtra(MaintenanceJob.MAINTENANCE_JOB_ID, info.getMaintenanceJobID());
             intent.putExtra(WORKING_HOUR, info.getPlanHour());
             intent.putExtra(DATE, Utilities.getMillisecondFromDate(info.getDueDate()));
-            getContext().startActivity(intent);
+            ((AppCompatActivity) getContext()).startActivityForResult(intent, ScheduleJobActivity.REQUEST_CODE);
         }
     };
 

@@ -213,15 +213,14 @@ public class GiaoHoSoDetailNoEMDKActivity extends BaseActivity implements Adapte
 //                Uri uriImage = Uri.fromFile(new File(filePath));
                 SendMailParameter parameter = new SendMailParameter(orderNumber, userName);
                 sendMail(listView, parameter);
-                int sampleSize = 0;
                 try {
-                    sampleSize = ResizeImage.resizeImageFromFile(filePath, Const.IMAGE_UPLOAD_WIDTH);
+                    filePath = ResizeImage.resizeImageFromFile(filePath, Const.IMAGE_UPLOAD_WIDTH);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
 
                 BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = sampleSize;
+                options.inSampleSize = Const.SAMPLE_SIZE;
                 Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
                 ivThumbSignature.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Utilities.getScreenWidth(this) / 2));
                 ivThumbSignature.setImageBitmap(bitmap);

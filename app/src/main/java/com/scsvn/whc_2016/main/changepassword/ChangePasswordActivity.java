@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
@@ -109,7 +110,8 @@ public class ChangePasswordActivity extends BaseActivity {
             public void onResponse(Response<String> response, Retrofit retrofit) {
                 Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
-                    Snackbar.make(view, response.body(), Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(ChangePasswordActivity.this, response.body(), Toast.LENGTH_LONG).show();
+                    finish();
                 }
                 dialog.dismiss();
             }

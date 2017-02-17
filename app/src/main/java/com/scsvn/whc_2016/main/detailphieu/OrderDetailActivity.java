@@ -3,6 +3,7 @@ package com.scsvn.whc_2016.main.detailphieu;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,8 +12,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,10 +21,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.scsvn.whc_2016.R;
@@ -55,7 +57,6 @@ import retrofit.Retrofit;
 public class OrderDetailActivity extends BaseActivity
         implements AdapterView.OnItemLongClickListener, View.OnClickListener {
 
-    public static final String ORDER_NUMBER = "order_number";
     public static final String TAG = OrderDetailActivity.class.getSimpleName();
     public static final String DO_ID = "DO_ID";
     public ListView listView;
@@ -83,7 +84,8 @@ public class OrderDetailActivity extends BaseActivity
     private int positionJustScan = -1;
     private boolean isPallet;
     private OrderDetail palletInfo;
-    private AlertDialog dialog;
+    private AlertDialog palletScanDialog;
+    private String customerType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +121,8 @@ public class OrderDetailActivity extends BaseActivity
         deviceNumber = Utilities.getAndroidID(getApplicationContext());
         userName = LoginPref.getInfoUser(this, LoginPref.USERNAME);
         orderNumber = getIntent().getStringExtra(ORDER_NUMBER);
-
+        customerType = getIntent().getStringExtra("CUSTOMER_TYPE");
+        getSupportActionBar().setTitle(orderNumber);
         Utilities.showBackIcon(getSupportActionBar());
 
         getRequest();
@@ -150,6 +153,7 @@ public class OrderDetailActivity extends BaseActivity
                     new AsyncUiControlUpdate().execute(contents.replace("\n", ""));
             }
         });
+
     }
 
     public void getOrderDetail(final View view) {
@@ -160,7 +164,7 @@ public class OrderDetailActivity extends BaseActivity
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;
         }
-        MyRetrofit.initRequest(this).getDetailPhieu(new OrdersInfo(scanResult, orderNumber, userName, deviceNumber)).enqueue(new Callback<List<OrderDetail>>() {
+        MyRetrofit.initRequest(this).getDetailPhieu(new OrdersInfo(scanResult, orderNumber, userName, deviceNumber, customerType)).enqueue(new Callback<List<OrderDetail>>() {
             @Override
             public void onResponse(Response<List<OrderDetail>> response, Retrofit retrofit) {
                 if (response.isSuccess() && response.body() != null) {
@@ -174,8 +178,15 @@ public class OrderDetailActivity extends BaseActivity
                     updateUI();
 
                     checkAutoScan();
+                    dialog.dismiss();
+                } else {
+                    dialog.dismiss();
+                    if (isPallet) {
+                        scanResult = "xx123456789";
+                        showPalletScanDialog(false);
+                        isPallet = false;
+                    }
                 }
-                dialog.dismiss();
             }
 
             @Override
@@ -184,6 +195,53 @@ public class OrderDetailActivity extends BaseActivity
                 RetrofitError.errorWithAction(OrderDetailActivity.this, t, TAG, view, action);
             }
         });
+    }
+
+    private void showPalletScanDialog(boolean ok) {
+        View scanDialogView = LayoutInflater.from(this).inflate(R.layout.order_detail_scan_dialog, null);
+        TextView palletIDTV = (TextView) scanDialogView.findViewById(R.id.scan_dialog_palletId);
+        TextView hsdTV = (TextView) scanDialogView.findViewById(R.id.scan_dialog_hsd);
+        TextView nsxTV = (TextView) scanDialogView.findViewById(R.id.scan_dialog_nsx);
+        TextView remainTV = (TextView) scanDialogView.findViewById(R.id.scan_dialog_remain);
+        TextView remarkTV = (TextView) scanDialogView.findViewById(R.id.scan_dialog_remark);
+        TextView resultTV = (TextView) scanDialogView.findViewById(R.id.scan_dialog_result);
+        TextView slTV = (TextView) scanDialogView.findViewById(R.id.scan_dialog_sl);
+        GridLayout gridLayout = (GridLayout) scanDialogView.findViewById(R.id.scan_dialog_grid);
+        TextView notScanTV = (TextView) scanDialogView.findViewById(R.id.scan_dialog_not_scan);
+        if (ok) {
+            notScanTV.setVisibility(View.GONE);
+            gridLayout.setVisibility(View.VISIBLE);
+            palletIDTV.setText(palletInfo.getPalletID());
+            hsdTV.setText(palletInfo.getUseByDate());
+            nsxTV.setText(palletInfo.getProductionDate());
+            remarkTV.setText(palletInfo.getRemark());
+            remainTV.setText(String.format(Locale.getDefault(), "%d", palletInfo.getRemainByProductAtLocation()));
+            String result = palletInfo.getResult();
+            resultTV.setText(result);
+            slTV.setText(palletInfo.getQuantityOfPackages());
+            if (result.equalsIgnoreCase("NO")) {
+                resultTV.setTextColor(Color.RED);
+                slTV.setTextColor(Color.RED);
+            }
+        } else {
+            notScanTV.setVisibility(View.VISIBLE);
+            gridLayout.setVisibility(View.GONE);
+        }
+        palletScanDialog = new AlertDialog.Builder(OrderDetailActivity.this)
+                .setView(scanDialogView)
+                .create();
+
+        palletScanDialog.show();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (palletScanDialog != null) {
+                    palletScanDialog.dismiss();
+                    palletScanDialog = null;
+                }
+            }
+        }, 5000);
     }
 
     private void resetUI() {
@@ -210,7 +268,7 @@ public class OrderDetailActivity extends BaseActivity
 
             if (isResultScanValidWithCaseFilter(result)) {
 
-                if (result.equals(""))
+                if (result.trim().length() == 0)
                     quantityNormal++;
                 if (result.equalsIgnoreCase("OK") || result.equalsIgnoreCase("XX"))
                     scanned += quantity;
@@ -241,20 +299,25 @@ public class OrderDetailActivity extends BaseActivity
             completedList.add(DO);
 
             int sizeGroupDO = items.size();
-            String tmpProductNumber = "";
+//            String tmpProductNumber = "";
+            String tmpProductName = "";
             Product product = null;
 
             for (int i = 0; i < sizeGroupDO; i++) {
                 OrderDetail orderDetail = items.get(i);
 
                 String productNumber = orderDetail.getProductNumber();
+                String productName = orderDetail.getProductName();
                 int quantity = Integer.parseInt(orderDetail.getQuantityOfPackages());
 
-                if (notSameProductNumberInGroupDO(tmpProductNumber, productNumber)) {
+                // if (notSameProductNumberInGroupDO(tmpProductNumber, productNumber)) {
+                if (notSameProductNameInGroupDO(tmpProductName, productName)) {
 
-                    product = new Product(productNumber + " ~ " + orderDetail.getProductName(), quantity);
+                    //product = new Product(productNumber + " ~ " + orderDetail.getProductName(), quantity);
+                    product = new Product(productNumber + "~" + orderDetail.getProductName(), quantity);
                     completedList.add(product);
-                    tmpProductNumber = productNumber;
+                    //tmpProductNumber = productNumber;
+                    tmpProductName = productName;
 
                 } else {
                     assert product != null;
@@ -273,6 +336,9 @@ public class OrderDetailActivity extends BaseActivity
         return !tmpProductNumber.equals(productNumber);
     }
 
+    private boolean notSameProductNameInGroupDO(String tmpProductName, String productName) {
+        return !tmpProductName.equals(productName);
+    }
 
     public void getRequest() {
         MyRetrofit.initRequest(this).getRequestPhieu(orderNumber).enqueue(new Callback<List<RequirementInfo>>() {
@@ -310,10 +376,9 @@ public class OrderDetailActivity extends BaseActivity
         if (positionJustScan != -1)
             listView.smoothScrollToPosition(positionJustScan);
         if (isPallet) {
-            dialog = new AlertDialog.Builder(this)
-                    .setMessage(palletInfo.toString())
-                    .create();
-            dialog.show();
+            showPalletScanDialog(true);
+            scanResult = "xx123456789";
+            isPallet = false;
         }
     }
 
@@ -504,7 +569,7 @@ public class OrderDetailActivity extends BaseActivity
                         @Override
                         public void onClick(DialogInterface dia, int which) {
                             AlertDialog dialog = new AlertDialog.Builder(OrderDetailActivity.this)
-                                    .setMessage("Bạn có chắc muốn xóa phiếu này?")
+                                    .setMessage("Bạn có chắc muốn xóa dòng này?")
                                     .setPositiveButton(getString(R.string.no), null).
                                             setNegativeButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
                                                 @Override
@@ -561,7 +626,6 @@ public class OrderDetailActivity extends BaseActivity
         MyRetrofit.initRequest(this).executeDispatchingOrderScannedDelete(parameter).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Response<String> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     dialog.dismiss();
                     getOrderDetail(view);
@@ -585,9 +649,9 @@ public class OrderDetailActivity extends BaseActivity
         @Override
         protected void onPostExecute(String result) {
             isPallet = false;
-            if (dialog != null) {
-                dialog.dismiss();
-                dialog = null;
+            if (palletScanDialog != null) {
+                palletScanDialog.dismiss();
+                palletScanDialog = null;
             }
             etTakeScannerResult.setText("");
             etBarcode.setText(result);
@@ -598,6 +662,9 @@ public class OrderDetailActivity extends BaseActivity
             } catch (NumberFormatException ex) {
                 type = result.substring(0, 3);
                 barcodeNumber = Integer.parseInt(result.substring(3, result.length()));
+            } catch (IndexOutOfBoundsException ex) {
+                Toast.makeText(OrderDetailActivity.this, "Chuỗi barcode không hợp lệ.", Toast.LENGTH_LONG).show();
+                return;
             }
 
             if (type.equalsIgnoreCase("DO") || type.equalsIgnoreCase("DP")) {

@@ -79,7 +79,7 @@ public class MetroCartonAdapter extends ArrayAdapter<MetroCartonInfo> {
                     final View view = LayoutInflater.from(getContext()).inflate(R.layout.item_metro_carton, null);
                     LinearLayout ll = (LinearLayout) view.findViewById(R.id.item_ll_metro_carton);
                     ll.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
-                    ll.setBackgroundResource(R.drawable.outlines);
+                    ll.setBackgroundResource(R.drawable.outlines_light);
                     TextView tvIndex = (TextView) view.findViewById(R.id.item_tv_metro_carton_index);
                     final TextView tvPercent = (TextView) view.findViewById(R.id.item_tv_metro_carton_damage_percent);
                     final EditText etWeight = (EditText) view.findViewById(R.id.item_et_metro_carton_weight);
@@ -118,9 +118,37 @@ public class MetroCartonAdapter extends ArrayAdapter<MetroCartonInfo> {
                     });
                 }
             });
+
+            holder.ivDelet.setImageResource(R.drawable.ic_action_delete_14dip);
+            holder.ivDelet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View view) {
+                    final MetroCartonInfo item = getItem(position);
+                    if (!item.isNew()) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                                .setMessage(String.format(Locale.US, "Bạn có chắc muốn xóa thùng số %d này?", item.getCheckingCartonIndex()))
+                                .setNegativeButton("Không", null)
+                                .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        MetroQACheckingCartonDelUpdateParameter parameter = new MetroQACheckingCartonDelUpdateParameter(
+                                                0, 0, 1, item.getReceivingCartonCheckingID(), LoginPref.getUsername(getContext())
+                                        );
+                                        executeMetroQACheckingCartonDelUpdate(view, parameter, position);
+                                    }
+                                });
+                        AlertDialog dialog = builder.create();
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.show();
+                    }
+                }
+            });
         } else {
             holder.ivEditor.setImageDrawable(null);
             holder.ivEditor.setOnClickListener(null);
+
+            holder.ivDelet.setImageDrawable(null);
+            holder.ivDelet.setOnClickListener(null);
         }
         holder.ivEditor.setClickable(true);
         TextView.OnEditorActionListener editorListener = new TextView.OnEditorActionListener() {
@@ -171,6 +199,34 @@ public class MetroCartonAdapter extends ArrayAdapter<MetroCartonInfo> {
         });
     }
 
+    private void executeMetroQACheckingCartonDelUpdate(final View view, final MetroQACheckingCartonDelUpdateParameter parameter, final int position) {
+        final ProgressDialog dialog = Utilities.getProgressDialog(getContext(), "Đang xóa");
+        dialog.show();
+        if (!Utilities.isConnected(getContext())) {
+            RetrofitError.errorNoAction(getContext(), new NoInternet(), TAG, view);
+            dialog.dismiss();
+        }
+        MyRetrofit.initRequest(getContext()).executeMetroQACheckingCartonDelUpdate(parameter).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Response<String> response, Retrofit retrofit) {
+                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
+                dialog.dismiss();
+                if (response.isSuccess() && response.body() != null) {
+                    remove(getItem(position));
+                    notifyDataSetChanged();
+                } else
+                    Toast.makeText(getContext(), "Có lỗi xảy ra, dữ liệu chưa được xóa", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(getContext(), "Có lỗi xảy ra, dữ liệu chưa được xóa", Toast.LENGTH_LONG).show();
+                RetrofitError.errorNoAction(getContext(), t, TAG, view);
+                dialog.dismiss();
+            }
+        });
+    }
+
     static class ViewHolder {
         @Bind(R.id.item_et_metro_carton_damage_weight)
         EditText etDamageWeight;
@@ -182,6 +238,8 @@ public class MetroCartonAdapter extends ArrayAdapter<MetroCartonInfo> {
         EditText etWeight;
         @Bind(R.id.item_iv_metro_carton_edit)
         ImageView ivEditor;
+        @Bind(R.id.item_iv_metro_carton_delete)
+        ImageView ivDelet;
         @Bind(R.id.item_ll_metro_carton)
         LinearLayout llRoot;
 

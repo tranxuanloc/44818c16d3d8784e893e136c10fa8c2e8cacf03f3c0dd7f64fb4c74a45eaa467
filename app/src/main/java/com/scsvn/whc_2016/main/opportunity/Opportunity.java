@@ -3,6 +3,8 @@ package com.scsvn.whc_2016.main.opportunity;
 import com.google.gson.annotations.SerializedName;
 import com.scsvn.whc_2016.utilities.Utilities;
 
+import java.util.UUID;
+
 /**
  * Created by tranxuanloc on 8/3/2016.
  */
@@ -20,7 +22,7 @@ public class Opportunity {
     public static final String CLOSED_DATE = "ClosedDate";
     public static final String OPPORTUNITY_ID = "OpportunityID";
     @SerializedName(OPPORTUNITY_ID)
-    private int opportunityID;
+    private UUID opportunityID;
     @SerializedName("CreatedBy")
     private String createdBy;
     @SerializedName("CreatedTime")
@@ -117,7 +119,7 @@ public class Opportunity {
         return forecastingWeights;
     }
 
-    public int getOpportunityID() {
+    public UUID getOpportunityID() {
         return opportunityID;
     }
 

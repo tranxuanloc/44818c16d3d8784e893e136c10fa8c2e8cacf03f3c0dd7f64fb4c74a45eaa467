@@ -2,12 +2,11 @@ package com.scsvn.whc_2016.main.mms.detail;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,6 +38,7 @@ public class BTHeThongBaoChayAdapter extends RecyclerView.Adapter<BTHeThongBaoCh
     private View snackBarView;
     private String userName;
     private SparseBooleanArray itemSelected = new SparseBooleanArray();
+    private int changePosition = -1;
 
     public BTHeThongBaoChayAdapter(Context context, ArrayList<Object> objects, View view) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -79,7 +79,7 @@ public class BTHeThongBaoChayAdapter extends RecyclerView.Adapter<BTHeThongBaoCh
     }
 
     @Override
-    public void onBindViewHolder(VH holder, int position) {
+    public void onBindViewHolder(VH holder, final int position) {
         if (holder instanceof HeaderViewHolder) {
             Header header = (Header) objects.get(position);
             ((HeaderViewHolder) holder).titleTV.setText(header.getTitle());
@@ -90,14 +90,21 @@ public class BTHeThongBaoChayAdapter extends RecyclerView.Adapter<BTHeThongBaoCh
             detailHolder.nameTV.setText(detail.getItemName());
             detailHolder.noteET.setText(detail.getRemark());
             detailHolder.resultCB.setChecked(detail.isCheckResult());
-            detailHolder.noteET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            detailHolder.noteET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        detail.setRemark(detailHolder.noteET.getText().toString());
-                        updateMaintenanceJobDetail(detail.getId(), detail.isCheckResult(), detail.getRemark(), userName);
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        changePosition = position;
+                    } else {
+                        if (changePosition >= 0) {
+                            detail.setRemark(detailHolder.noteET.getText().toString());
+                            MaintenanceJobDetail detail = (MaintenanceJobDetail) objects.get(changePosition);
+                            updateMaintenanceJobDetail(detail.getId(), detail.isCheckResult(), detail.getRemark(), userName);
+                        }
+                        changePosition = -1;
                     }
-                    return false;
+                    Log.d(TAG, "onFocusChange() returned: " + position + "~" + hasFocus + "~" + changePosition);
                 }
             });
             detailHolder.resultCB.setOnClickListener(new View.OnClickListener() {

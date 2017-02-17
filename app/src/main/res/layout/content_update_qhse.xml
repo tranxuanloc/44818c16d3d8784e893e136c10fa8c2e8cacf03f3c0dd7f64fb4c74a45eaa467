@@ -95,7 +95,16 @@
             android:id="@+id/iv_qhse_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
+        <GridView
+            android:id="@+id/grid_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:verticalSpacing="5dp" />
 
         <Button
             android:id="@+id/bt_qhse_create"

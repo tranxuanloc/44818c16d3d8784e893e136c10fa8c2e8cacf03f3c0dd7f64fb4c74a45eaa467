@@ -679,7 +679,7 @@
             android:id="@+id/et_worker_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/outlines"
+            android:background="@drawable/outlines_light"
             android:gravity="top"
             android:hint="@string/chu_thich"
             android:lines="2"
