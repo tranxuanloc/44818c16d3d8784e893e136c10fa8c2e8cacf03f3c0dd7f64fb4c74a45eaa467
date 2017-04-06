@@ -27,6 +27,8 @@ import com.scsvn.whc_2016.main.kiemcontainer.KiemContainerActivity;
 import com.scsvn.whc_2016.main.kiemhoso.KiemHoSoActivity;
 import com.scsvn.whc_2016.main.kiemhoso.KiemHoSoNoEMDKActivity;
 import com.scsvn.whc_2016.main.kiemqa.metroqacheckingsuppliers.MetroQACheckingSuppliersActivity;
+import com.scsvn.whc_2016.main.kiemvesinh.KiemVeSinhActivity;
+import com.scsvn.whc_2016.main.kiemvesinh.KiemVeSinhEMDKActivity;
 import com.scsvn.whc_2016.main.kiemvitri.KiemViTriActivity;
 import com.scsvn.whc_2016.main.kiemvitri.KiemViTriNoEMDKActivity;
 import com.scsvn.whc_2016.main.lichlamviec.LichLamViecActivity;
@@ -201,6 +203,13 @@ public class MenuAdapter extends ArrayAdapter<MenuInfo> {
             context.startActivity(new Intent(context, RegisterActivity.class));
         else if (tag == 31)
             context.startActivity(new Intent(context, DeviceInfoActivity.class));
+        else if (tag == 32)
+            try {
+                Class.forName("com.symbol.emdk.EMDKManager");
+                context.startActivity(new Intent(context, KiemVeSinhEMDKActivity.class));
+            } catch (ClassNotFoundException e) {
+                context.startActivity(new Intent(context, KiemVeSinhActivity.class));
+            }
     }
 
     static class ViewHolder {

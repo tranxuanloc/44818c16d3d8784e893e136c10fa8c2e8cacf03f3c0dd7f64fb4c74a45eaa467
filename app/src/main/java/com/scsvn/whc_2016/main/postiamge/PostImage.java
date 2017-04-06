@@ -10,6 +10,7 @@ import com.scsvn.whc_2016.retrofit.AttachmentParameter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
@@ -87,7 +88,7 @@ public class PostImage {
 
     private void updateAttachment(final ArrayList<File> files, final int n) {
         result = false;
-        if (!Utilities.isConnected(context)) {
+        if (!WifiHelper.isConnected(context)) {
             dialog.dismiss();
             return;
         }

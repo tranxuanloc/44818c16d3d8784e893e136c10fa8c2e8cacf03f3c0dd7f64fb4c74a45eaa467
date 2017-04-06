@@ -38,6 +38,7 @@ import com.scsvn.whc_2016.retrofit.QHSEAssignmentInsertParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -147,7 +148,7 @@ public class NewAssignWorkActivity extends BaseActivity {
         dialog = Utilities.getProgressDialog(this, "Đang tạo bài mới...");
         dialog.show();
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             return;
@@ -181,7 +182,7 @@ public class NewAssignWorkActivity extends BaseActivity {
     }
 
     private void executeQHSEAssignmentInsert(final View view, QHSEAssignmentInsertParameter parameter) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             return;

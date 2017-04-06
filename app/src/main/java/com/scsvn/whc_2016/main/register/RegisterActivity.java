@@ -17,6 +17,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RegisterParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import retrofit.Callback;
 import retrofit.Response;
@@ -90,7 +91,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
     private void register(RegisterParameter parameter) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.saving));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             dialog.dismiss();
             return;

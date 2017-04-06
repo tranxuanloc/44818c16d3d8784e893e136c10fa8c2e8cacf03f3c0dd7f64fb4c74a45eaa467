@@ -27,6 +27,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -83,7 +84,7 @@ public class MetroCartonActivity extends AppCompatActivity implements AdapterVie
     private void getMetroQACheckingCarton(final View view) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);
             dialog.dismiss();
         }
@@ -152,7 +153,7 @@ public class MetroCartonActivity extends AppCompatActivity implements AdapterVie
     private void executeMetroQACheckingCartonInsert(final View view, final MetroQACheckingCartonInsertParameter parameter) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang lưu dữ liệu...");
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
         }
@@ -187,7 +188,7 @@ public class MetroCartonActivity extends AppCompatActivity implements AdapterVie
     private void executeMetroQACheckingCartonDelUpdate(final View view, final MetroQACheckingCartonDelUpdateParameter parameter, final int position) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang xóa");
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
         }

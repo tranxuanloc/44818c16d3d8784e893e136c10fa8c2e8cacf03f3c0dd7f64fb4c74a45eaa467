@@ -28,7 +28,7 @@ import com.scsvn.whc_2016.main.gps.RecyclerViewTouchListener;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
-import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +118,7 @@ public class ListUserActivity extends AppCompatActivity implements View.OnClickL
 
     private void getListUser() {
         progressBar.setVisibility(View.VISIBLE);
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, recyclerView, tryAgain);
             updateUI();
             return;

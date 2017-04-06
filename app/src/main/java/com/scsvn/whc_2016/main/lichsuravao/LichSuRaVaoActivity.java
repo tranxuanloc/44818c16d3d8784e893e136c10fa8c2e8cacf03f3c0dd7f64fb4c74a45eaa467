@@ -30,6 +30,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -98,7 +99,7 @@ public class LichSuRaVaoActivity extends BaseActivity implements AdapterView.OnI
 
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);
             dialog.dismiss();
         }

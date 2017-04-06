@@ -8,14 +8,12 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.preferences.LoginPref;
@@ -25,6 +23,7 @@ import com.scsvn.whc_2016.retrofit.NotificationParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +77,7 @@ public class GiaoHoSoActivity extends BaseActivity implements AdapterView.OnItem
     private void getDSDispatchingOrders(final View view) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);
             dialog.dismiss();
             return;
@@ -86,7 +85,6 @@ public class GiaoHoSoActivity extends BaseActivity implements AdapterView.OnItem
         MyRetrofit.initRequest(this).getDSDispatchingOrders(new NotificationParameter(userName)).enqueue(new Callback<List<DSDispatchingOrdersInfo>>() {
             @Override
             public void onResponse(Response<List<DSDispatchingOrdersInfo>> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     adapter.clear();
                     adapter.addAll(response.body());
@@ -151,20 +149,19 @@ public class GiaoHoSoActivity extends BaseActivity implements AdapterView.OnItem
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent;
         try {
             Class.forName("com.symbol.emdk.EMDKManager");
-            Intent intent = new Intent(this, GiaoHoSoDetailActivity.class);
-            intent.putExtra("orderID", adapter.getItem(position).getDispatchingOrderNumber());
-            intent.putExtra("CUSTOMER_ID", adapter.getItem(position).getCustomerNumber().split("-")[1]);
-            intent.putExtra("ORDER_TYPE", adapter.getItem(position).getOrderType());
-            startActivity(intent);
+            intent = new Intent(this, GiaoHoSoDetailEMDKActivity.class);
+
         } catch (ClassNotFoundException e) {
-            Intent intent = new Intent(this, GiaoHoSoDetailNoEMDKActivity.class);
-            intent.putExtra("orderID", adapter.getItem(position).getDispatchingOrderNumber());
-            intent.putExtra("CUSTOMER_ID", adapter.getItem(position).getCustomerNumber().split("-")[1]);
-            intent.putExtra("ORDER_TYPE", adapter.getItem(position).getOrderType());
-            startActivity(intent);
+            intent = new Intent(this, GiaoHoSoDetailActivity.class);
+
         }
+        intent.putExtra("orderID", adapter.getItem(position).getDispatchingOrderNumber());
+        intent.putExtra("CUSTOMER_ID", adapter.getItem(position).getCustomerNumber().split("-")[1]);
+        intent.putExtra("ORDER_TYPE", adapter.getItem(position).getOrderType());
+        startActivity(intent);
 
     }
 }

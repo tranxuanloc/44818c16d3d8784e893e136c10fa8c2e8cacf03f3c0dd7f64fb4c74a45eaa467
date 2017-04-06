@@ -26,6 +26,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
@@ -110,7 +111,7 @@ public class SignActivity extends BaseActivity {
     private void upSignature(final View view) {
         dialog = Utilities.getProgressDialog(this, "Đang lưu chữ ký...");
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
             return;
@@ -141,7 +142,7 @@ public class SignActivity extends BaseActivity {
     }
 
     public void updateData(final View view) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
             return;

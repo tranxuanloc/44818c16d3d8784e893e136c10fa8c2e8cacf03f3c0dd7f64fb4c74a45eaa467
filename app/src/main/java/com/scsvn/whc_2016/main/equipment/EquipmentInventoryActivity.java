@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.scsvn.whc_2016.R;
@@ -29,6 +27,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 import com.symbol.emdk.EMDKManager;
 import com.symbol.emdk.EMDKResults;
 import com.symbol.emdk.barcode.BarcodeManager;
@@ -100,7 +99,7 @@ public class EquipmentInventoryActivity extends AppCompatActivity implements Sca
     public void getEquipmentInventory(final View view, EquipmentInventoryParameter parameter) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             return;
@@ -109,7 +108,6 @@ public class EquipmentInventoryActivity extends AppCompatActivity implements Sca
 
             @Override
             public void onResponse(Response<List<EquipmentInventoryInfo>> response, Retrofit retrofit) {
-                Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     adapter.clear();
                     adapter.addAll(response.body());
@@ -156,7 +154,6 @@ public class EquipmentInventoryActivity extends AppCompatActivity implements Sca
     protected void onResume() {
         super.onResume();
         Const.isActivating = true;
-        Log.d(TAG, "onResume: ");
         if (emdkManager != null) {
             barcodeManager = (BarcodeManager) emdkManager.getInstance(EMDKManager.FEATURE_TYPE.BARCODE);
             initScanner();
@@ -215,7 +212,6 @@ public class EquipmentInventoryActivity extends AppCompatActivity implements Sca
 
     @Override
     public void onStatus(StatusData statusData) {
-        Log.d(TAG, "onStatus: " + statusData.getState());
         String statusString = "";
         StatusData.ScannerStates state = statusData.getState();
         switch (state) {
@@ -251,7 +247,6 @@ public class EquipmentInventoryActivity extends AppCompatActivity implements Sca
             default:
                 break;
         }
-        Log.e(TAG, "onStatus: " + statusString);
     }
 
 
@@ -344,7 +339,6 @@ public class EquipmentInventoryActivity extends AppCompatActivity implements Sca
             EMDKResults results = EMDKManager.getEMDKManager(EquipmentInventoryActivity.this, new EMDKManager.EMDKListener() {
                 @Override
                 public void onOpened(EMDKManager emdkManager) {
-                    Log.d(TAG, "onOpened: ");
                     EquipmentInventoryActivity.this.emdkManager = emdkManager;
                     barcodeManager = (BarcodeManager) emdkManager.getInstance(EMDKManager.FEATURE_TYPE.BARCODE);
                     initScanner();
@@ -354,7 +348,6 @@ public class EquipmentInventoryActivity extends AppCompatActivity implements Sca
 
                 @Override
                 public void onClosed() {
-                    Log.d(TAG, "onClosed: ");
                     if (emdkManager != null) {
                         // Release all the resources
                         emdkManager.release();
@@ -376,7 +369,6 @@ public class EquipmentInventoryActivity extends AppCompatActivity implements Sca
 
         @Override
         protected void onPostExecute(String result) {
-            Log.d(TAG, "onData: " + result);
             etScanResult.setText(result);
             EquipmentInventoryParameter parameter = new EquipmentInventoryParameter(
                     userName,

@@ -24,12 +24,13 @@ import com.google.gson.Gson;
 import com.scsvn.whc_2016.R;
 import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.preferences.LoginPref;
-import com.scsvn.whc_2016.retrofit.InOutToDayUnFinishParameter;
+import com.scsvn.whc_2016.retrofit.InOutToDayUnfinishedParameter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -92,7 +93,7 @@ public class KhachHangActivity extends BaseActivity {
             }
         });
 
-        adapter = new KhachHangAdapter(this, new ArrayList<InOutToDayUnFinishInfo>());
+        adapter = new KhachHangAdapter(this, new ArrayList<InOutToDayUnfinishedInfo>());
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -125,20 +126,20 @@ public class KhachHangActivity extends BaseActivity {
         tvTotalWeight.setText("0");
         refreshLayout.setRefreshing(false);
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;
         }
-        MyRetrofit.initRequest(this).getPhieuCustomer(new InOutToDayUnFinishParameter(wareHouseID, userName, reportDate)).enqueue(new Callback<List<InOutToDayUnFinishInfo>>() {
+        MyRetrofit.initRequest(this).getPhieuCustomer(new InOutToDayUnfinishedParameter(wareHouseID, userName, reportDate)).enqueue(new Callback<List<InOutToDayUnfinishedInfo>>() {
             @Override
-            public void onResponse(Response<List<InOutToDayUnFinishInfo>> response, Retrofit retrofit) {
+            public void onResponse(Response<List<InOutToDayUnfinishedInfo>> response, Retrofit retrofit) {
                 Log.e(TAG, "onResponse: " + new Gson().toJson(response.body()));
                 if (response.isSuccess() && response.body() != null) {
                     adapter.clear();
                     adapter.addAll(response.body());
                     float totalWeight = 0;
-                    for (InOutToDayUnFinishInfo info : response.body())
+                    for (InOutToDayUnfinishedInfo info : response.body())
                         totalWeight += info.getTotalWeight();
                     tvTotalWeight.setText(NumberFormat.getInstance().format(totalWeight));
                 }

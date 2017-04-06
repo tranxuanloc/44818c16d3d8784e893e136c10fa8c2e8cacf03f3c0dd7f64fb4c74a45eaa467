@@ -26,6 +26,7 @@ import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -80,7 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dialog.setCanceledOnTouchOutside(false);
         dialog.setMessage("Data loading ...");
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, flRoot, tryAgain);
             dialog.dismiss();
             return;

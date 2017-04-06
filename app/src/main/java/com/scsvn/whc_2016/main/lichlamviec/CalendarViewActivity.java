@@ -27,6 +27,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.retrofit.WorkingSchedulesParameter;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -100,7 +101,7 @@ public class CalendarViewActivity extends AppCompatActivity {
     }
 
     private void getJobInMonth(final View view, int month, int year) {
-        if (!Utilities.isConnected(this))
+        if (!WifiHelper.isConnected(this))
             return;
         MyRetrofit.initRequest(this).getMyCalendar(new MyCalendarParameter(userName, month, year)).enqueue(new Callback<List<MyCalendarInfo>>() {
             @Override
@@ -131,7 +132,7 @@ public class CalendarViewActivity extends AppCompatActivity {
     private void getWorkingSchedules(final View view) {
         dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
             return;
@@ -157,7 +158,7 @@ public class CalendarViewActivity extends AppCompatActivity {
     }
 
     private void getWorkingSchedulesEmployeePlan(final View view) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
             return;

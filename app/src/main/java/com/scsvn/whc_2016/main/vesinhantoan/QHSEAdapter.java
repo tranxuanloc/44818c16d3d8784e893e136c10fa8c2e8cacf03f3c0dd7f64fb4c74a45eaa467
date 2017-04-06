@@ -32,6 +32,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -253,7 +254,7 @@ public class QHSEAdapter extends ArrayAdapter<QHSEInfo> implements View.OnClickL
         final ProgressDialog dialog = Utilities.getProgressDialog(getContext(), getContext().getString(R.string.deleting));
         dialog.show();
 
-        if (!Utilities.isConnected(getContext())) {
+        if (!WifiHelper.isConnected(getContext())) {
             dialog.dismiss();
             RetrofitError.errorNoAction(getContext(), new NoInternet(), TAG, view);
             return;

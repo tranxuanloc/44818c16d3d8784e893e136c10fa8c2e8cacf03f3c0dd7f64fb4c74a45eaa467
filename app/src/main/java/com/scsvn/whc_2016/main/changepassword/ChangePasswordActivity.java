@@ -21,6 +21,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -100,7 +101,7 @@ public class ChangePasswordActivity extends BaseActivity {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang gửi ...");
         dialog.show();
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             return;

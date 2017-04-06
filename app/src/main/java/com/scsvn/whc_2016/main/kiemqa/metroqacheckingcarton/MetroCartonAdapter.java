@@ -25,6 +25,7 @@ import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -172,7 +173,7 @@ public class MetroCartonAdapter extends ArrayAdapter<MetroCartonInfo> {
     private void executeMetroQACheckingCartonDelUpdate(final View view, final MetroQACheckingCartonDelUpdateParameter parameter, final int position, final AlertDialog alertDialog) {
         final ProgressDialog dialog = Utilities.getProgressDialog(getContext(), "Đang sửa");
         dialog.show();
-        if (!Utilities.isConnected(getContext())) {
+        if (!WifiHelper.isConnected(getContext())) {
             RetrofitError.errorNoAction(getContext(), new NoInternet(), TAG, view);
             dialog.dismiss();
         }
@@ -202,7 +203,7 @@ public class MetroCartonAdapter extends ArrayAdapter<MetroCartonInfo> {
     private void executeMetroQACheckingCartonDelUpdate(final View view, final MetroQACheckingCartonDelUpdateParameter parameter, final int position) {
         final ProgressDialog dialog = Utilities.getProgressDialog(getContext(), "Đang xóa");
         dialog.show();
-        if (!Utilities.isConnected(getContext())) {
+        if (!WifiHelper.isConnected(getContext())) {
             RetrofitError.errorNoAction(getContext(), new NoInternet(), TAG, view);
             dialog.dismiss();
         }

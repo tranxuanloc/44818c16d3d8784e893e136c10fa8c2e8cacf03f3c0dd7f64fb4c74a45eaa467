@@ -36,6 +36,7 @@ import com.scsvn.whc_2016.retrofit.OverTimeEntryParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -210,7 +211,7 @@ public class OverTimeEntryActivity extends AppCompatActivity implements AdapterV
     public void getEmployeeID(final View view) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;
@@ -301,7 +302,7 @@ public class OverTimeEntryActivity extends AppCompatActivity implements AdapterV
     public void executeOverTimeEntry(final View view) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang cập nhật...");
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;
@@ -338,7 +339,7 @@ public class OverTimeEntryActivity extends AppCompatActivity implements AdapterV
     public void executeOverTimeDelUpdate(final View view) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang cập nhật...");
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;

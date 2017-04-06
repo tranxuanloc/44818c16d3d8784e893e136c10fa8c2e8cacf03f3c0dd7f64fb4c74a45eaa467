@@ -21,7 +21,7 @@ import com.scsvn.whc_2016.retrofit.MaintenanceJobDetailUpdateParameter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
-import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 
@@ -161,7 +161,7 @@ public class BTMayNenAdapter extends RecyclerView.Adapter<BTMayNenAdapter.VH> im
     }
 
     private void updateMaintenanceJobDetail(int maintenanceJobDetailID, String result, String remark, String userName) {
-        if (!Utilities.isConnected(context)) {
+        if (!WifiHelper.isConnected(context)) {
             RetrofitError.errorNoAction(context, new NoInternet(), TAG, snackBarView);
             return;
         }

@@ -31,6 +31,7 @@ import com.scsvn.whc_2016.retrofit.StockMovementParameter;
 import com.scsvn.whc_2016.retrofit.StockMovementReversedParameter;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,7 +156,7 @@ public class ChuyenHangActivity extends AppCompatActivity implements TextView.On
         Utilities.hideKeyboard(this);
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
         }
@@ -196,7 +197,7 @@ public class ChuyenHangActivity extends AppCompatActivity implements TextView.On
         Utilities.hideKeyboard(this);
         final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang chuyển...");
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
         }
@@ -234,7 +235,7 @@ public class ChuyenHangActivity extends AppCompatActivity implements TextView.On
         Utilities.hideKeyboard(this);
         final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang đảo...");
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
         }

@@ -15,6 +15,7 @@ import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -68,7 +69,7 @@ public class ContainerAndTruckInfoActivity extends AppCompatActivity {
         bar.show();
         refreshLayout.setRefreshing(false);
 
-        if (!Utilities.isConnected(getApplicationContext())) {
+        if (!WifiHelper.isConnected(getApplicationContext())) {
             RetrofitError.errorWithAction(getApplicationContext(), new NoInternet(), TAG, view, tryAgain);
             bar.dismiss();
             return;

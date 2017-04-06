@@ -8,6 +8,8 @@
     <dimen name="card_radius">5dp</dimen>
     <dimen name="padding_5dp">5dp</dimen>
     <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="all_margin_5dp">5dp</dimen>
+    <dimen name="all_margin_10dp">10dp</dimen>
     <dimen name="polyline_width">7dp</dimen>
     <dimen name="icon_remove_width">25dp</dimen>
     <dimen name="booking_width">12dp</dimen>

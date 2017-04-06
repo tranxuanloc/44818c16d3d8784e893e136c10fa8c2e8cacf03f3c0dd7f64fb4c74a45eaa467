@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Trần Xuân Lộc on 12/30/2015.
  */
-public class InOutToDayUnFinishInfo {
+public class InOutToDayUnfinishedInfo {
     @SerializedName("CustomerID")
     private int customerID;
     @SerializedName("CustomerNumber")

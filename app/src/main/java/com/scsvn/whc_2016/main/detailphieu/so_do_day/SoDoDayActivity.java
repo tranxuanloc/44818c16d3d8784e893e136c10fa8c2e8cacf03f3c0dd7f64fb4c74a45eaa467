@@ -24,6 +24,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +77,7 @@ public class SoDoDayActivity extends BaseActivity implements SoDoDayAdapter.OnEd
     private void getLoadingReport(final View view) {
         Utilities.hideKeyboard(this);
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);
             dialog.dismiss();
             return;
@@ -113,7 +114,7 @@ public class SoDoDayActivity extends BaseActivity implements SoDoDayAdapter.OnEd
     }
 
     private void executeLoadingReportInsert(final View view) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);
             dialog.dismiss();
             return;
@@ -136,7 +137,7 @@ public class SoDoDayActivity extends BaseActivity implements SoDoDayAdapter.OnEd
     }
 
     private void executeLoadingReportUpdate(final View view) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
             return;

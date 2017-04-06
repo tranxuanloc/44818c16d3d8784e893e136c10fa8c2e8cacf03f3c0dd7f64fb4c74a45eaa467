@@ -32,6 +32,7 @@ import com.scsvn.whc_2016.retrofit.OpportunityParameter;
 import com.scsvn.whc_2016.retrofit.QHSEAssignmentInsertParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -213,7 +214,7 @@ public class AddOpportunityActivity extends BaseActivity implements View.OnFocus
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.adding));
         dialog.show();
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
@@ -250,7 +251,7 @@ public class AddOpportunityActivity extends BaseActivity implements View.OnFocus
     }
 
     private void executeQHSEAssignmentInsert(final ProgressDialog dialog, QHSEAssignmentInsertParameter parameter) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
@@ -280,7 +281,7 @@ public class AddOpportunityActivity extends BaseActivity implements View.OnFocus
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;

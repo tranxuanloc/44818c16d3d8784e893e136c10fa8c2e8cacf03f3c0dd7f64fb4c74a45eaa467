@@ -23,6 +23,7 @@ import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -86,7 +87,7 @@ public class NangSuatNhanVienActivity extends BaseActivity implements View.OnCli
     }
 
     private void getComboDepartmentID() {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             dialog.dismiss();
             return;
@@ -114,7 +115,7 @@ public class NangSuatNhanVienActivity extends BaseActivity implements View.OnCli
     }
 
     private void getComboShiftID() {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             dialog.dismiss();
             return;
@@ -142,7 +143,7 @@ public class NangSuatNhanVienActivity extends BaseActivity implements View.OnCli
     }
 
     private void getComboPositionID() {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             dialog.dismiss();
             return;
@@ -169,7 +170,7 @@ public class NangSuatNhanVienActivity extends BaseActivity implements View.OnCli
     }
 
     private void getEmployeeWorkingByDate(EmployeeWorkingByDateParameter parameter) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             dialog.dismiss();
             return;

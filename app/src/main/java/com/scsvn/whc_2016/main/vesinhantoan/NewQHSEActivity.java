@@ -30,6 +30,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 
@@ -88,7 +89,7 @@ public class NewQHSEActivity extends BaseActivity {
         dialog = Utilities.getProgressDialog(this, getString(R.string.creating_new_article));
         dialog.show();
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             return;

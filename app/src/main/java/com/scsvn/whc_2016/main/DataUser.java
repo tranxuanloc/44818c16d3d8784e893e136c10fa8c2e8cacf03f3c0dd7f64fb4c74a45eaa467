@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class DataUser {
     public static ArrayList<MenuInfo> data = new ArrayList<>();
     private Context context;
-    private int max = 31;
+    private int max = 32;
 
     public DataUser(Context context) {
         this.context = context;
@@ -46,6 +46,7 @@ public class DataUser {
         data.add(new MenuInfo(26, context.getString(R.string.calendar), R.drawable.ic_event));
         data.add(new MenuInfo(27, context.getString(R.string.label_maintenance), R.drawable.ic_scan_ho_so));
         data.add(new MenuInfo(30, context.getString(R.string.label_bookings), R.drawable.ic_kiem_pallet));
+        data.add(new MenuInfo(32, context.getString(R.string.main_label_kvs), R.drawable.ic_chup_hinh));
         data.add(new MenuInfo(28, context.getString(R.string.label_register), R.drawable.ic_cua_toi));
         data.add(new MenuInfo(12, context.getString(R.string.doi_mat_khau), R.drawable.ic_mat_khau));
         data.add(new MenuInfo(17, context.getString(R.string.cap_nhat_moi), R.drawable.ic_cap_nhat_moi));
@@ -76,6 +77,7 @@ public class DataUser {
         data.add(new MenuInfo(22, context.getString(R.string.giao_viec), R.drawable.ic_scan_xuat));
         data.add(new MenuInfo(16, context.getString(R.string.lich_lam_viec), R.drawable.ic_lich_lam_viec));
         data.add(new MenuInfo(26, context.getString(R.string.calendar), R.drawable.ic_event));
+        data.add(new MenuInfo(32, context.getString(R.string.main_label_kvs), R.drawable.ic_chup_hinh));
         data.add(new MenuInfo(21, context.getString(R.string.gps), R.drawable.ic_place));
         data.add(new MenuInfo(12, context.getString(R.string.doi_mat_khau), R.drawable.ic_mat_khau));
         data.add(new MenuInfo(17, context.getString(R.string.cap_nhat_moi), R.drawable.ic_cap_nhat_moi));

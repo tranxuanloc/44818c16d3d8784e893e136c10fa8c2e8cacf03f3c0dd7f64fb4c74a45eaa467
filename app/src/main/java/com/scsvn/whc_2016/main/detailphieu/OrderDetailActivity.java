@@ -43,6 +43,7 @@ import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.retrofit.UpdateDispatchingOrderDetailParameter;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -159,7 +160,7 @@ public class OrderDetailActivity extends BaseActivity
     public void getOrderDetail(final View view) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;
@@ -320,8 +321,8 @@ public class OrderDetailActivity extends BaseActivity
                     tmpProductName = productName;
 
                 } else {
-                    assert product != null;
-                    product.setTotal(product.getTotal() + quantity);
+                    if (product != null)
+                        product.setTotal(product.getTotal() + quantity);
                 }
                 if (barcodeNumber != 0 && orderDetail.getPalletID().contains(barcodeNumber + ""))
                     positionJustScan = completedList.size();
@@ -618,7 +619,7 @@ public class OrderDetailActivity extends BaseActivity
     private void executeDispatchingOrderScannedDelete(final View view, DispatchingOrderScannedDeleteParameter parameter) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.deleting));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             return;

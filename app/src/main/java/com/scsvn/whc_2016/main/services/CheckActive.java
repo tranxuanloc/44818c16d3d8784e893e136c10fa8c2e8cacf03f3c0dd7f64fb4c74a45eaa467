@@ -11,7 +11,7 @@ import com.scsvn.whc_2016.login.LoginActivity;
 import com.scsvn.whc_2016.preferences.LoginPref;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.utilities.Const;
-import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.Calendar;
 
@@ -57,7 +57,7 @@ public class CheckActive extends IntentService {
     }
 
     private void updateSignOut() {
-        if (!Utilities.isConnected(this))
+        if (!WifiHelper.isConnected(this))
             return;
         MyRetrofit.initRequest(this).signOut(LoginPref.getUsername(this)).enqueue(new Callback<String>() {
             @Override

@@ -33,6 +33,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -246,7 +247,7 @@ public class WorkerFragment extends Fragment implements View.OnFocusChangeListen
         String userName = LoginPref.getInfoUser(getContext(), LoginPref.USERNAME);
         dialog = Utilities.getProgressDialog(getContext(), getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(getContext())) {
+        if (!WifiHelper.isConnected(getContext())) {
             dialog.dismiss();
             RetrofitError.errorNoAction(getContext(), new NoInternet(), TAG, view);
             return;
@@ -592,7 +593,7 @@ public class WorkerFragment extends Fragment implements View.OnFocusChangeListen
     public void insertEmployeeWorking(final View view, InsertWorkerParameter parameter) {
         final ProgressDialog dialog = Utilities.getProgressDialog(getContext(), "Đang lưu dữ liệu...");
         dialog.show();
-        if (!Utilities.isConnected(getContext())) {
+        if (!WifiHelper.isConnected(getContext())) {
             dialog.dismiss();
             RetrofitError.errorNoAction(getContext(), new NoInternet(), TAG, view);
             return;

@@ -421,6 +421,8 @@
     <string name="title_activity_booking">Customer Booking View</string>
     <string name="label_bookings">Bookings</string>
     <string name="label_device_info">Device info</string>
+    <string name="main_label_kvs">GSK kiểm</string>
     <string name="lb_android_id">Android ID:&#160;</string>
+    <string name="kvs_title_activity">Kiểm vệ sinh</string>
 
 </resources>

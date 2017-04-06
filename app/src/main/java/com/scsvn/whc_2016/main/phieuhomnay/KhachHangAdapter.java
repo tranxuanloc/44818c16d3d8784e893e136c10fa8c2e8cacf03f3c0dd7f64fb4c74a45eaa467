@@ -25,12 +25,12 @@ import butterknife.ButterKnife;
 /**
  * Created by Trần Xuân Lộc on 1/8/2016.
  */
-public class KhachHangAdapter extends ArrayAdapter<InOutToDayUnFinishInfo> implements Filterable {
+public class KhachHangAdapter extends ArrayAdapter<InOutToDayUnfinishedInfo> implements Filterable {
     private LayoutInflater inflater;
-    private ArrayList<InOutToDayUnFinishInfo> dataOrigin;
-    private ArrayList<InOutToDayUnFinishInfo> dataRelease;
+    private ArrayList<InOutToDayUnfinishedInfo> dataOrigin;
+    private ArrayList<InOutToDayUnfinishedInfo> dataRelease;
 
-    public KhachHangAdapter(Context context, ArrayList<InOutToDayUnFinishInfo> objects) {
+    public KhachHangAdapter(Context context, ArrayList<InOutToDayUnfinishedInfo> objects) {
         super(context, 0, objects);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         dataOrigin = objects;
@@ -38,7 +38,7 @@ public class KhachHangAdapter extends ArrayAdapter<InOutToDayUnFinishInfo> imple
     }
 
     @Override
-    public InOutToDayUnFinishInfo getItem(int position) {
+    public InOutToDayUnfinishedInfo getItem(int position) {
         return dataRelease.get(position);
     }
 
@@ -55,7 +55,7 @@ public class KhachHangAdapter extends ArrayAdapter<InOutToDayUnFinishInfo> imple
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else holder = (ViewHolder) convertView.getTag();
-        InOutToDayUnFinishInfo info = dataRelease.get(position);
+        InOutToDayUnfinishedInfo info = dataRelease.get(position);
         holder.cusName.setText(info.getCustomerName());
         holder.cusNumber.setText(info.getCustomerNumber());
         holder.quantity.setText(String.format(Locale.US, "%d", info.getOrderQty()));
@@ -83,9 +83,9 @@ public class KhachHangAdapter extends ArrayAdapter<InOutToDayUnFinishInfo> imple
                 FilterResults results = new FilterResults();
                 String keyword = constraint.toString().toLowerCase();
                 if (keyword.length() > 0) {
-                    ArrayList<InOutToDayUnFinishInfo> arrayFilter = new ArrayList<>();
+                    ArrayList<InOutToDayUnfinishedInfo> arrayFilter = new ArrayList<>();
                     for (int i = 0; i < dataOrigin.size(); i++) {
-                        InOutToDayUnFinishInfo info = dataOrigin.get(i);
+                        InOutToDayUnfinishedInfo info = dataOrigin.get(i);
                         String name = Normalizer.normalize(info.getCustomerName().toLowerCase(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
                         String nameNoSpace = Normalizer.normalize(info.getCustomerName().toLowerCase(), Normalizer.Form.NFD).replaceAll(" ", "").replaceAll("[^\\p{ASCII}]", "");
                         String number = Normalizer.normalize(info.getCustomerNumber().toLowerCase(), Normalizer.Form.NFD).replaceAll("-", "");
@@ -103,7 +103,7 @@ public class KhachHangAdapter extends ArrayAdapter<InOutToDayUnFinishInfo> imple
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                dataRelease = (ArrayList<InOutToDayUnFinishInfo>) results.values;
+                dataRelease = (ArrayList<InOutToDayUnfinishedInfo>) results.values;
                 notifyDataSetChanged();
             }
         };

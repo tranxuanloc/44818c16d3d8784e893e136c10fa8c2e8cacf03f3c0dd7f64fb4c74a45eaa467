@@ -31,6 +31,7 @@ import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -83,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements OnRequestPermiss
         Utilities.hideKeyboard(this);
         final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang đăng nhập...");
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             return;

@@ -19,6 +19,7 @@ import com.scsvn.whc_2016.retrofit.QHSEAssignmentInsertParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +112,7 @@ public class UpdateScheduleJobActivity extends BaseActivity implements View.OnCl
     private void executeQHSEAssignmentInsert(QHSEAssignmentInsertParameter parameter) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.saving));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;

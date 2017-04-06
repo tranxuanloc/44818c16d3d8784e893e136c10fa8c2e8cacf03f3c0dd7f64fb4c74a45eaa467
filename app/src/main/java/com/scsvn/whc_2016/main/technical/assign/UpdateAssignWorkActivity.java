@@ -41,6 +41,7 @@ import com.scsvn.whc_2016.retrofit.QHSEAssignmentInsertParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -261,7 +262,7 @@ public class UpdateAssignWorkActivity extends BaseActivity {
         dialog = Utilities.getProgressDialog(this, "Đang cập nhật bài viết...");
         dialog.show();
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             return;
@@ -291,7 +292,7 @@ public class UpdateAssignWorkActivity extends BaseActivity {
     }
 
     private void executeQHSEAssignmentInsert(final View view, QHSEAssignmentInsertParameter parameter) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             return;

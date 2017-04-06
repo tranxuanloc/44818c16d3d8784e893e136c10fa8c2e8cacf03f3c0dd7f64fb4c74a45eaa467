@@ -40,6 +40,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -354,7 +355,7 @@ public class AssignWorkAdapter extends ArrayAdapter<AssignWorkInfo> implements V
         final ProgressDialog dialog = Utilities.getProgressDialog(getContext(), getContext().getString(R.string.deleting));
         dialog.show();
 
-        if (!Utilities.isConnected(getContext())) {
+        if (!WifiHelper.isConnected(getContext())) {
             dialog.dismiss();
             RetrofitError.errorNoAction(getContext(), new NoInternet(), TAG, view);
             return;
@@ -386,7 +387,7 @@ public class AssignWorkAdapter extends ArrayAdapter<AssignWorkInfo> implements V
         final ProgressDialog dialog = Utilities.getProgressDialog(getContext(), "Đang cập nhật...");
         dialog.show();
 
-        if (!Utilities.isConnected(getContext())) {
+        if (!WifiHelper.isConnected(getContext())) {
             dialog.dismiss();
             RetrofitError.errorNoAction(getContext(), new NoInternet(), TAG, view);
             return;
@@ -434,7 +435,7 @@ public class AssignWorkAdapter extends ArrayAdapter<AssignWorkInfo> implements V
 
     private void updateRating(final View view, final InsertAssignWorkParameter parameter) {
 
-        if (!Utilities.isConnected(getContext())) {
+        if (!WifiHelper.isConnected(getContext())) {
             RetrofitError.errorNoAction(getContext(), new NoInternet(), TAG, view);
             return;
         }
@@ -459,7 +460,7 @@ public class AssignWorkAdapter extends ArrayAdapter<AssignWorkInfo> implements V
         final ProgressDialog dialog = Utilities.getProgressDialog(getContext(), "Đang xác nhận...");
         dialog.show();
 
-        if (!Utilities.isConnected(getContext())) {
+        if (!WifiHelper.isConnected(getContext())) {
             dialog.dismiss();
             RetrofitError.errorNoAction(getContext(), new NoInternet(), TAG, view);
             return;

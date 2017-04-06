@@ -23,6 +23,7 @@ import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -103,7 +104,7 @@ public class MeetingDetailActivity extends BaseActivity implements View.OnClickL
     private void getMeetingDetail(final int meetingId) {
         dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             dialog.dismiss();
             return;
@@ -129,7 +130,7 @@ public class MeetingDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void getMeetingGuest(int meetingId) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -239,7 +240,7 @@ public class MeetingDetailActivity extends BaseActivity implements View.OnClickL
     private void deleteMeeting(int meetingId) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.deleting));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             dialog.dismiss();
             return;

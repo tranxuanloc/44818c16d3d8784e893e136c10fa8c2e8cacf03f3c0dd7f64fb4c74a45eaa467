@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".main.detailphieu.OrderDetailWithMDKActivity"
     tools:showIn="@layout/activity_order_detail">
 
     <EditText
@@ -29,13 +28,14 @@
         android:id="@+id/barcode"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_alignTop="@id/so_do_day"
-        android:layout_toLeftOf="@id/so_do_day"
         android:background="@drawable/corners_no_outline"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:padding="5dp"
-        android:textColor="#000" />
+        android:textColor="#000"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <LinearLayout
         android:id="@+id/header"

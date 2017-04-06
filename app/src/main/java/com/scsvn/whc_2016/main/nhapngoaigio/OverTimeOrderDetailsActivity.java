@@ -18,6 +18,7 @@ import com.scsvn.whc_2016.retrofit.OverTimeOrderDetailsParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class OverTimeOrderDetailsActivity extends AppCompatActivity {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;

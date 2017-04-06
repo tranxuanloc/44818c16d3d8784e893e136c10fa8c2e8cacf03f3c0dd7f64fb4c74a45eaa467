@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.scsvn.whc_2016.main.kiemvesinh.InsertKVSActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <ImageView
+                android:id="@id/iv_insert_kvs_done"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="end"
+                android:background="@drawable/selector_all_item_actionbar"
+                android:onClick="done"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_action_done" />
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_10dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <RadioGroup
+            android:id="@id/rg_insert_kvs_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <RadioButton
+                android:id="@id/rb_insert_kvs_qualified"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Đạt yêu cầu"
+                android:textAllCaps="true" />
+
+            <RadioButton
+                android:id="@id/rb_insert_kvs_unqualified"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Không đạt"
+                android:textAllCaps="true" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@id/et_insert_kvs_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/all_margin_5dp"
+            android:layout_marginTop="@dimen/all_margin_5dp"
+            android:background="@drawable/outlines_dark"
+            android:gravity="top"
+            android:hint="@string/ghi_chu"
+            android:minLines="2"
+            android:padding="@dimen/padding_5dp" />
+
+        <GridView
+            android:id="@id/gv_insert_kvs_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:verticalSpacing="5dp" />
+
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -34,6 +34,7 @@ import com.scsvn.whc_2016.main.kiemqa.metroqacheckingcarton.MetroCartonInfo;
 import com.scsvn.whc_2016.main.kiemqa.metroqacheckinglistproducts.QACheckingListProductsInfo;
 import com.scsvn.whc_2016.main.kiemqa.metroqacheckingproduct.MetroCheckingProductInfo;
 import com.scsvn.whc_2016.main.kiemqa.metroqacheckingsuppliers.MetroQAInfo;
+import com.scsvn.whc_2016.main.kiemvesinh.HouseKeepingCheck;
 import com.scsvn.whc_2016.main.kiemvitri.LocationCheckingInfo;
 import com.scsvn.whc_2016.main.lichlamviec.MyCalendarInfo;
 import com.scsvn.whc_2016.main.lichlamviec.WorkingSchedulesEmployeePlanInfo;
@@ -61,11 +62,10 @@ import com.scsvn.whc_2016.main.opportunity.Customer;
 import com.scsvn.whc_2016.main.opportunity.Opportunity;
 import com.scsvn.whc_2016.main.opportunity.OpportunityCustomerCategory;
 import com.scsvn.whc_2016.main.palletcartonchecking.MovementHistoryInfo;
-import com.scsvn.whc_2016.main.palletcartonchecking.PalletCartonInfo;
 import com.scsvn.whc_2016.main.palletcartonchecking.PalletFind;
 import com.scsvn.whc_2016.main.phieucuatoi.PhieuCuaToiInfo;
 import com.scsvn.whc_2016.main.phieuhomnay.HomNayInfo;
-import com.scsvn.whc_2016.main.phieuhomnay.InOutToDayUnFinishInfo;
+import com.scsvn.whc_2016.main.phieuhomnay.InOutToDayUnfinishedInfo;
 import com.scsvn.whc_2016.main.phieuhomnay.giaoviec.EmployeeInfo;
 import com.scsvn.whc_2016.main.phieuhomnay.giaoviec.GiaoViecInfo;
 import com.scsvn.whc_2016.main.services.NotificationInfo;
@@ -89,9 +89,7 @@ import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
 
-/**
- * Created by Trần Xuân Lộc on 1/3/2016.
- */
+
 public interface MyRequests {
     @POST("/api/login")
     Call<LoginInfo> signIn(@Body com.scsvn.whc_2016.retrofit.LoginInfo loginInfo);
@@ -102,11 +100,11 @@ public interface MyRequests {
     @POST("/api/LogOut")
     Call<String> signOut(@Body String userName);
 
-    @POST("/api/inouttoday")
+    @POST("/api/InOutToday")
     Call<List<HomNayInfo>> getPhieuHomNay(@Body InOutToDayInfo toDayInfo);
 
-    @POST("/api/inouttodayunfinish")
-    Call<List<InOutToDayUnFinishInfo>> getPhieuCustomer(@Body InOutToDayUnFinishParameter unFinishInfo);
+    @POST("/api/InOutTodayUnFinish")
+    Call<List<InOutToDayUnfinishedInfo>> getPhieuCustomer(@Body InOutToDayUnfinishedParameter unFinishInfo);
 
     @POST("/api/MyOrders")
     Call<List<PhieuCuaToiInfo>> getPhieuCuaToi(@Body MyOrderInfo myOrderInfo);
@@ -114,7 +112,7 @@ public interface MyRequests {
     @POST("/api/InOutAvailableForSupervisor")
     Call<List<PhieuCuaToiInfo>> getInOutAvailableForSupervisor(@Body InOutAvailableForSupervisorParameter myOrderInfo);
 
-    @POST("/api/ordersresult")
+    @POST("/api/OrdersResult")
     Call<List<OrderDetail>> getDetailPhieu(@Body OrdersInfo orderNumber);
 
     @POST("/api/LoadingReport")
@@ -126,10 +124,10 @@ public interface MyRequests {
     @POST("/api/LoadingReportUpdate")
     Call<String> executeLoadingReportUpdate(@Body LoadingReportUpdateParameter parameter);
 
-    @POST("/api/customerRequirement")
+    @POST("/api/CustomerRequirement")
     Call<List<RequirementInfo>> getRequestPhieu(@Body String orderNumber);
 
-    @POST("/api/employeeworkingassign")
+    @POST("/api/EmployeeWorkingAssign")
     Call<List<GiaoViecInfo>> getGiaoViec(@Body GiaoViecParameter parameter);
 
     @POST("/api/EmployeePresent")
@@ -138,62 +136,62 @@ public interface MyRequests {
     @POST("/api/LocationList")
     Call<List<ListLocationInfo>> getLocation(@Body ListLocationParameter parameter);
 
-    @POST("/api/employeeworkingdelete")
+    @POST("/api/EmployeeWorkingDelete")
     Call<String> deleteEmployeeID(@Body DeleteEmployeeIDGiaoViecParameter parameter);
 
-    @POST("/api/employeeworking")
+    @POST("/api/EmployeeWorking")
     Call<List<WorkerInfo>> getEmployeeWorking(@Body EmployeeWorkingParameter parameter);
 
-    @POST("/api/employeeworkinginsert")
+    @POST("/api/EmployeeWorkingInsert")
     Call<String> insertEmployeeWorking(@Body InsertWorkerParameter parameter);
 
     @POST("/api/EmployeeWorkingTonPerHour")
     Call<List<EmployeeWorkingTonPerHourInfo>> getEmployeeWorkingTonPerHour(@Body String parameter);
 
-    @POST("/api/dispatchingorderdetailupdate")
+    @POST("/api/DispatchingOrderDetailUpdate")
     Call<String> updateDispatchingOrderDetail(@Body UpdateDispatchingOrderDetailParameter parameter);
 
     @POST("/api/DispatchingOrderScannedDelete")
     Call<String> executeDispatchingOrderScannedDelete(@Body DispatchingOrderScannedDeleteParameter parameter);
 
     @Multipart
-    @POST("/api/postfilefromandroid")
+    @POST("/api/PostFileFromAndroid")
     Call<String> uploadFile(@Part("file") RequestBody photo, @Part("filename") RequestBody fileName, @Part("description") RequestBody description);
 
-    @POST("/api/orderinfophoto")
+    @POST("/api/OrderInfoPhoto")
     Call<List<OrderInfo>> getOrderInfo(@Body String parameter);
 
-    @POST("/api/attachment")
+    @POST("/api/Attachment")
     Call<String> setAttachment(@Body AttachmentParameter parameter);
 
-    @POST("/api/attachmentview")
+    @POST("/api/AttachmentView")
     Call<List<AttachmentInfo>> getAttachmentInfo(@Body String orderNumber);
 
-    @POST("/api/containerchecking")
+    @POST("/api/ContainerChecking")
     Call<List<ContainerInfo>> getContainerChecking(@Body int gate);
 
-    @POST("/api/containercheckinghistories")
+    @POST("/api/ContainerCheckingHistories")
     Call<List<HistoryCheckingInfo>> getHistoryChecking(@Body int ContInOutID);
 
-    @POST("/api/containercheckingdetails")
+    @POST("/api/ContainerCheckingDetails")
     Call<List<ContainerDetailInfo>> getContainerInfo(@Body ContainerCheckingDetailParameter parameter);
 
-    @POST("/api/containercheckingupdate")
+    @POST("/api/ContainerCheckingUpdate")
     Call<String> updateContainerChecking(@Body UpdateContainerCheckingParameter parameter);
 
-    @POST("/api/containercheckingcompleted")
+    @POST("/api/ContainerCheckingCompleted")
     Call<String> completedChecking(@Body CompletedCheckingParameter parameter);
 
-    @POST("/api/qhse")
+    @POST("/api/QHSE")
     Call<List<QHSEInfo>> getQHSE(@Body QHSEParemeter parameter);
 
     @POST("/api/QSHEComment")
     Call<List<CommentInfo>> getQHSEComment(@Body CommentParameter parameter);
 
-    @POST("/api/qhseinsert")
+    @POST("/api/QhseInsert")
     Call<String> insertQHSE(@Body InsertQHSEParameter parameter);
 
-    @POST("/api/qhse")
+    @POST("/api/QHSE")
     Call<List<AssignWorkInfo>> getAssignWork(@Body AssignWorkParameter parameter);
 
     @POST("/api/MMSScheduledJobWeekPlan")
@@ -205,28 +203,25 @@ public interface MyRequests {
     @POST("/api/QSHEComment")
     Call<List<com.scsvn.whc_2016.main.technical.assign.CommentInfo>> getAssignWorkComment(@Body CommentParameter parameter);
 
-    @POST("/api/qhseinsert")
+    @POST("/api/QHSEInsert")
     Call<String> insertAssignWork(@Body InsertAssignWorkParameter parameter);
 
     @POST("/api/QHSEAssignmentInsert")
     Call<String> executeQHSEAssignmentInsert(@Body QHSEAssignmentInsertParameter parameter);
 
-    @POST("/api/changepassword")
+    @POST("/api/ChangePassword")
     Call<String> changePassword(@Body ChangePasswordParameter parameter);
 
-    @POST("/api/receivingorderdetails")
+    @POST("/api/ReceivingOrderDetails")
     Call<List<ReceivingOrderDetailsInfo>> getReceivingOrderDetails(@Body ReceivingOrderDetailParameter parameter);
 
     @POST("/api/ReceivingLocationUpdate")
     Call<String> updateLocationReceivingOrderDetails(@Body UpdateLocationReceivingOrder parameter);
 
-    @POST("/api/notification")
-    Call<String> getNumberQHSENewAssign(@Body NotificationParameter parameter);
-
     @POST("/api/NotificationMainScreen")
     Call<List<NotificationInfo>> getNotification(@Body NotificationParameter parameter);
 
-    @POST("/api/dsdispatchingorders")
+    @POST("/api/DSDispatchingOrders")
     Call<List<DSDispatchingOrdersInfo>> getDSDispatchingOrders(@Body NotificationParameter parameter);
 
     @POST("/api/DSReceivingCartonReturnList")
@@ -235,7 +230,7 @@ public interface MyRequests {
     @POST("/api/DSROCartonReturnAddNew")
     Call<String> executeDSROCartonReturnAddNew(@Body DSROCartonReturnAddNewParameter parameter);
 
-    @POST("/api/dsdispatchingorderdetails")
+    @POST("/api/DSDispatchingOrderDetails")
     Call<List<DSDispatchingOrderDetailsInfo>> getDSDispatchingOrderDetails(@Body DSOrderDetailParameter parameter);
 
     @POST("/api/DSRODOCartonUpdate")
@@ -262,12 +257,8 @@ public interface MyRequests {
     @POST("/api/FreeLocationDetails")
     Call<List<FreeLocationDetailsInfo>> getFreeLocationDetails(@Body String roomID);
 
-
     @POST("/api/FreeLocationUpdate")
     Call<String> executeFreeLocationUpdate();
-
-    @POST("/api/pallet_cartonchecking")
-    Call<List<PalletCartonInfo>> getPalletCarton(@Body PalletCartonParameter parameter);
 
     @POST("/api/PalletFind")
     Call<List<PalletFind>> getPalletFind(@Body PalletFindParameter parameter);
@@ -350,7 +341,7 @@ public interface MyRequests {
     @POST("/api/MetroQACheckingProductList")
     Call<List<QACheckingListProductsInfo>> getMetroQACheckingListProducts(@Body MetroQACheckingListProductsParameter parameter);
 
-        @POST("/api/MetroQACheckingProduct")
+    @POST("/api/MetroQACheckingProduct")
     Call<List<MetroCheckingProductInfo>> getMetroQACheckingProducts(@Body MetroQACheckingProductsParameter parameter);
 
     @POST("/api/MetroQACheckingCarton")
@@ -491,10 +482,16 @@ public interface MyRequests {
     @POST("/api/EmployeeWorkingByDate")
     Call<List<EmployeeWorkingByDate>> getEmployeeWorkingByDate(@Body EmployeeWorkingByDateParameter param);
 
+    @POST("/api/GetTime")
+    Call<List<TimeServer>> getTimeServer();
+
     @POST("/api/CustomerBookingByTimeSlot")
     Call<List<Booking>> getBookings(@Body CustomerBookingByTimeSlotParameter param);
 
-    @POST("/api/GetTime")
-    Call<List<TimeServer>> getTimeServer();
+    @POST("/api/HouseKeepingCheck")
+    Call<List<HouseKeepingCheck>> getHouseKeepingCheck(@Body HouseKeepingCheckParameter param);
+
+    @POST("/api/HouseKeepingCheckInsert")
+    Call<String> insertHouseKeepingCheck(@Body HouseKeepingCheckInsertParameter param);
 
 }

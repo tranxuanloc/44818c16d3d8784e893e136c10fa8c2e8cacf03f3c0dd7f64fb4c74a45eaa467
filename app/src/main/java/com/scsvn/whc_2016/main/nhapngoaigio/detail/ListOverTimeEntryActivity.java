@@ -36,6 +36,7 @@ import com.scsvn.whc_2016.retrofit.OverTimeDelUpdateParameter;
 import com.scsvn.whc_2016.retrofit.OverTimeViewParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -106,7 +107,7 @@ public class ListOverTimeEntryActivity extends AppCompatActivity implements Adap
     }
 
     public void getPayRollMonthIDList(final View view) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;
         }
@@ -136,7 +137,7 @@ public class ListOverTimeEntryActivity extends AppCompatActivity implements Adap
         Utilities.hideKeyboard(this);
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;
@@ -324,7 +325,7 @@ public class ListOverTimeEntryActivity extends AppCompatActivity implements Adap
     public void executeOverTimeDelUpdate(final View view, OverTimeDelUpdateParameter parameter, final int position) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.deleting));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, action);
             return;

@@ -20,7 +20,7 @@ import com.scsvn.whc_2016.retrofit.MaintenanceJobDetailUpdateParameter;
 import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
-import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 
@@ -126,7 +126,7 @@ public class Layout4Adapter extends RecyclerView.Adapter<Layout4Adapter.VH> impl
     }
 
     private void updateMaintenanceJobDetail(int maintenanceJobDetailID, boolean result, String remark, String userName) {
-        if (!Utilities.isConnected(context)) {
+        if (!WifiHelper.isConnected(context)) {
             RetrofitError.errorNoAction(context, new NoInternet(), TAG, snackBarView);
             return;
         }

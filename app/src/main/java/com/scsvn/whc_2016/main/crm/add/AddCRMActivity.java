@@ -63,6 +63,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -288,7 +289,7 @@ public class AddCRMActivity extends BaseActivity
     private void getMeetingDetail(int meetingId) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             dialog.dismiss();
             return;
@@ -313,7 +314,7 @@ public class AddCRMActivity extends BaseActivity
     }
 
     private void getLocalIdFromServer(String user, int meetingId) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -339,7 +340,7 @@ public class AddCRMActivity extends BaseActivity
     }
 
     private void getMeetingGuest(int meetingId) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -388,7 +389,7 @@ public class AddCRMActivity extends BaseActivity
     }
 
     private void getListCustomer() {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -567,7 +568,7 @@ public class AddCRMActivity extends BaseActivity
     private void addMeeting(final MeetingParameter parameter) {
 
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
@@ -608,7 +609,7 @@ public class AddCRMActivity extends BaseActivity
     private void updateMeeting(MeetingParameter parameter) {
 
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
@@ -646,7 +647,7 @@ public class AddCRMActivity extends BaseActivity
     }
 
     private void addMeetingUsers(MeetingUserParameter parameter) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
@@ -677,7 +678,7 @@ public class AddCRMActivity extends BaseActivity
     }
 
     private void updateMeetingUsers(MeetingUserParameter parameter) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;

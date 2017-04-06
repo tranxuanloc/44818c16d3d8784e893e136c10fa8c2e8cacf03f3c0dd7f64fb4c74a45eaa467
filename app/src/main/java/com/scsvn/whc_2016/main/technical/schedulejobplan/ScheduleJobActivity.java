@@ -33,6 +33,7 @@ import com.scsvn.whc_2016.retrofit.ScheduleJobPlanParameter;
 import com.scsvn.whc_2016.retrofit.UpdateScheduleJobPlanParameter;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -186,7 +187,7 @@ public class ScheduleJobActivity extends BaseActivity {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
         refreshLayout.setRefreshing(false);
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, snackBarView, tryAgain);
             dialog.dismiss();
             return;
@@ -221,7 +222,7 @@ public class ScheduleJobActivity extends BaseActivity {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.saving));
         dialog.show();
         refreshLayout.setRefreshing(false);
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, snackBarView, tryAgain);
             dialog.dismiss();
             return;

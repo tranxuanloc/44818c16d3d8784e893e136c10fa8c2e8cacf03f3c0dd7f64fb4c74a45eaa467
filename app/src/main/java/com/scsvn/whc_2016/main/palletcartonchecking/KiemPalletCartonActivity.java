@@ -30,6 +30,7 @@ import com.scsvn.whc_2016.retrofit.PalletFindParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +142,7 @@ public class KiemPalletCartonActivity extends BaseActivity {
         Utilities.hideKeyboard(this);
         dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, snackBarView, tryAgain);
             return;
@@ -170,7 +171,7 @@ public class KiemPalletCartonActivity extends BaseActivity {
     }
 
     private void getMovementHistory() {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             dialog.dismiss();
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, snackBarView, tryAgain);
             return;

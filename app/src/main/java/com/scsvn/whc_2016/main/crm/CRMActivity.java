@@ -34,6 +34,7 @@ import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.retrofit.WorkingSchedulesParameter;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -219,7 +220,7 @@ public class CRMActivity extends BaseActivity implements View.OnClickListener, A
     }
 
     private void getEventsOfMonth(int month, int year) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -239,7 +240,7 @@ public class CRMActivity extends BaseActivity implements View.OnClickListener, A
     }
 
     private void getEventsOfDay() {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }

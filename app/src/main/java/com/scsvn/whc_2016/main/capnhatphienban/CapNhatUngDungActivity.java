@@ -24,6 +24,7 @@ import com.scsvn.whc_2016.main.BaseActivity;
 import com.scsvn.whc_2016.preferences.SettingPref;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -144,7 +145,7 @@ public class CapNhatUngDungActivity extends BaseActivity {
         protected String doInBackground(String... urls) {
             int count;
             String result = "";
-            if (Utilities.isConnected(CapNhatUngDungActivity.this)) {
+            if (WifiHelper.isConnected(CapNhatUngDungActivity.this)) {
                 try {
                     URL url = new URL(urls[0]);
                     URLConnection connect = url.openConnection();

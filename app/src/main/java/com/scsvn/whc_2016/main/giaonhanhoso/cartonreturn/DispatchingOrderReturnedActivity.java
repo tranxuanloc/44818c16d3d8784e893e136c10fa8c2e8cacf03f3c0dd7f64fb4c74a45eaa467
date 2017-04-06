@@ -26,6 +26,7 @@ import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NoInternet;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class DispatchingOrderReturnedActivity extends AppCompatActivity implemen
     private void getDSReceivingCartonReturnList(final View view) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, getString(R.string.loading_data));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorWithAction(this, new NoInternet(), TAG, view, tryAgain);
             dialog.dismiss();
             return;
@@ -109,7 +110,7 @@ public class DispatchingOrderReturnedActivity extends AppCompatActivity implemen
     private void executeDSROCartonReturnAddNew(final View view, DSROCartonReturnAddNewParameter parameter) {
         final ProgressDialog dialog = Utilities.getProgressDialog(this, "Đang thêm carton...");
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, view);
             dialog.dismiss();
             return;

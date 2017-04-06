@@ -3,8 +3,6 @@ package com.scsvn.whc_2016.utilities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -32,10 +30,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Trần Xuân Lộc on 12/26/2015.
- */
-public class Utilities {
+
+public class Utilities extends WifiHelper {
     private static Snackbar snackbar;
 
     public static ProgressDialog getProgressDialog(Context context, String message) {
@@ -258,14 +254,8 @@ public class Utilities {
     }
 
     public static String getAndroidID(Context context) {
-        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-    }
 
-    public static boolean isConnected(Context context) {
-        ConnectivityManager connMgr = (ConnectivityManager) context.
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     public static void basicDialog(Context context, String message) {

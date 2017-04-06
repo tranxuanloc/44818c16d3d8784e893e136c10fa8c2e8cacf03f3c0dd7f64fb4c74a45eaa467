@@ -63,6 +63,7 @@ import com.scsvn.whc_2016.retrofit.PartRemainParameter;
 import com.scsvn.whc_2016.retrofit.RetrofitError;
 import com.scsvn.whc_2016.retrofit.WriteOffParameter;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -469,7 +470,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void getMaintenanceJobDaily() {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             dialog.dismiss();
             return;
@@ -506,7 +507,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void getMaintenanceJobWriteOffs() {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             dialog.dismiss();
             return;
@@ -543,7 +544,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void getMaintenanceEmployee() {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             dialog.dismiss();
             return;
@@ -573,7 +574,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void insertMMSSJ(MMSSJParameter parameter) {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -603,7 +604,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void getListEquipment() {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             dialog.dismiss();
             return;
@@ -657,7 +658,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void getListJobDefinition(String departmentId) {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -683,7 +684,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void getListPartRemain(String departmentId) {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -708,7 +709,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void getListEmployee() {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -791,7 +792,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void insertMaintenanceJob(MaintenanceJobParameter parameter) {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -849,7 +850,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void insertMaintenanceJobDaily(JobDailyParameter parameter) {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -884,7 +885,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void updateMaintenanceJobDaily(JobDailyParameter parameter) {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -937,7 +938,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void insertMaintenanceJobWriteOffs(WriteOffParameter parameter) {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -970,7 +971,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void updateMaintenanceJobWriteOffs(WriteOffParameter parameter) {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -1024,7 +1025,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void insertMaintenanceEmployee(MMSEmployeeParameter parameter) {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -1055,7 +1056,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
 
     private void updateMaintenanceEmployee(MMSEmployeeParameter parameter) {
 
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -1085,7 +1086,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     }
 
     private void deleteJobDaily(String id) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -1105,7 +1106,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     }
 
     private void deletePart(String id) {
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -1128,7 +1129,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
         MMSEmployeeParameter parameter = new MMSEmployeeParameter();
         parameter.setEmployeeWorkingID(id);
         parameter.setUserName(userName);
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }
@@ -1222,7 +1223,7 @@ public class CreateMaintenanceActivity extends BaseActivity implements View.OnCl
     private void deleteMaintenanceJob() {
         dialog.setMessage(getString(R.string.deleting));
         dialog.show();
-        if (!Utilities.isConnected(this)) {
+        if (!WifiHelper.isConnected(this)) {
             RetrofitError.errorNoAction(this, new NoInternet(), TAG, snackBarView);
             return;
         }

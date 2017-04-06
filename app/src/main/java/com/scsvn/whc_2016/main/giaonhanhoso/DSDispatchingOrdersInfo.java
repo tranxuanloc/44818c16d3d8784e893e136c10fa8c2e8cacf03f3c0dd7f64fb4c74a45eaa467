@@ -3,27 +3,35 @@ package com.scsvn.whc_2016.main.giaonhanhoso;
 import com.google.gson.annotations.SerializedName;
 import com.scsvn.whc_2016.utilities.Utilities;
 
-/**
- * Created by tranxuanloc on 3/5/2016.
- */
+
 public class DSDispatchingOrdersInfo {
-    @SerializedName("DispatchingOrderNumber")
+    public static final String TABLE_NAME = "dispatching-order-number";
+    public static final String DISPATCHING_ORDER_NUMBER = "DispatchingOrderNumber";
+    public static final String DISPATCHING_ORDER_DATE = "DispatchingOrderDate";
+    public static final String REMARK = "Remark";
+    public static final String CUSTOMER_NUMBER = "CustomerNumber";
+    public static final String CUSTOMER_NAME = "CustomerName";
+    public static final String TOTAL_CARTON = "TotalCarton";
+    public static final String TOTAL_VOLUME = "TotalVolume";
+    public static final String ORDER_STATUS = "OrderStatus";
+    public static final String ORDER_TYPE = "OrderType";
+    @SerializedName(DISPATCHING_ORDER_NUMBER)
     private String DispatchingOrderNumber;
-    @SerializedName("DispatchingOrderDate")
+    @SerializedName(DISPATCHING_ORDER_DATE)
     private String DispatchingOrderDate;
-    @SerializedName("Remark")
+    @SerializedName(REMARK)
     private String Remark;
-    @SerializedName("CustomerNumber")
+    @SerializedName(CUSTOMER_NUMBER)
     private String CustomerNumber;
-    @SerializedName("CustomerName")
+    @SerializedName(CUSTOMER_NAME)
     private String CustomerName;
-    @SerializedName("TotalCarton")
+    @SerializedName(TOTAL_CARTON)
     private int TotalCarton;
-    @SerializedName("TotalVolume")
+    @SerializedName(TOTAL_VOLUME)
     private float TotalVolume;
-    @SerializedName("OrderStatus")
+    @SerializedName(ORDER_STATUS)
     private boolean OrderStatus;
-    @SerializedName("OrderType")
+    @SerializedName(ORDER_TYPE)
     private String OrderType;
 
     public String getOrderType() {

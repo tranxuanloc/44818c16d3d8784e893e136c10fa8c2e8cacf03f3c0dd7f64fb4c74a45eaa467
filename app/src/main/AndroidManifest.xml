@@ -38,13 +38,6 @@
             android:name=".main.services.NotificationDeleteBroadcast"
             android:enabled="true"
             android:exported="false" />
-        <!--
-        <receiver android:name=".main.unitech.UnitechReceiver">
-            <intent-filter>
-                <action android:name="unitech.scanservice.data" />
-            </intent-filter>
-        </receiver>
-        -->
 
         <activity
             android:name=".login.LoginActivity"
@@ -227,12 +220,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".main.giaonhanhoso.GiaoHoSoDetailActivity"
+            android:name=".main.giaonhanhoso.GiaoHoSoDetailEMDKActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".main.giaonhanhoso.GiaoHoSoDetailNoEMDKActivity"
+            android:name=".main.giaonhanhoso.GiaoHoSoDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
@@ -469,6 +462,23 @@
             android:name=".main.DeviceInfoActivity"
             android:label="Device info"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.kiemvesinh.KiemVeSinhActivity"
+            android:label="@string/kvs_title_activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.kiemvesinh.KiemVeSinhEMDKActivity"
+            android:label="@string/kvs_title_activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".main.kiemvesinh.InsertKVSActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

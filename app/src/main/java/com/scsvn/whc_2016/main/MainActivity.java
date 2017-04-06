@@ -42,6 +42,7 @@ import com.scsvn.whc_2016.retrofit.MyRetrofit;
 import com.scsvn.whc_2016.retrofit.NotificationParameter;
 import com.scsvn.whc_2016.utilities.Const;
 import com.scsvn.whc_2016.utilities.Utilities;
+import com.scsvn.whc_2016.utilities.WifiHelper;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -102,14 +103,14 @@ public class MainActivity extends BaseActivity {
             indexQHSE = 5;
             indexTruckContainer = 8;
             indexQH = 19;
-            indexUpdateVersion = 30;
+            indexUpdateVersion = 31;
             dataUser.manager();
         } else if (sCase.equalsIgnoreCase(Const.SUPERVISOR)) {
             indexPhieuCuaToi = 1;
             indexQHSE = 5;
             indexTruckContainer = 8;
             indexQH = 19;
-            indexUpdateVersion = 25;
+            indexUpdateVersion = 26;
             dataUser.supervisor();
         } else if (sCase.equalsIgnoreCase(Const.PRODUCT_CHECKER)) {
             indexPhieuCuaToi = 1;
@@ -274,7 +275,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void updateSignOut() {
-        if (!Utilities.isConnected(this))
+        if (!WifiHelper.isConnected(this))
             return;
         MyRetrofit.initRequest(this).signOut(userName).enqueue(new Callback<String>() {
             @Override

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="lv_kvs" type="id" />
+    <item name="et_all_target_scan" type="id" />
+    <item name="et_all_barcode" type="id" />
+    <item name="iv_all_camera" type="id" />
+    <item name="et_insert_kvs_note" type="id">et_insert_kvs_note</item>
+    <item name="rg_insert_kvs_result" type="id">cb_insert_kvs_result</item>
+    <item name="gv_insert_kvs_photo" type="id">cb_insert_kvs_result</item>
+    <item name="iv_insert_kvs_done" type="id">iv_insert_kvs_done</item>
+    <item name="item_kvs_room" type="id">item_kvs_room</item>
+    <item name="item_kvs_time" type="id">item_kvs_time</item>
+    <item name="item_kvs_check_by" type="id">item_kvs_check_by</item>
+    <item name="item_kvs_result" type="id">item_kvs_result</item>
+    <item name="item_kvs_remark" type="id">item_kvs_remark</item>
+    <item name="rb_insert_kvs_qualified" type="id">rb_insert_kvs_good</item>
+    <item name="rb_insert_kvs_unqualified" type="id">rb_insert_kvs_unqualified</item>
+</resources>
